@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranjith & Keerthika | Wedding Invitation</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'script': ['Alex Brush', 'cursive'],
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#d4a373',
+                        'accent': '#faedcd',
+                        'romantic-pink': '#fdf2f2',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom Petal Styles */
+        .petal {
+            position: fixed;
+            pointer-events: none;
+            z-index: 50;
+            animation: fall linear infinite;
+        }
+
+        /* Arrow Growth Animation */
+        .reveal-arrow {
+            overflow: hidden;
+            width: 0;
+            transition: width 0.7s ease-in-out;
+            display: flex;
+            align-items: center;
+            will-change: width;
+        }
+
+        .reveal-arrow.active {
+            width: 80px;
+        }
+
+        .story-card {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+            will-change: transform, opacity;
+        }
+
+        .story-card.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-romantic-pink font-sans text-stone-700">
+
+    <!-- Navigation Bar -->
+    <nav id="navbar"
+        class="fixed top-0 w-full z-50 transition-all duration-300 md:px-12 py-4 flex justify-between items-center text-white">
+        <div id="navbar-logo" class="ml-4 transition-all duration-300">
+            <img src="assets/logo.png" alt="Logo" class="h-12 md:h-14 w-auto drop-shadow-lg">
+        </div>
+        <div class="hidden md:flex space-x-8 uppercase tracking-widest text-sm font-semibold">
+            <a href="#countdown" class="hover:text-primary transition">Countdown</a>
+            <a href="#message" class="hover:text-primary transition">Love Story</a>
+            <a href="#save-the-date" class="hover:text-primary transition">Save the Date</a>
+            <a href="#reception-night" class="hover:text-primary transition">Reception Night</a>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden mr-4 text-3xl focus:outline-none">☰</button>
+    </nav>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/95 flex flex-col items-center justify-center space-y-8 text-center transition-all duration-500 opacity-0 pointer-events-none transform translate-x-full">
+        <button id="close-menu-btn" class="absolute top-10 right-10 text-white text-4xl">&times;</button>
+        <a href="#countdown" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Countdown</a>
+        <a href="#message" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Love Story</a>
+        <a href="#save-the-date" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Save the Date</a>
+        <a href="#reception-night" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Reception Night</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen w-full flex flex-col justify-between overflow-hidden">
+        <!-- Fixed Parallax Background with Clear Center -->
+        <div class="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
+            style="background-image: url('assets/hero.png'); background-position: center 25%;">
+            <!-- Gradient Overlay: Darker at edges, clear in middle -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70"></div>
+        </div>
+
+        <!-- Top Section (Intro) -->
+        <div class="relative z-10 text-center text-white pt-32 px-4 reveal">
+            <h2 class="text-xl md:text-2xl font-light tracking-[0.5em] uppercase mb-4 drop-shadow-lg">
+                Celebrating the union of
+            </h2>
+            <div class="h-px w-20 bg-primary/40 mx-auto mt-4"></div>
+        </div>
+
+        <!-- Empty Middle (Faces will be here) -->
+        <div class="flex-1 min-h-[40vh]"></div>
+
+        <!-- Bottom Section (Names & Message) -->
+        <div class="relative z-10 text-center text-white pb-16 px-4 reveal">
+            <div class="flex flex-col md:flex-row items-center justify-center mb-4 drop-shadow-2xl">
+                <h1 class="text-6xl md:text-8xl font-script tracking-tight">Ranjith</h1>
+                <span class="text-2xl md:text-4xl font-script text-primary mx-4">&</span>
+                <h1 class="text-6xl md:text-8xl font-script tracking-tight">Keerthika</h1>
+            </div>
+            <p
+                class="max-w-3xl mx-auto text-base md:text-xl font-light italic opacity-90 leading-relaxed drop-shadow-md mb-8 px-6">
+                "We are pleased to invite you to celebrate a day full of love and happiness at our wedding."
+            </p>
+
+        </div>
+        <div id="petals-container"></div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-24 bg-accent/30 relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-center text-4xl font-serif text-primary mb-16 uppercase tracking-[0.2em] reveal">The
+                Celebration</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Card 1: Reception -->
+                <div class="glass p-10 rounded-2xl text-center shadow-xl reveal">
+                    <h3 class="text-2xl font-script text-stone-800 mb-4 text-5xl">Reception</h3>
+                    <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
+                    <p class="font-bold text-stone-600 tracking-widest mb-2 uppercase text-lg">16 June 2026</p>
+                    <p class="text-stone-500 mb-6 text-xl">Tuesday · 6:30 PM Onwards</p>
+
+                </div>
+                <!-- Card 2: Muhurtham -->
+                <div class="glass p-10 rounded-2xl text-center shadow-xl reveal delay-200">
+                    <h3 class="text-2xl font-script text-stone-800 mb-4 text-5xl">Muhurtham</h3>
+                    <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
+                    <p class="font-bold text-stone-600 tracking-widest mb-2 uppercase text-lg">17 June 2026</p>
+                    <p class="text-stone-500 mb-6 text-xl">Wednesday · 6:00 – 7:30 AM</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown" class="relative h-screen w-full flex flex-col justify-between overflow-hidden text-white">
+        <!-- Fixed Parallax Background -->
+        <div class="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
+            style="background-image: url('assets/count-down.png');">
+            <!-- Gradient Overlay: Darker at top/bottom, clear in middle -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80"></div>
+        </div>
+
+        <!-- Top Text (Heading) -->
+        <div class="container mx-auto px-4 text-center relative z-10 pt-32 reveal">
+            <h3
+                class="text-3xl md:text-5xl font-serif uppercase tracking-[0.3em] mb-4 opacity-95 drop-shadow-2xl text-primary">
+                — Counting Down —</h3>
+            <p class="text-xl md:text-3xl font-light italic opacity-90 drop-shadow-lg">The Big Day is almost here!</p>
+            <div class="h-px w-24 bg-primary/30 mx-auto mt-8"></div>
+        </div>
+
+        <!-- Empty Middle (Faces clear) -->
+        <div class="flex-1"></div>
+
+        <!-- Bottom Text (Timer & Note) -->
+        <div class="container mx-auto px-4 text-center relative z-10 pb-20 reveal">
+            <div class="flex justify-center flex-wrap gap-4 md:gap-12 mb-8">
+                <div class="flex flex-col items-center">
+                    <span id="days" class="text-5xl md:text-8xl font-bold mb-2 tabular-nums drop-shadow-2xl">00</span>
+                    <span class="uppercase tracking-widest text-xs opacity-80">Days</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-light opacity-30 mt-4">:</div>
+                <div class="flex flex-col items-center">
+                    <span id="hours" class="text-5xl md:text-8xl font-bold mb-2 tabular-nums drop-shadow-2xl">00</span>
+                    <span class="uppercase tracking-widest text-xs opacity-80">Hours</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-light opacity-30 mt-4">:</div>
+                <div class="flex flex-col items-center">
+                    <span id="mins" class="text-5xl md:text-8xl font-bold mb-2 tabular-nums drop-shadow-2xl">00</span>
+                    <span class="uppercase tracking-widest text-xs opacity-80">Minutes</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-light opacity-30 mt-4">:</div>
+                <div class="flex flex-col items-center">
+                    <span id="secs" class="text-5xl md:text-8xl font-bold mb-2 tabular-nums drop-shadow-2xl">00</span>
+                    <span class="uppercase tracking-widest text-xs opacity-80">Seconds</span>
+                </div>
+            </div>
+
+            <p class="text-sm md:text-lg tracking-[0.3em] font-light uppercase opacity-80 drop-shadow-md">
+                Counting down to Reception — 16 June 2026, Chennai
+            </p>
+        </div>
+    </section>
+
+    <!-- Love Story Timeline Section -->
+    <section id="message" class="min-h-screen py-32 bg-romantic-pink relative overflow-hidden px-4 md:px-12">
+        <h2 class="text-center text-5xl font-serif text-primary mb-20 uppercase tracking-[0.3em] reveal">Our Story</h2>
+
+        <div class="flex flex-wrap justify-center items-center gap-8 max-w-7xl mx-auto relative">
+            <!-- 1. First Met -->
+            <div class="story-card flex flex-col items-center w-full md:w-64">
+                <div
+                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
+                    <img src="assets/1.png" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-2xl font-script text-primary mb-1">First Met</h3>
+                <p class="text-xs font-bold text-stone-400 mb-2 uppercase tracking-widest">06 JUL 2023</p>
+                <p class="text-sm italic text-center text-stone-600 px-4">Tambaram Railway Station — where fate
+                    introduced two hearts</p>
+            </div>
+
+            <!-- Arrow 1 -->
+            <div class="hidden lg:flex reveal-arrow self-center -mx-4 justify-center">
+                <svg width="60" height="40" viewBox="0 0 60 40" fill="none"
+                    class="text-primary/40 animate-pulse min-w-[60px]">
+                    <path d="M2 20H50M50 20L40 10M50 20L40 30" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" />
+                    <path
+                        d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
+                        fill="currentColor" />
+                </svg>
+            </div>
+
+            <!-- 2. He Proposed -->
+            <div class="story-card flex flex-col items-center w-full md:w-64">
+                <div
+                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
+                    <img src="assets/2.png" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-2xl font-script text-primary mb-1 text-center">He Proposed</h3>
+                <p class="text-xs font-bold text-stone-400 mb-2 uppercase tracking-widest">12 AUG 2023</p>
+                <p class="text-sm italic text-center text-stone-600 px-4">On bended knee, roses in hand — a moment of
+                    forever</p>
+            </div>
+
+            <!-- Arrow 2 -->
+            <div class="hidden lg:flex reveal-arrow self-center -mx-4 justify-center">
+                <svg width="60" height="40" viewBox="0 0 60 40" fill="none"
+                    class="text-primary/40 animate-pulse min-w-[60px]">
+                    <path d="M2 20H50M50 20L40 10M50 20L40 30" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" />
+                    <path
+                        d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
+                        fill="currentColor" />
+                </svg>
+            </div>
+
+            <!-- 3. She Proposed -->
+            <div class="story-card flex flex-col items-center w-full md:w-64">
+                <div
+                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
+                    <img src="assets/3.png" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-2xl font-script text-primary mb-1 text-center">She Proposed</h3>
+                <p class="text-xs font-bold text-stone-400 mb-2 uppercase tracking-widest">15 SEP 2023</p>
+                <p class="text-sm italic text-center text-stone-600 px-4">At the temple, under divine blessings — she
+                    said yes!</p>
+            </div>
+
+            <!-- Arrow 3 -->
+            <div class="hidden lg:flex reveal-arrow self-center -mx-4 justify-center">
+                <svg width="60" height="40" viewBox="0 0 60 40" fill="none"
+                    class="text-primary/40 animate-pulse min-w-[60px]">
+                    <path d="M2 20H50M50 20L40 10M50 20L40 30" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" />
+                    <path
+                        d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
+                        fill="currentColor" />
+                </svg>
+            </div>
+
+            <!-- 4. Reception -->
+            <div class="story-card flex flex-col items-center w-full md:w-64">
+                <div
+                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
+                    <img src="assets/4.png" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-2xl font-script text-primary mb-1 text-center">Reception</h3>
+                <p class="text-xs font-bold text-stone-400 mb-2 uppercase tracking-widest">16 JUN 2026</p>
+                <p class="text-sm italic text-center text-stone-600 px-4">A night of joy, celebration & love — 6:30 PM
+                    Onwards</p>
+            </div>
+
+            <!-- Arrow 4 -->
+            <div class="hidden lg:flex reveal-arrow self-center -mx-4 justify-center">
+                <svg width="60" height="40" viewBox="0 0 60 40" fill="none"
+                    class="text-primary/40 animate-pulse min-w-[60px]">
+                    <path d="M2 20H50M50 20L40 10M50 20L40 30" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" />
+                    <path
+                        d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
+                        fill="currentColor" />
+                </svg>
+            </div>
+
+            <!-- 5. Kalyanam -->
+            <div class="story-card flex flex-col items-center w-full md:w-64">
+                <div
+                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-primary shadow-2xl mb-6 transform hover:scale-110 transition-transform">
+                    <img src="assets/5.png" class="w-full h-full object-cover">
+                </div>
+                <h3
+                    class="text-2xl font-script text-stone-800 mb-1 text-center underline decoration-primary underline-offset-4">
+                    Kalyanam </h3>
+                <p class="text-xs font-bold text-primary mb-2 uppercase tracking-widest">17 JUN 2026</p>
+                <p class="text-sm italic text-center text-stone-800 px-4">Forever begins at dawn — 6:00 to 7:30 AM</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Save The Date Section -->
+    <section id="save-the-date" class="relative min-h-screen w-full bg-white flex flex-col justify-center items-center pt-24 pb-12">
+        <div class="max-w-4xl mx-auto px-6 reveal flex flex-col items-center text-center">
+            <h2 class="text-3xl md:text-4xl font-serif text-primary mb-6 uppercase tracking-[0.2em]">Save The Date</h2>
+            <div class="mb-8">
+                <img src="assets/intro.png"
+                    class="mx-auto w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 md:border-8 border-accent/20 shadow-2xl transform hover:rotate-3 transition-transform duration-500">
+            </div>
+            <h3 class="text-4xl md:text-6xl font-script text-primary mb-2 leading-tight">Ranjith <br class="md:hidden"> & <br class="md:hidden"> Keerthika</h3>
+            <p class="text-base md:text-xl text-stone-500 italic max-w-2xl mx-auto mb-10 px-4">
+                We are pleased to invite you to celebrate a day full of love and happiness at our wedding.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-6 max-w-2xl mx-auto w-full justify-center">
+                <!-- Reception Block -->
+                <div class="p-6 md:p-8 rounded-2xl border border-primary/20 bg-accent/5 hover:translate-y-[-5px] transition-all flex-1 min-w-[280px]">
+                    <h4 class="text-xl md:text-2xl font-serif text-primary mb-3 uppercase tracking-widest">Reception</h4>
+                    <p class="font-bold text-stone-700">16 June 2026</p>
+                    <p class="text-stone-500 italic text-sm">Tuesday · 6:30 PM Onwards</p>
+                </div>
+
+                <!-- Muhurtham Block (Highlighted) -->
+                <div class="p-6 md:p-8 rounded-2xl bg-primary text-white shadow-xl transform hover:scale-105 transition-all flex-1 min-w-[280px]">
+                    <h4 class="text-xl md:text-2xl font-serif mb-3 uppercase tracking-widest">Muhurtham</h4>
+                    <p class="font-bold text-white/90">17 June 2026</p>
+                    <p class="text-white/80 italic text-sm">Wednesday · 6:00 – 7:30 AM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reception Night Section -->
+    <section id="reception-night" class="relative min-h-screen w-full bg-white flex flex-col justify-center items-center pt-24 pb-12">
+        <div class="max-w-4xl mx-auto px-6 reveal text-center">
+            <h2 class="text-4xl md:text-5xl font-serif text-primary mb-4 uppercase tracking-[0.2em]">Reception Night</h2>
+            <p class="text-base md:text-lg font-bold text-stone-400 mb-8 uppercase tracking-[0.3em]">
+                16 June 2026 · Tuesday · 6:30 PM Onwards
+            </p>
+
+            <div class="relative group mb-8">
+                <img src="assets/reception.png"
+                    class="mx-auto w-full max-w-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] object-cover transform group-hover:scale-[1.01] transition-transform duration-700 max-h-[50vh]">
+                <div class="absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/10 group-hover:ring-black/20 transition-all"></div>
+            </div>
+
+            <p class="text-xl md:text-2xl text-stone-600 italic leading-relaxed max-w-3xl mx-auto px-4">
+                "Join us as we begin this beautiful chapter — an evening filled with love, laughter, and lasting memories."
+            </p>
+            <div class="h-1 w-20 bg-primary/30 mx-auto mt-10 rounded-full"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-stone-900 text-white/50 text-center">
+        <p class="font-script text-3xl text-white mb-4">Ranjith & Keerthika</p>
+        <p class="text-sm tracking-widest uppercase mb-8">Two souls, one heart — and a lifetime of beautiful moments yet
+            to come.</p>
+        <div class="h-px w-24 bg-white/10 mx-auto mb-8"></div>
+        <p class="text-xs">&copy; 2026 Crafted with Love</p>
+    </footer>
+
+    <script>
+        // Scroll Reveal
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Sequential Storyboard Walkthrough
+        const storyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const elements = entry.target.querySelectorAll('.story-card, .reveal-arrow');
+                    elements.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.classList.add('active');
+                        }, index * 700); // Snappier 700ms gap per step
+                    });
+                    storyObserver.unobserve(entry.target); // Trigger only once
+                }
+            });
+        }, { threshold: 0.15 });
+
+        if (document.getElementById('message')) {
+            storyObserver.observe(document.getElementById('message'));
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            const logo = document.getElementById('navbar-logo');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white', 'shadow-md', 'text-stone-800', 'py-2');
+                nav.classList.remove('text-white', 'py-4');
+                logo.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+            } else {
+                nav.classList.remove('bg-white', 'shadow-md', 'text-stone-800', 'py-2');
+                nav.classList.add('text-white', 'py-4');
+                logo.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+            }
+        });
+
+        // Floating Hearts Animation
+        function createPetal() {
+            const container = document.getElementById('petals-container');
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+
+            const size = Math.random() * 20 + 10;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 5 + 10;
+            const delay = Math.random() * 5;
+
+            petal.style.width = size + 'px';
+            petal.style.height = size + 'px';
+            petal.style.left = left + 'vw';
+            petal.style.top = '-50px';
+            petal.style.animationDuration = duration + 's';
+            petal.style.animationDelay = delay + 's';
+
+            // Heart SVG
+            petal.innerHTML = `<svg viewBox="0 0 32 32" fill="${Math.random() > 0.5 ? '#d4a373' : '#faedcd'}" fill-opacity="0.6"><path d="M16 28.5L14.1 26.6C7.2 20.4 3 16.5 3 11.5 3 7.4 6.2 4.2 10.3 4.2 12.6 4.2 14.8 5.3 16 7.1 17.2 5.3 19.4 4.2 21.7 4.2 25.8 4.2 29 7.4 29 11.5 29 16.5 24.8 20.4 17.9 26.6L16 28.5Z"/></svg>`;
+
+            container.appendChild(petal);
+            setTimeout(() => petal.remove(), (duration + delay) * 1000);
+        }
+        setInterval(createPetal, 1500);
+        for (let i = 0; i < 10; i++) createPetal();
+
+
+
+        // Custom Smooth Scroll Engine (High Performance)
+        function smoothScrollTo(targetSelector, duration = 1200) {
+            const target = document.querySelector(targetSelector);
+            if (!target) return;
+            
+            const nav = document.getElementById('navbar');
+            const navHeight = nav ? nav.offsetHeight : 0;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const run = ease(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+
+            // Quadratic Easing (In-Out)
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+
+            requestAnimationFrame(animation);
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                smoothScrollTo(this.getAttribute('href'));
+                
+                // Close mobile menu if open
+                const menu = document.getElementById('mobile-menu');
+                if (menu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('opacity-0');
+            mobileMenu.classList.toggle('pointer-events-none');
+            mobileMenu.classList.toggle('translate-x-full');
+            mobileMenu.classList.toggle('active');
+        }
+
+        menuBtn.addEventListener('click', toggleMobileMenu);
+        closeBtn.addEventListener('click', toggleMobileMenu);
+
+        // Countdown Logic
+        const targetDate = new Date('June 16, 2026 18:30:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('mins').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('secs').innerText = String(seconds).padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').innerHTML = "<h3 class='text-4xl font-script'>The Celebration has Begun! ❤️</h3>";
+            }
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+
+    </script>
+</body>
+
+</html>
