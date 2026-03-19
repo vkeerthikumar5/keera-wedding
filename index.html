@@ -150,6 +150,17 @@
             }
         }
 
+        /* Countdown Animation */
+        @keyframes numFadeUp {
+            0% { transform: translateY(15px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-num {
+            display: inline-block;
+            animation: numFadeUp 0.5s ease-out forwards;
+        }
+
         /* Breathing pulse for attractive motion */
         .custom-cursor:not(.hovering) svg {
             animation: cursorPulse 2s infinite ease-in-out;
@@ -655,10 +666,21 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('mins').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('secs').innerText = String(seconds).padStart(2, '0');
+            const updateEl = (id, value) => {
+                const el = document.getElementById(id);
+                const newVal = String(value).padStart(2, '0');
+                if (el.innerText !== newVal) {
+                    el.innerText = newVal;
+                    el.classList.remove('animate-num');
+                    void el.offsetWidth; // Trigger reflow
+                    el.classList.add('animate-num');
+                }
+            };
+
+            updateEl('days', days);
+            updateEl('hours', hours);
+            updateEl('mins', minutes);
+            updateEl('secs', seconds);
 
             if (distance < 0) {
                 clearInterval(countdownInterval);
