@@ -110,6 +110,75 @@
                 opacity: 0;
             }
         }
+
+        /* Custom Heart Cursor */
+        .custom-cursor {
+            width: 32px;
+            height: 32px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #ff4d4d;
+            border-radius: 50%;
+            background: rgba(255, 77, 77, 0.05);
+            transition: border-color 0.3s ease, background 0.3s ease;
+            will-change: transform;
+        }
+
+        .custom-cursor svg {
+            width: 55%;
+            height: 55%;
+            fill: #ff4d4d;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), fill 0.3s ease;
+        }
+
+        /* Breathing pulse for attractive motion */
+        .custom-cursor:not(.hovering) svg {
+            animation: cursorPulse 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 5px rgba(255, 77, 77, 0.6));
+        }
+
+        @keyframes cursorPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(255, 77, 77, 0.8)); }
+        }
+
+        .cursor-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            will-change: transform, opacity;
+            animation: trailFade 0.8s ease-out forwards;
+        }
+
+        @keyframes trailFade {
+            0% {
+                opacity: 0.6;
+                transform: scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.2) translateY(20px) rotate(45deg);
+            }
+        }
+
+        body, a, button, [role="button"] {
+            cursor: none !important;
+        }
+
+        @media (max-width: 1024px) {
+            .custom-cursor, .cursor-trail {
+                display: none !important;
+            }
+            body, a, button, [role="button"] {
+                cursor: auto !important;
+            }
+        }
     </style>
 </head>
 
@@ -586,6 +655,86 @@
 
         const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        // --- Custom Heart Cursor Logic ---
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        cursor.innerHTML = `<svg viewBox="0 0 32 32"><path d="M16 28.5L14.1 26.6C7.2 20.4 3 16.5 3 11.5 3 7.4 6.2 4.2 10.3 4.2 12.6 4.2 14.8 5.3 16 7.1 17.2 5.3 19.4 4.2 21.7 4.2 25.8 4.2 29 7.4 29 11.5 29 16.5 24.8 20.4 17.9 26.6L16 28.5Z"/></svg>`;
+        document.body.appendChild(cursor);
+
+        let mouseX = -100, mouseY = -100;
+        let cursorX = -100, cursorY = -100;
+        let isHovering = false;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Initial position snap
+            if (cursorX === -100) {
+                cursorX = mouseX;
+                cursorY = mouseY;
+            }
+
+            // Create trail on move
+            if (Math.random() > 0.85) {
+                createTrail(e.clientX, e.clientY);
+            }
+        });
+
+        function createTrail(x, y) {
+            if (window.innerWidth <= 1024) return;
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            const size = Math.random() * 12 + 6;
+            trail.style.width = size + 'px';
+            trail.style.height = size + 'px';
+            trail.style.left = (x - size / 2) + 'px';
+            trail.style.top = (y - size / 2) + 'px';
+            trail.innerHTML = `<svg viewBox="0 0 32 32" style="fill: ${Math.random() > 0.5 ? '#ff4d4d' : '#ff8a8a'}"><path d="M16 28.5L14.1 26.6C7.2 20.4 3 16.5 3 11.5 3 7.4 6.2 4.2 10.3 4.2 12.6 4.2 14.8 5.3 16 7.1 17.2 5.3 19.4 4.2 21.7 4.2 25.8 4.2 29 7.4 29 11.5 29 16.5 24.8 20.4 17.9 26.6L16 28.5Z"/></svg>`;
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 800);
+        }
+
+        function animateCursor() {
+            const ease = 0.15;
+            cursorX += (mouseX - cursorX) * ease;
+            cursorY += (mouseY - cursorY) * ease;
+            
+            cursor.style.transform = `translate3d(${cursorX - 16}px, ${cursorY - 16}px, 0)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Interaction effects
+        document.querySelectorAll('a, button, [role="button"]').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                isHovering = true;
+                cursor.classList.add('hovering');
+                cursor.style.borderColor = '#e63946'; // Darker red on hover
+                cursor.style.background = 'rgba(230, 57, 70, 0.1)';
+                cursor.querySelector('svg').style.transform = 'scale(1.5) rotate(15deg)';
+                cursor.querySelector('svg').style.fill = '#e63946'; 
+            });
+            el.addEventListener('mouseleave', () => {
+                isHovering = false;
+                cursor.classList.remove('hovering');
+                cursor.style.borderColor = '#ff4d4d';
+                cursor.style.background = 'rgba(255, 77, 77, 0.05)';
+                cursor.querySelector('svg').style.transform = 'scale(1) rotate(0deg)';
+                cursor.querySelector('svg').style.fill = '#ff4d4d';
+            });
+        });
+
+        window.addEventListener('mousedown', () => {
+            cursor.querySelector('svg').style.transform = 'scale(0.7)';
+        });
+        window.addEventListener('mouseup', () => {
+            cursor.querySelector('svg').style.transform = isHovering ? 'scale(1.5) rotate(15deg)' : 'scale(1.1)';
+            setTimeout(() => {
+                if (!isHovering) cursor.querySelector('svg').style.transform = 'scale(1)';
+            }, 150);
+        });
 
 
     </script>
