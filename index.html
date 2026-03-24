@@ -16,6 +16,7 @@
         rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class', // Toggle dark mode by adding a class to <html>
             theme: {
                 extend: {
                     fontFamily: {
@@ -27,12 +28,38 @@
                         'primary': '#d4a373',
                         'accent': '#faedcd',
                         'romantic-pink': '#fdf2f2',
+                        'dark-bg': '#050811', /* Deeper Obsidian Blue */
+                        'dark-card': '#0f172a', /* Midnight Blue card bg */
+                        'dark-text': '#f1f5f9',
                     }
                 }
             }
         }
     </script>
     <style>
+        /* Theme Transitions */
+        body, section, nav, footer, div, h1, h2, h3, h4, p, a, button {
+            transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease, opacity 0.8s ease;
+        }
+
+        /* Dark Mode Utility Classes */
+        .dark .bg-romantic-pink { background-color: #050811 !important; } /* Deep Obsidian */
+        .dark .bg-white { background-color: #0f172a !important; } /* Midnight Blue */
+        .dark .text-stone-700 { color: #f1f5f9 !important; }
+        .dark .text-stone-600 { color: #cbd5e1 !important; }
+        .dark .text-stone-800 { color: #ffffff !important; }
+        .dark .bg-accent\/30 { background-color: rgba(255, 255, 255, 0.02) !important; }
+        .dark .bg-accent\/10 { background-color: rgba(255, 255, 255, 0.04) !important; }
+        
+        /* Theme Toggle Button */
+        #theme-toggle {
+            cursor: none !important;
+            z-index: 1000;
+        }
+        #theme-toggle .moon { display: none; }
+        .dark #theme-toggle .moon { display: block; }
+        .dark #theme-toggle .sun { display: none; }
+
         html {
             scroll-behavior: smooth;
         }
@@ -332,34 +359,53 @@
             display: none !important;
         }
 
-        /* Premium Scratch Card Styling - Cream & Gold */
+        /* Premium Scratch Card Styling - Theme Responsive */
         .event-card-front.gpay-style {
-            background: #fdf2f2 !important;
-            /* Romantic Pink/Cream */
-            background-image:
-                linear-gradient(45deg, #faedcd 25%, transparent 25%),
-                linear-gradient(-45deg, #faedcd 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, #faedcd 75%),
-                linear-gradient(-45deg, transparent 75%, #faedcd 75%) !important;
-            background-size: 40px 40px !important;
+            background: #fdf2f2 !important; /* Day: Cream */
             border: 2px solid #d4a373 !important;
             box-shadow: 0 10px 30px rgba(212, 163, 115, 0.15), inset 0 0 60px rgba(255, 255, 255, 0.8);
+        }
+        
+        .dark .event-card-front.gpay-style {
+            background: #0f172a !important; /* Night: Midnight Blue */
+            border-color: #d4a373 !important; /* Keep Gold border for contrast */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 0 60px rgba(255,255,255,0.03);
         }
 
         .event-card-front.gpay-style .floral-arc {
             color: #d4a373 !important;
             opacity: 0.6;
         }
+        
+        .dark .event-card-front.gpay-style .floral-arc {
+            color: #fdf2f2 !important;
+        }
 
         .event-card-front.gpay-style h3 {
             color: #57534e !important;
-            /* Stone-700 */
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+        
+        .dark .event-card-front.gpay-style h3 {
+            color: #fdf2f2 !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
         .event-card-front.gpay-style svg.heart-icon {
             color: #d4a373 !important;
             filter: drop-shadow(0 2px 4px rgba(212, 163, 115, 0.2));
+        }
+        
+        .dark .event-card-front.gpay-style svg.heart-icon {
+            color: #fdf2f2 !important;
+        }
+
+        .event-card-back {
+            background-color: white !important;
+        }
+        
+        .dark .event-card-back {
+            background-color: #0f172a !important; /* Midnight Blue */
         }
 
         .scratch-canvas {
@@ -432,6 +478,15 @@
             <a href="#reception-night" class="hover:text-primary transition">Reception Night</a>
             <a href="#venue" class="hover:text-primary transition">Venue</a>
         </div>
+        
+        <!-- Theme Toggle -->
+        <div class="flex items-center ml-8 mr-4">
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-white/10 transition-colors">
+                <svg class="sun w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
+                <svg class="moon w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            </button>
+        </div>
+
         <button id="mobile-menu-btn" class="md:hidden mr-4 text-3xl focus:outline-none">☰</button>
     </nav>
 
@@ -1228,12 +1283,14 @@
                 canvas.width = rect.width;
                 canvas.height = rect.height;
 
-                // Draw initial scratch layer (Premium Aesthetic: Cream/Gold Pattern)
-                ctx.fillStyle = '#fdf2f2'; // Romantic Pink Base
+                const isDark = document.documentElement.classList.contains('dark');
+
+                // Draw initial scratch layer (Themed colors)
+                ctx.fillStyle = isDark ? '#0f172a' : '#fdf2f2'; 
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 // Draw Decorative Diamond Pattern
-                ctx.fillStyle = '#faedcd'; // Soft Accent Gold
+                ctx.fillStyle = isDark ? '#1e293b' : '#faedcd'; 
                 const step = 40;
                 for (let i = 0; i < canvas.width + step; i += step) {
                     for (let j = 0; j < canvas.height + step; j += step) {
@@ -1253,13 +1310,13 @@
                 ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
 
                 // Inner Thin Border
-                ctx.strokeStyle = '#faedcd';
+                ctx.strokeStyle = isDark ? '#333' : '#faedcd';
                 ctx.lineWidth = 1;
                 ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
 
                 // Draw Text
                 ctx.font = '32px Alex Brush';
-                ctx.fillStyle = '#57534e'; // Stone-700
+                ctx.fillStyle = isDark ? '#fdf2f2' : '#57534e';
                 ctx.textAlign = 'center';
                 ctx.fillText('Scratch to Reveal', canvas.width / 2, canvas.height / 2);
             }
@@ -1332,6 +1389,26 @@
         }
 
         initEventCards();
+
+        // --- Theme Switcher Logic ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            // Re-initialize event cards with new theme colors
+            initEventCards();
+        });
+
+        // Check for saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            html.classList.add('dark');
+            // Re-run init to draw correct initial canvas colors
+            setTimeout(initEventCards, 0);
+        }
 
     </script>
 </body>
