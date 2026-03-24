@@ -37,6 +37,25 @@
             scroll-behavior: smooth;
         }
 
+        /* Custom Scrollbar Theme */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fdf2f2; /* Romantic Pink */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4a373; /* Primary Gold */
+            border-radius: 5px;
+            border: 2.5px solid #fdf2f2;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b88b5d; /* Darker Gold on hover */
+        }
+
         .parallax-bg {
             background-attachment: fixed;
             background-position: center;
@@ -130,7 +149,15 @@
             }
         }
 
-        /* Custom Heart Cursor */
+        body {
+            cursor: none !important;
+        }
+
+        /* Ensure default cursor stays hidden even on interactive elements */
+        a, button, [role="button"], .event-card-container, .scratch-canvas {
+            cursor: none !important;
+        }
+
         .custom-cursor {
             width: 32px;
             height: 32px;
@@ -253,8 +280,7 @@
         .event-card-container {
             perspective: 1500px;
             height: 300px;
-            /* Reduced from 350px */
-            cursor: pointer;
+            cursor: default; /* Changed from pointer */
             position: relative;
         }
 
@@ -848,12 +874,13 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 bg-stone-900 text-white/50 text-center">
-        <p class="font-script text-3xl text-white mb-4">Ranjith & Keerthika</p>
-        <p class="text-sm tracking-widest uppercase mb-8">Two souls, one heart — and a lifetime of beautiful moments yet
-            to come.</p>
+    <footer class="py-12 bg-stone-900 text-white/50 text-center px-6">
+        <p class="font-script text-2xl md:text-3xl text-white mb-4">Ranjith & Keerthika</p>
+        <p class="text-[0.65rem] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-8 max-w-xl mx-auto leading-loose">
+            Two souls, one heart — and a lifetime of beautiful moments yet to come.
+        </p>
         <div class="h-px w-24 bg-white/10 mx-auto mb-8"></div>
-        <p class="text-xs">&copy; 2026 Crafted with Love</p>
+        <p class="text-[10px] md:text-xs tracking-widest">&copy; 2026 Crafted with Love</p>
     </footer>
 
     <script>
