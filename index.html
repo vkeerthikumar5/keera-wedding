@@ -252,9 +252,16 @@
         /* Flip & Scratch Card Styles */
         .event-card-container {
             perspective: 1500px;
-            height: 350px;
+            height: 300px;
+            /* Reduced from 350px */
             cursor: pointer;
             position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .event-card-container {
+                height: 280px;
+            }
         }
 
         .event-card-inner {
@@ -297,6 +304,36 @@
 
         body.is-touch .event-card-front {
             display: none !important;
+        }
+
+        /* Premium Scratch Card Styling - Cream & Gold */
+        .event-card-front.gpay-style {
+            background: #fdf2f2 !important;
+            /* Romantic Pink/Cream */
+            background-image:
+                linear-gradient(45deg, #faedcd 25%, transparent 25%),
+                linear-gradient(-45deg, #faedcd 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #faedcd 75%),
+                linear-gradient(-45deg, transparent 75%, #faedcd 75%) !important;
+            background-size: 40px 40px !important;
+            border: 2px solid #d4a373 !important;
+            box-shadow: 0 10px 30px rgba(212, 163, 115, 0.15), inset 0 0 60px rgba(255, 255, 255, 0.8);
+        }
+
+        .event-card-front.gpay-style .floral-arc {
+            color: #d4a373 !important;
+            opacity: 0.6;
+        }
+
+        .event-card-front.gpay-style h3 {
+            color: #57534e !important;
+            /* Stone-700 */
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+
+        .event-card-front.gpay-style svg.heart-icon {
+            color: #d4a373 !important;
+            filter: drop-shadow(0 2px 4px rgba(212, 163, 115, 0.2));
         }
 
         .scratch-canvas {
@@ -433,20 +470,20 @@
                 <div class="event-card-container reveal" id="event-1">
                     <div class="event-card-inner">
                         <!-- Front (Cover) -->
-                        <div class="event-card-front glass p-10 shimmer-gold border-2 border-primary/20 bg-white">
+                        <div class="event-card-front gpay-style p-10 shimmer-gold">
                             <!-- Golden Floral Arcs -->
-                            <div class="absolute top-0 right-0 p-4 opacity-30">
+                            <div class="absolute top-0 right-0 p-4 floral-arc">
                                 <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
-                                    class="text-primary transform rotate-90">
+                                    class="transform rotate-90">
                                     <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
                                         stroke-dasharray="4 4" />
                                     <circle cx="90" cy="10" r="4" fill="currentColor" />
                                     <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
                                 </svg>
                             </div>
-                            <div class="absolute bottom-0 left-0 p-4 opacity-30">
+                            <div class="absolute bottom-0 left-0 p-4 floral-arc">
                                 <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
-                                    class="text-primary transform -rotate-90">
+                                    class="transform -rotate-90">
                                     <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
                                         stroke-dasharray="4 4" />
                                     <circle cx="90" cy="10" r="4" fill="currentColor" />
@@ -454,14 +491,13 @@
                                 </svg>
                             </div>
 
-                            <div class="absolute inset-4 border border-primary/10 rounded-xl pointer-events-none"></div>
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" class="text-primary/40 mb-4">
+                            <div class="absolute inset-4 border-2 border-white/40 rounded-xl pointer-events-none"></div>
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" class="heart-icon mb-4">
                                 <path
                                     d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
                                     fill="currentColor" />
                             </svg>
-                            <h3 class="text-3xl font-script text-primary text-center">Open to View <br> Reception
-                                Details</h3>
+                            <h3 class="text-3xl font-script text-center">Hover to View <br> Reception Details</h3>
                         </div>
                         <!-- Back (Information) -->
                         <div class="event-card-back glass p-10 bg-white shadow-xl">
@@ -478,20 +514,20 @@
                 <div class="event-card-container reveal delay-200" id="event-2">
                     <div class="event-card-inner">
                         <!-- Front (Cover) -->
-                        <div class="event-card-front glass p-10 shimmer-gold border-2 border-primary/20 bg-white">
+                        <div class="event-card-front gpay-style p-10 shimmer-gold">
                             <!-- Golden Floral Arcs -->
-                            <div class="absolute top-0 right-0 p-4 opacity-30">
+                            <div class="absolute top-0 right-0 p-4 floral-arc">
                                 <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
-                                    class="text-primary transform rotate-90">
+                                    class="transform rotate-90">
                                     <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
                                         stroke-dasharray="4 4" />
                                     <circle cx="90" cy="10" r="4" fill="currentColor" />
                                     <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
                                 </svg>
                             </div>
-                            <div class="absolute bottom-0 left-0 p-4 opacity-30">
+                            <div class="absolute bottom-0 left-0 p-4 floral-arc">
                                 <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
-                                    class="text-primary transform -rotate-90">
+                                    class="transform -rotate-90">
                                     <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
                                         stroke-dasharray="4 4" />
                                     <circle cx="90" cy="10" r="4" fill="currentColor" />
@@ -499,14 +535,13 @@
                                 </svg>
                             </div>
 
-                            <div class="absolute inset-4 border border-primary/10 rounded-xl pointer-events-none"></div>
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" class="text-primary/40 mb-4">
+                            <div class="absolute inset-4 border-2 border-white/40 rounded-xl pointer-events-none"></div>
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" class="heart-icon mb-4">
                                 <path
                                     d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
                                     fill="currentColor" />
                             </svg>
-                            <h3 class="text-3xl font-script text-primary text-center">Open to View <br> Muhurtham
-                                Details</h3>
+                            <h3 class="text-3xl font-script text-center">Hover to View <br> Muhurtham Details</h3>
                         </div>
                         <!-- Back (Information) -->
                         <div class="event-card-back glass p-10 bg-white shadow-xl">
@@ -773,15 +808,15 @@
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
                             </div>
-                                <div>
-                                    <h4 class="text-xl font-bold text-stone-800 mb-2">Location</h4>
-                                    <p class="text-stone-600 leading-relaxed">
-                                        Perarignar Anna Marriage Hall,<br>
-                                        465F+QPW, Gandhi Nagar,<br>
-                                        General Kumaramangalam Colony,<br>
-                                        Perambur, Chennai, Tamil Nadu 600082
-                                    </p>
-                                </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-stone-800 mb-2">Location</h4>
+                                <p class="text-stone-600 leading-relaxed">
+                                    Perarignar Anna Marriage Hall,<br>
+                                    465F+QPW, Gandhi Nagar,<br>
+                                    General Kumaramangalam Colony,<br>
+                                    Perambur, Chennai, Tamil Nadu 600082
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -1166,17 +1201,38 @@
                 canvas.width = rect.width;
                 canvas.height = rect.height;
 
-                // Draw initial scratch layer (white with golden border/pattern)
-                ctx.fillStyle = '#ffffff';
+                // Draw initial scratch layer (Premium Aesthetic: Cream/Gold Pattern)
+                ctx.fillStyle = '#fdf2f2'; // Romantic Pink Base
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                // Add some artistic flair to the scratch cover
+                // Draw Decorative Diamond Pattern
+                ctx.fillStyle = '#faedcd'; // Soft Accent Gold
+                const step = 40;
+                for (let i = 0; i < canvas.width + step; i += step) {
+                    for (let j = 0; j < canvas.height + step; j += step) {
+                        ctx.beginPath();
+                        ctx.moveTo(i, j - 10);
+                        ctx.lineTo(i + 10, j);
+                        ctx.lineTo(i, j + 10);
+                        ctx.lineTo(i - 10, j);
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+                }
+
+                // Add Gold border (Reduced width)
                 ctx.strokeStyle = '#d4a373';
-                ctx.lineWidth = 1;
+                ctx.lineWidth = 2; // Reduced from 4
                 ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
 
-                ctx.font = '30px Alex Brush';
-                ctx.fillStyle = '#d4a373';
+                // Inner Thin Border
+                ctx.strokeStyle = '#faedcd';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
+
+                // Draw Text
+                ctx.font = '32px Alex Brush';
+                ctx.fillStyle = '#57534e'; // Stone-700
                 ctx.textAlign = 'center';
                 ctx.fillText('Scratch to Reveal', canvas.width / 2, canvas.height / 2);
             }
