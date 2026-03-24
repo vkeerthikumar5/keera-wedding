@@ -117,8 +117,17 @@
         }
 
         @keyframes pulse-soft {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
         }
 
         /* Custom Heart Cursor */
@@ -150,11 +159,12 @@
         }
 
         @keyframes glitter {
-            0% { 
+            0% {
                 filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2)) brightness(1);
                 transform: scale(1);
             }
-            100% { 
+
+            100% {
                 filter: drop-shadow(0 0 8px #fff) drop-shadow(0 2px 10px #ffd700) brightness(1.3);
                 transform: scale(1.05);
             }
@@ -162,8 +172,15 @@
 
         /* Countdown Animation */
         @keyframes numFadeUp {
-            0% { transform: translateY(15px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+            0% {
+                transform: translateY(15px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .animate-num {
@@ -178,8 +195,16 @@
         }
 
         @keyframes cursorPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(212, 163, 115, 0.6)); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+                filter: drop-shadow(0 0 10px rgba(212, 163, 115, 0.6));
+            }
         }
 
         .cursor-trail {
@@ -195,22 +220,109 @@
                 opacity: 0.6;
                 transform: scale(1) rotate(0deg);
             }
+
             100% {
                 opacity: 0;
                 transform: scale(0.2) translateY(20px) rotate(45deg);
             }
         }
 
-        body, a, button, [role="button"] {
+        body,
+        a,
+        button,
+        [role="button"] {
             cursor: none !important;
         }
 
         @media (max-width: 1024px) {
-            .custom-cursor, .cursor-trail {
+
+            .custom-cursor,
+            .cursor-trail {
                 display: none !important;
             }
-            body, a, button, [role="button"] {
+
+            body,
+            a,
+            button,
+            [role="button"] {
                 cursor: auto !important;
+            }
+        }
+
+        /* Flip & Scratch Card Styles */
+        .event-card-container {
+            perspective: 1500px;
+            height: 350px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .event-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .event-card-container.flipped .event-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .event-card-front,
+        .event-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .event-card-back {
+            transform: rotateY(180deg);
+            z-index: 2;
+        }
+
+        /* Touch device specific (Mobile & Tablet) adjustment for scratch reveal */
+        body.is-touch .event-card-back {
+            transform: rotateY(0deg) !important;
+            z-index: 5 !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        body.is-touch .event-card-front {
+            display: none !important;
+        }
+
+        .scratch-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            border-radius: 1.5rem;
+            touch-action: none;
+        }
+
+        .shimmer-gold {
+            background: linear-gradient(135deg, rgba(212, 163, 115, 0) 0%, rgba(212, 163, 115, 0.1) 50%, rgba(212, 163, 115, 0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
             }
         }
     </style>
@@ -219,18 +331,29 @@
 <body class="bg-romantic-pink font-sans text-stone-700">
 
     <!-- Premium Preloader -->
-    <div id="preloader" class="fixed inset-0 z-[100] bg-romantic-pink flex flex-col items-center justify-center transition-opacity duration-700">
+    <div id="preloader"
+        class="fixed inset-0 z-[100] bg-romantic-pink flex flex-col items-center justify-center transition-opacity duration-700">
         <div class="relative w-24 h-24 mb-6">
             <!-- Spinning Ring -->
             <div class="absolute inset-0 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
             <!-- Beating Heart inside -->
             <div class="absolute inset-0 flex items-center justify-center animate-pulse">
                 <svg width="40" height="40" viewBox="0 0 32 32" fill="#d4a373">
-                    <path d="M16 28.5L14.1 26.6C7.2 20.4 3 16.5 3 11.5 3 7.4 6.2 4.2 10.3 4.2 12.6 4.2 14.8 5.3 16 7.1 17.2 5.3 19.4 4.2 21.7 4.2 25.8 4.2 29 7.4 29 11.5 29 16.5 24.8 20.4 17.9 26.6L16 28.5Z"/>
+                    <path
+                        d="M16 28.5L14.1 26.6C7.2 20.4 3 16.5 3 11.5 3 7.4 6.2 4.2 10.3 4.2 12.6 4.2 14.8 5.3 16 7.1 17.2 5.3 19.4 4.2 21.7 4.2 25.8 4.2 29 7.4 29 11.5 29 16.5 24.8 20.4 17.9 26.6L16 28.5Z" />
                 </svg>
             </div>
         </div>
         <p class="font-script text-3xl text-primary animate-pulse">Loading Magic...</p>
+    </div>
+
+    <!-- Intro Video -->
+    <div id="intro-video-container"
+        class="fixed inset-0 z-[90] bg-white opacity-100 transition-opacity duration-1000 flex items-center justify-center">
+        <video id="intro-video" class="w-full h-full object-cover" muted playsinline>
+            <source src="assets/Angel_Delivers_Divine_Message.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
     <!-- Navigation Bar -->
@@ -244,17 +367,24 @@
             <a href="#message" class="hover:text-primary transition">Love Story</a>
             <a href="#save-the-date" class="hover:text-primary transition">Save the Date</a>
             <a href="#reception-night" class="hover:text-primary transition">Reception Night</a>
+            <a href="#venue" class="hover:text-primary transition">Venue</a>
         </div>
         <button id="mobile-menu-btn" class="md:hidden mr-4 text-3xl focus:outline-none">☰</button>
     </nav>
 
     <!-- Mobile Menu Drawer -->
-    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/95 flex flex-col items-center justify-center space-y-8 text-center transition-all duration-500 opacity-0 pointer-events-none transform translate-x-full">
+    <div id="mobile-menu"
+        class="fixed inset-0 z-[60] bg-black/95 flex flex-col items-center justify-center space-y-8 text-center transition-all duration-500 opacity-0 pointer-events-none transform translate-x-full">
         <button id="close-menu-btn" class="absolute top-10 right-10 text-white text-4xl">&times;</button>
-        <a href="#countdown" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Countdown</a>
-        <a href="#message" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Love Story</a>
-        <a href="#save-the-date" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Save the Date</a>
-        <a href="#reception-night" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Reception Night</a>
+        <a href="#countdown"
+            class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Countdown</a>
+        <a href="#message" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Love
+            Story</a>
+        <a href="#save-the-date" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Save
+            the Date</a>
+        <a href="#reception-night"
+            class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Reception Night</a>
+        <a href="#venue" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Venue</a>
     </div>
 
     <!-- Hero Section -->
@@ -299,21 +429,94 @@
             <h2 class="text-center text-4xl font-serif text-primary mb-16 uppercase tracking-[0.2em] reveal">The
                 Celebration</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Card 1: Reception -->
-                <div class="glass p-10 rounded-2xl text-center shadow-xl reveal">
-                    <h3 class="text-2xl font-script text-stone-800 mb-4 text-5xl">Reception</h3>
-                    <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
-                    <p class="font-bold text-stone-600 tracking-widest mb-2 uppercase text-lg">16 June 2026</p>
-                    <p class="text-stone-500 mb-6 text-xl">Tuesday · 6:30 PM Onwards</p>
+                <!-- Event Card 1 -->
+                <div class="event-card-container reveal" id="event-1">
+                    <div class="event-card-inner">
+                        <!-- Front (Cover) -->
+                        <div class="event-card-front glass p-10 shimmer-gold border-2 border-primary/20 bg-white">
+                            <!-- Golden Floral Arcs -->
+                            <div class="absolute top-0 right-0 p-4 opacity-30">
+                                <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
+                                    class="text-primary transform rotate-90">
+                                    <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
+                                        stroke-dasharray="4 4" />
+                                    <circle cx="90" cy="10" r="4" fill="currentColor" />
+                                    <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
+                                </svg>
+                            </div>
+                            <div class="absolute bottom-0 left-0 p-4 opacity-30">
+                                <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
+                                    class="text-primary transform -rotate-90">
+                                    <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
+                                        stroke-dasharray="4 4" />
+                                    <circle cx="90" cy="10" r="4" fill="currentColor" />
+                                    <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
+                                </svg>
+                            </div>
 
+                            <div class="absolute inset-4 border border-primary/10 rounded-xl pointer-events-none"></div>
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" class="text-primary/40 mb-4">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                                    fill="currentColor" />
+                            </svg>
+                            <h3 class="text-3xl font-script text-primary text-center">Open to View <br> Reception
+                                Details</h3>
+                        </div>
+                        <!-- Back (Information) -->
+                        <div class="event-card-back glass p-10 bg-white shadow-xl">
+                            <h3 class="text-2xl font-script text-stone-800 mb-4 text-5xl">Reception</h3>
+                            <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
+                            <p class="font-bold text-stone-600 tracking-widest mb-2 uppercase text-lg">16 June 2026</p>
+                            <p class="text-stone-500 mb-6 text-xl">Tuesday · 6:30 PM Onwards</p>
+                        </div>
+                    </div>
+                    <canvas class="scratch-canvas hidden" id="scratch-1"></canvas>
                 </div>
-                <!-- Card 2: Muhurtham -->
-                <div class="glass p-10 rounded-2xl text-center shadow-xl reveal delay-200">
-                    <h3 class="text-2xl font-script text-stone-800 mb-4 text-5xl">Muhurtham</h3>
-                    <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
-                    <p class="font-bold text-stone-600 tracking-widest mb-2 uppercase text-lg">17 June 2026</p>
-                    <p class="text-stone-500 mb-6 text-xl">Wednesday · 6:00 – 7:30 AM</p>
 
+                <!-- Event Card 2 -->
+                <div class="event-card-container reveal delay-200" id="event-2">
+                    <div class="event-card-inner">
+                        <!-- Front (Cover) -->
+                        <div class="event-card-front glass p-10 shimmer-gold border-2 border-primary/20 bg-white">
+                            <!-- Golden Floral Arcs -->
+                            <div class="absolute top-0 right-0 p-4 opacity-30">
+                                <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
+                                    class="text-primary transform rotate-90">
+                                    <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
+                                        stroke-dasharray="4 4" />
+                                    <circle cx="90" cy="10" r="4" fill="currentColor" />
+                                    <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
+                                </svg>
+                            </div>
+                            <div class="absolute bottom-0 left-0 p-4 opacity-30">
+                                <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
+                                    class="text-primary transform -rotate-90">
+                                    <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
+                                        stroke-dasharray="4 4" />
+                                    <circle cx="90" cy="10" r="4" fill="currentColor" />
+                                    <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
+                                </svg>
+                            </div>
+
+                            <div class="absolute inset-4 border border-primary/10 rounded-xl pointer-events-none"></div>
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" class="text-primary/40 mb-4">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                                    fill="currentColor" />
+                            </svg>
+                            <h3 class="text-3xl font-script text-primary text-center">Open to View <br> Muhurtham
+                                Details</h3>
+                        </div>
+                        <!-- Back (Information) -->
+                        <div class="event-card-back glass p-10 bg-white shadow-xl">
+                            <h3 class="text-2xl font-script text-stone-800 mb-4 text-5xl">Muhurtham</h3>
+                            <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
+                            <p class="font-bold text-stone-600 tracking-widest mb-2 uppercase text-lg">17 June 2026</p>
+                            <p class="text-stone-500 mb-6 text-xl">Wednesday · 6:00 – 7:30 AM</p>
+                        </div>
+                    </div>
+                    <canvas class="scratch-canvas hidden" id="scratch-2"></canvas>
                 </div>
             </div>
         </div>
@@ -487,28 +690,33 @@
     </section>
 
     <!-- Save The Date Section -->
-    <section id="save-the-date" class="relative min-h-screen w-full bg-white flex flex-col justify-center items-center pt-24 pb-12">
+    <section id="save-the-date"
+        class="relative min-h-screen w-full bg-white flex flex-col justify-center items-center pt-24 pb-12">
         <div class="max-w-4xl mx-auto px-6 reveal flex flex-col items-center text-center">
             <h2 class="text-3xl md:text-4xl font-serif text-primary mb-6 uppercase tracking-[0.2em]">Save The Date</h2>
             <div class="mb-8">
                 <img src="assets/intro.png"
                     class="mx-auto w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 md:border-8 border-accent/20 shadow-2xl transform hover:rotate-3 transition-transform duration-500">
             </div>
-            <h3 class="text-4xl md:text-6xl font-script text-primary mb-2 leading-tight">Ranjith <br class="md:hidden"> & <br class="md:hidden"> Keerthika</h3>
+            <h3 class="text-4xl md:text-6xl font-script text-primary mb-2 leading-tight">Ranjith <br class="md:hidden">
+                & <br class="md:hidden"> Keerthika</h3>
             <p class="text-base md:text-xl text-stone-500 italic max-w-2xl mx-auto mb-10 px-4">
                 We are pleased to invite you to celebrate a day full of love and happiness at our wedding.
             </p>
 
             <div class="flex flex-col md:flex-row gap-6 max-w-2xl mx-auto w-full justify-center">
                 <!-- Reception Block -->
-                <div class="p-6 md:p-8 rounded-2xl border border-primary/20 bg-accent/5 hover:translate-y-[-5px] transition-all flex-1 min-w-[280px]">
-                    <h4 class="text-xl md:text-2xl font-serif text-primary mb-3 uppercase tracking-widest">Reception</h4>
+                <div
+                    class="p-6 md:p-8 rounded-2xl border border-primary/20 bg-accent/5 hover:translate-y-[-5px] transition-all flex-1 min-w-[280px]">
+                    <h4 class="text-xl md:text-2xl font-serif text-primary mb-3 uppercase tracking-widest">Reception
+                    </h4>
                     <p class="font-bold text-stone-700">16 June 2026</p>
                     <p class="text-stone-500 italic text-sm">Tuesday · 6:30 PM Onwards</p>
                 </div>
 
                 <!-- Muhurtham Block (Highlighted) -->
-                <div class="p-6 md:p-8 rounded-2xl bg-primary text-white shadow-xl transform hover:scale-105 transition-all flex-1 min-w-[280px]">
+                <div
+                    class="p-6 md:p-8 rounded-2xl bg-primary text-white shadow-xl transform hover:scale-105 transition-all flex-1 min-w-[280px]">
                     <h4 class="text-xl md:text-2xl font-serif mb-3 uppercase tracking-widest">Muhurtham</h4>
                     <p class="font-bold text-white/90">17 June 2026</p>
                     <p class="text-white/80 italic text-sm">Wednesday · 6:00 – 7:30 AM</p>
@@ -518,9 +726,11 @@
     </section>
 
     <!-- Reception Night Section -->
-    <section id="reception-night" class="relative min-h-screen w-full bg-white flex flex-col justify-center items-center pt-24 pb-12">
+    <section id="reception-night"
+        class="relative min-h-screen w-full bg-white flex flex-col justify-center items-center pt-24 pb-12">
         <div class="max-w-4xl mx-auto px-6 reveal text-center">
-            <h2 class="text-4xl md:text-5xl font-serif text-primary mb-4 uppercase tracking-[0.2em]">Reception Night</h2>
+            <h2 class="text-4xl md:text-5xl font-serif text-primary mb-4 uppercase tracking-[0.2em]">Reception Night
+            </h2>
             <p class="text-base md:text-lg font-bold text-stone-400 mb-8 uppercase tracking-[0.3em]">
                 16 June 2026 · Tuesday · 6:30 PM Onwards
             </p>
@@ -528,13 +738,77 @@
             <div class="relative group mb-8">
                 <img src="assets/reception.png"
                     class="mx-auto w-full max-w-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] object-cover transform group-hover:scale-[1.01] transition-transform duration-700 max-h-[50vh]">
-                <div class="absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/10 group-hover:ring-black/20 transition-all"></div>
+                <div
+                    class="absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/10 group-hover:ring-black/20 transition-all">
+                </div>
             </div>
 
             <p class="text-xl md:text-2xl text-stone-600 italic leading-relaxed max-w-3xl mx-auto px-4">
-                "Join us as we begin this beautiful chapter — an evening filled with love, laughter, and lasting memories."
+                "Join us as we begin this beautiful chapter — an evening filled with love, laughter, and lasting
+                memories."
             </p>
             <div class="h-1 w-20 bg-primary/30 mx-auto mt-10 rounded-full"></div>
+        </div>
+    </section>
+
+    <!-- Venue Section -->
+    <section id="venue" class="py-24 bg-accent/10 relative overflow-hidden">
+        <div class="container mx-auto px-6 max-w-6xl reveal text-center">
+            <h2 class="text-4xl md:text-5xl font-serif text-primary mb-6 uppercase tracking-[0.2em]">The Venue</h2>
+            <div class="h-px w-24 bg-primary/30 mx-auto mb-10"></div>
+
+            <p class="text-xl md:text-2xl text-stone-700 font-script mb-8">
+                Join us at the elegant venue to celebrate our union
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Venue Details -->
+                <div class="text-left space-y-6">
+                    <div class="p-8 rounded-3xl bg-white shadow-xl border border-primary/10">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-primary/10 p-3 rounded-full text-primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-stone-800 mb-2">Location</h4>
+                                    <p class="text-stone-600 leading-relaxed">
+                                        Perarignar Anna Marriage Hall,<br>
+                                        465F+QPW, Gandhi Nagar,<br>
+                                        General Kumaramangalam Colony,<br>
+                                        Perambur, Chennai, Tamil Nadu 600082
+                                    </p>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="p-8 rounded-3xl bg-primary text-white shadow-xl transform hover:scale-[1.02] transition-all">
+                        <p class="italic text-lg mb-6">"A beautiful place where love meets tradition and memories are
+                            born."</p>
+                        <a href="https://maps.app.goo.gl/atc3J13LptL3V9fJ8" target="_blank"
+                            class="inline-flex items-center px-6 py-3 bg-white text-primary rounded-full font-bold tracking-widest uppercase text-sm hover:shadow-lg transition-all group">
+                            Get Directions
+                            <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Google Map Iframe -->
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[450px] border-4 border-white">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.8373873172854!2d80.2243419!3d13.109485999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52650073996035%3A0x640bf16b248882c3!2sPerarignar%20Anna%20Marriage%20Hall!5e0!3m2!1sen!2sin!4v1774329612394!5m2!1sen!2sin"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -624,7 +898,7 @@
         function smoothScrollTo(targetSelector, duration = 1200) {
             const target = document.querySelector(targetSelector);
             if (!target) return;
-            
+
             const nav = document.getElementById('navbar');
             const navHeight = nav ? nav.offsetHeight : 0;
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
@@ -655,7 +929,7 @@
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 smoothScrollTo(this.getAttribute('href'));
-                
+
                 // Close mobile menu if open
                 const menu = document.getElementById('mobile-menu');
                 if (menu.classList.contains('active')) {
@@ -716,15 +990,43 @@
         const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // --- Preloader Removal Logic ---
+        // --- Preloader & Intro Video Logic ---
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
+            const videoContainer = document.getElementById('intro-video-container');
+            const video = document.getElementById('intro-video');
+
             setTimeout(() => {
+                // 1. Fade out preloader
                 preloader.classList.add('loaded');
-                // Allow scrolling after preloader is gone
-                document.body.style.overflow = 'auto';
-            }, 1000); // Small extra delay for smoothness
+
+                // 2. Show video container and play video
+                videoContainer.classList.remove('opacity-0', 'pointer-events-none');
+                videoContainer.classList.add('opacity-100', 'pointer-events-auto');
+
+                video.play().catch(error => {
+                    console.log("Video auto-play failed, skipping to website:", error);
+                    showWebsite();
+                });
+
+                video.onended = () => {
+                    showWebsite();
+                };
+            }, 1500); // Wait for spinner to be seen
         });
+
+        function showWebsite() {
+            const videoContainer = document.getElementById('intro-video-container');
+            // Fade out video to white
+            videoContainer.classList.remove('opacity-100');
+            videoContainer.classList.add('opacity-0');
+
+            setTimeout(() => {
+                videoContainer.style.display = 'none';
+                // Allow scrolling after preloader and video are gone
+                document.body.style.overflow = 'auto';
+            }, 1000); // Match transition duration
+        }
 
         // Prevent scrolling during preloader
         document.body.style.overflow = 'hidden';
@@ -753,7 +1055,7 @@
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            
+
             // Initial position snap
             if (cursorX === -100) {
                 cursorX = mouseX;
@@ -784,7 +1086,7 @@
             const ease = 0.15;
             cursorX += (mouseX - cursorX) * ease;
             cursorY += (mouseY - cursorY) * ease;
-            
+
             cursor.style.transform = `translate3d(${cursorX - 16}px, ${cursorY - 16}px, 0)`;
             requestAnimationFrame(animateCursor);
         }
@@ -795,7 +1097,7 @@
             el.addEventListener('mouseenter', () => {
                 isHovering = true;
                 cursor.classList.add('hovering');
-                cursor.style.borderColor = '#1a1a1a'; 
+                cursor.style.borderColor = '#1a1a1a';
                 cursor.style.background = 'rgba(26, 26, 26, 0.05)';
                 cursor.querySelector('svg').style.transform = 'scale(1.5) rotate(15deg)';
             });
@@ -818,6 +1120,135 @@
             }, 150);
         });
 
+
+        // Interactive Events Cards (Flip & Scratch)
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        if (isTouchDevice) document.body.classList.add('is-touch');
+        // Extra check for some tablets
+        window.addEventListener('touchstart', function onFirstTouch() {
+            document.body.classList.add('is-touch');
+            window.removeEventListener('touchstart', onFirstTouch);
+        });
+
+        function initEventCards() {
+            const cardIds = ['event-1', 'event-2'];
+
+            cardIds.forEach((id, index) => {
+                const container = document.getElementById(id);
+                const canvas = document.getElementById(`scratch-${(index + 1)}`);
+                const inner = container.querySelector('.event-card-inner');
+
+                if (isTouchDevice) {
+                    // Mobile: Scratch behavior
+                    canvas.classList.remove('hidden');
+                    initScratch(canvas, container);
+                } else {
+                    // Desktop: Flip behavior
+                    container.addEventListener('mouseenter', () => {
+                        if (!container.classList.contains('flipped')) {
+                            container.classList.add('flipped');
+                        }
+                    }, { once: true });
+                }
+            });
+        }
+
+        function initScratch(canvas, container) {
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+            let scratchedPixels = 0;
+            const revealThreshold = 0.5; // 50%
+
+            function setupCanvas() {
+                const rect = container.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+
+                // Draw initial scratch layer (white with golden border/pattern)
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Add some artistic flair to the scratch cover
+                ctx.strokeStyle = '#d4a373';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+
+                ctx.font = '30px Alex Brush';
+                ctx.fillStyle = '#d4a373';
+                ctx.textAlign = 'center';
+                ctx.fillText('Scratch to Reveal', canvas.width / 2, canvas.height / 2);
+            }
+
+            setupCanvas();
+            window.addEventListener('resize', setupCanvas);
+
+            function scratch(e) {
+                if (!isDrawing) return;
+
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.lineWidth = 40;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+
+                lastX = x;
+                lastY = y;
+
+                checkReveal();
+            }
+
+            function checkReveal() {
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const pixels = imageData.data;
+                let transparentPixels = 0;
+
+                for (let i = 3; i < pixels.length; i += 4) {
+                    if (pixels[i] === 0) transparentPixels++;
+                }
+
+                const percentage = transparentPixels / (pixels.length / 4);
+                if (percentage >= revealThreshold) {
+                    revealFull();
+                }
+            }
+
+            function revealFull() {
+                canvas.style.transition = 'opacity 0.8s ease-out';
+                canvas.style.opacity = '0';
+                setTimeout(() => {
+                    canvas.remove();
+                }, 800);
+            }
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                lastX = e.clientX - rect.left;
+                lastY = e.clientY - rect.top;
+            });
+            canvas.addEventListener('touchstart', (e) => {
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                lastX = e.touches[0].clientX - rect.left;
+                lastY = e.touches[0].clientY - rect.top;
+                e.preventDefault();
+            });
+
+            window.addEventListener('mousemove', scratch);
+            window.addEventListener('touchmove', scratch, { passive: false });
+            window.addEventListener('mouseup', () => isDrawing = false);
+            window.addEventListener('touchend', () => isDrawing = false);
+        }
+
+        initEventCards();
 
     </script>
 </body>
