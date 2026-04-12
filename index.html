@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Dancing+Script:wght@700&family=Inter:wght@300;400;600&family=Great+Vibes&display=swap"
         rel="stylesheet">
     <script>
         tailwind.config = {
@@ -434,36 +434,80 @@
                 background-position: 200% 0;
             }
         }
+        @keyframes livingCanvas {
+            0% { transform: scale(1.02) translateY(0px); }
+            50% { transform: scale(1.04) translateY(-3px); }
+            100% { transform: scale(1.02) translateY(0px); }
+        }
+
+        .cinematic-overlay {
+            background: radial-gradient(circle at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.92) 100%);
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.95);
+        }
+        
+        .noise-overlay {
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            filter: contrast(150%) brightness(100%);
+        }
+
+        #hero-canvas {
+            animation: livingCanvas 15s infinite ease-in-out;
+        }
+
+        .final-hero-section video {
+            transform-origin: center bottom;
+        }
+
+        /* Automatic Video Reveal */
+        #hero-canvas, #final-hero-img {
+            transition: opacity 2s ease-in-out;
+        }
+
+        .reveal-video #hero-canvas {
+            opacity: 0 !important;
+        }
+
+        .reveal-video #final-hero-img {
+            opacity: 1 !important;
+        }
+
+        /* Automatic Text Reveal Animations */
+        #hero-content-main, #hero-names {
+            transition: opacity 1s ease-out;
+        }
+
+        .reveal-intro #hero-content-main {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .reveal-intro #hero-names {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        #hero-header, #hero-divider, #hero-names-text, #hero-invite-text, #hero-invite-divider {
+            opacity: 0;
+            transition: opacity 1s ease-out; /* Removed translateY for stability */
+        }
+
+
+        .reveal-intro #hero-header { opacity: 1; transition-delay: 0.2s; }
+        .reveal-intro #hero-divider { opacity: 0.5; transition-delay: 0.4s; }
+        .reveal-intro #hero-names-text { opacity: 1; transition-delay: 0.7s; }
+        .reveal-intro #hero-invite-text { opacity: 1; transition-delay: 1s; }
+        .reveal-intro #hero-invite-divider { opacity: 0.3; transition-delay: 1.2s; }
     </style>
 </head>
 
 <body class="bg-romantic-pink font-sans text-stone-700">
 
-    <!-- Premium Preloader -->
-    <div id="preloader"
-        class="fixed inset-0 z-[100] bg-romantic-pink flex flex-col items-center justify-center transition-opacity duration-700">
-        <div class="relative w-24 h-24 mb-6">
-            <!-- Spinning Ring -->
-            <div class="absolute inset-0 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
-            <!-- Beating Heart inside -->
-            <div class="absolute inset-0 flex items-center justify-center animate-pulse">
-                <svg width="40" height="40" viewBox="0 0 32 32" fill="#d4a373">
-                    <path
-                        d="M16 28.5L14.1 26.6C7.2 20.4 3 16.5 3 11.5 3 7.4 6.2 4.2 10.3 4.2 12.6 4.2 14.8 5.3 16 7.1 17.2 5.3 19.4 4.2 21.7 4.2 25.8 4.2 29 7.4 29 11.5 29 16.5 24.8 20.4 17.9 26.6L16 28.5Z" />
-                </svg>
-            </div>
-        </div>
-        <p class="font-script text-3xl text-primary animate-pulse">Loading Magic...</p>
+    <!-- KEERA 2.0 Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-opacity duration-700">
+        <h1 id="progress" class="text-white text-4xl md:text-6xl font-['Inter'] font-light tracking-tighter">0%</h1>
     </div>
 
-    <!-- Intro Video -->
-    <div id="intro-video-container"
-        class="fixed inset-0 z-[90] bg-white opacity-100 transition-opacity duration-1000 flex items-center justify-center">
-        <video id="intro-video" class="w-full h-full object-cover" muted playsinline>
-            <source src="assets/Angel_Delivers_Divine_Message.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+
 
     <!-- Navigation Bar -->
     <nav id="navbar"
@@ -471,7 +515,7 @@
         <div id="navbar-logo" class="ml-4 transition-all duration-300">
             <img src="assets/logo.png" alt="Logo" class="h-12 md:h-14 w-auto drop-shadow-lg">
         </div>
-        <div class="hidden md:flex space-x-8 uppercase tracking-widest text-sm font-semibold">
+        <div id="nav-links" class="hidden md:flex space-x-8 uppercase tracking-widest text-sm font-semibold opacity-0 transition-opacity duration-700">
             <a href="#countdown" class="hover:text-primary transition">Countdown</a>
             <a href="#message" class="hover:text-primary transition">Love Story</a>
             <a href="#save-the-date" class="hover:text-primary transition">Save the Date</a>
@@ -505,44 +549,68 @@
         <a href="#venue" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Venue</a>
     </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative h-screen w-full flex flex-col justify-between overflow-hidden">
-        <!-- Fixed Parallax Background with Clear Center -->
-        <div class="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
-            style="background-image: url('assets/hero.png'); background-position: center 25%;">
-            <!-- Gradient Overlay: Darker at edges, clear in middle -->
-            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70"></div>
-        </div>
-
-        <!-- Top Section (Intro) -->
-        <div class="relative z-10 text-center text-white pt-32 px-4 reveal">
-            <h2 class="text-xl md:text-2xl font-light tracking-[0.5em] uppercase mb-4 drop-shadow-lg">
-                Celebrating the union of
-            </h2>
-            <div class="h-px w-20 bg-primary/40 mx-auto mt-4"></div>
-        </div>
-
-        <!-- Empty Middle (Faces will be here) -->
-        <div class="flex-1 min-h-[40vh]"></div>
-
-        <!-- Bottom Section (Names & Message) -->
-        <div class="relative z-10 text-center text-white pb-16 px-4 reveal">
-            <div class="flex flex-col md:flex-row items-center justify-center mb-4 drop-shadow-2xl">
-                <h1 class="text-6xl md:text-8xl font-script tracking-tight">Ranjith</h1>
-                <span class="text-2xl md:text-4xl font-script text-primary mx-4">&</span>
-                <h1 class="text-6xl md:text-8xl font-script tracking-tight">Keerthika</h1>
+    <!-- KEERA 2.0 Hero Section (Fixed Background + Reveal Logic) -->
+    <div class="hero-scroll-wrapper relative w-full" style="height: 900vh;">
+        <!-- Fixed Container: Stays in place while the rest of the page slides OVER it -->
+        <div class="scroll-container fixed top-0 left-0 h-screen w-full overflow-hidden bg-black z-0">
+            <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover z-[1]"></canvas>
+            <div class="cinematic-overlay absolute inset-0 z-[2] pointer-events-none"></div>
+            
+            <div class="final-hero-section absolute inset-0 z-[3] pointer-events-none flex items-center justify-center overflow-hidden" id="final-hero">
+                <div id="black-fade" class="absolute inset-0 bg-black opacity-0 z-[1]"></div>
+                <video id="final-hero-img" autoplay muted playsinline loop class="relative z-[2] w-full h-full object-cover opacity-0 scale-[1]">
+                    <source src="assets/new hero.mp4" type="video/mp4">
+                </video>
+                <div class="noise-overlay absolute inset-0 z-[3] pointer-events-none opacity-[0.12]"></div>
+                
+                <div id="hero-content-main"
+                    class="absolute inset-x-0 top-[38%] z-[4] flex flex-col items-center justify-center text-center px-4 opacity-0 pointer-events-none">
+                    <p id="hero-header"
+                        class="text-white text-sm md:text-[1.15rem] font-light tracking-[0.45em] uppercase drop-shadow-xl mb-2">
+                        Celebrating the union of
+                    </p>
+        
+                    <div id="hero-divider" class="flex items-center justify-center w-full max-w-[12rem] mb-2">
+                        <div class="h-[0.5px] bg-gradient-to-r from-transparent via-white/15 to-transparent flex-1"></div>
+                        <div class="mx-2 text-white/40 animate-pulse">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                            </svg>
+                        </div>
+                        <div class="h-[0.5px] bg-gradient-to-r from-transparent via-white/15 to-transparent flex-1"></div>
+                    </div>
+                </div>
+        
+                <!-- Centered Names -->
+                <div id="hero-names"
+                    class="absolute inset-x-0 top-[52%] -translate-y-[50%] z-[4] flex flex-col items-center justify-center text-center px-4 opacity-0 pointer-events-none">
+                    <h2 id="hero-names-text"
+                        class="text-white text-[3rem] md:text-[4.5rem] font-['Great_Vibes'] leading-[1] drop-shadow-lg">
+                        Ranjith <span
+                            class="text-base md:text-xl align-middle mx-1 font-serif italic text-amber-200/50">&</span>
+                        Keerthika
+                    </h2>
+        
+                    <div id="invite-text" class="mt-3 md:mt-8 mx-auto">
+                        <p id="hero-invite-text"
+                            class="text-white/75 text-xs md:text-[1.1rem] font-serif font-light italic leading-relaxed drop-shadow-md">
+                            "We are pleased to invite you to celebrate a day full of love and happiness <br
+                                class='hidden md:block'> at our wedding."
+                        </p>
+                        <div id="hero-invite-divider"
+                            class="w-6 md:w-12 h-[0.5px] bg-gradient-to-r from-transparent via-amber-200/15 to-transparent mx-auto mt-3">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p
-                class="max-w-3xl mx-auto text-base md:text-xl font-light italic opacity-90 leading-relaxed drop-shadow-md mb-8 px-6">
-                "We are pleased to invite you to celebrate a day full of love and happiness at our wedding."
-            </p>
-
+            
+            <div id="petals-container" class="absolute inset-0 z-20 pointer-events-none"></div>
         </div>
-        <div id="petals-container"></div>
-    </section>
+    </div>
 
     <!-- Events Section -->
-    <section id="events" class="py-24 bg-accent/30 relative overflow-hidden">
+    <section id="events" class="py-24 bg-romantic-pink relative z-20 overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.3)]">
         <div class="container mx-auto px-4 relative z-10">
             <h2 class="text-center text-4xl font-serif text-primary mb-16 uppercase tracking-[0.2em] reveal">The
                 Celebration</h2>
@@ -970,16 +1038,192 @@
         // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            const logo = document.getElementById('navbar-logo');
-            if (window.scrollY > 50) {
+            const eventsHeader = document.querySelector('#events h2'); 
+            const rect = eventsHeader ? eventsHeader.getBoundingClientRect() : null;
+            
+            // If the events section header is near the top, turn navbar white
+            if (rect && rect.top <= 120) {
                 nav.classList.add('bg-white', 'shadow-md', 'text-stone-800', 'py-2');
                 nav.classList.remove('text-white', 'py-4');
-                logo.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
             } else {
                 nav.classList.remove('bg-white', 'shadow-md', 'text-stone-800', 'py-2');
                 nav.classList.add('text-white', 'py-4');
-                logo.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
             }
+        });
+
+        // --- KEERA 2.0 Hero Animation Logic ---
+        const heroCanvas = document.getElementById('hero-canvas');
+        const heroCtx = heroCanvas.getContext('2d');
+        const blackFadeEl = document.getElementById('black-fade');
+        const heroImgEl = document.getElementById('final-hero-img');
+        if (heroImgEl) heroImgEl.playbackRate = 0.7; // Cinematic slow motion
+        const heroContentMainEl = document.getElementById('hero-content-main'); 
+        const heroNamesEl = document.getElementById('hero-names');
+        const heroHeader = document.getElementById('hero-header');
+        const heroDivider = document.getElementById('hero-divider');
+        const heroNamesText = document.getElementById('hero-names-text');
+        const heroInviteText = document.getElementById('hero-invite-text');
+        const heroInviteDivider = document.getElementById('hero-invite-divider');
+        const heroWrapper = document.querySelector('.hero-scroll-wrapper');
+        const heroScrollWrapper = document.querySelector('.hero-scroll-wrapper');
+
+        heroCanvas.width = window.innerWidth;
+        heroCanvas.height = window.innerHeight;
+
+        const frameCount1 = 120;
+        const frameCount2 = 120;
+        const frameCount3 = 120;
+        const totalFrames = frameCount1 + frameCount2 + frameCount3;
+
+        const getFramePath = index => {
+            if (index <= frameCount1) {
+                return `assets/1 new/ezgif-frame-${index.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2) {
+                const index2 = index - frameCount1;
+                return `assets/2 new/ezgif-frame-${index2.toString().padStart(3, '0')}.jpg`;
+            } else {
+                const index3 = index - frameCount1 - frameCount2;
+                return `assets/3 new/ezgif-frame-${index3.toString().padStart(3, '0')}.jpg`;
+            }
+        };
+
+        const heroImages = [];
+        let heroLoadedImages = 0;
+
+        function renderHeroImage(img, scale = 1) {
+            if (!img) return;
+            const hRatio = heroCanvas.width / img.width;
+            const vRatio = heroCanvas.height / img.height;
+            // Apply scale to the base ratio
+            const ratio = Math.max(hRatio, vRatio) * scale;
+            const centerShift_x = (heroCanvas.width - img.width * ratio) / 2;
+            const centerShift_y = (heroCanvas.height - img.height * ratio) / 2;
+            
+            heroCtx.drawImage(img, 0, 0, img.width, img.height,
+                centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
+        }
+
+        // Preload images
+        for (let i = 1; i <= totalFrames; i++) {
+            const img = new Image();
+            img.src = getFramePath(i);
+            img.onload = () => {
+                heroLoadedImages++;
+                const progressText = document.getElementById('progress');
+                if (progressText) {
+                    progressText.innerText = Math.round((heroLoadedImages / totalFrames) * 100) + '%';
+                }
+                
+                if (heroLoadedImages === totalFrames) {
+                    const preloader = document.getElementById('preloader');
+                    if (preloader) {
+                        preloader.style.opacity = 0;
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                            document.body.style.overflow = 'auto'; // Re-enable scrolling
+                        }, 500);
+                    }
+                    if (heroImages[0] && heroImages[0].complete) {
+                        renderHeroImage(heroImages[0]);
+                    }
+                }
+            };
+            img.onerror = () => {
+                heroLoadedImages++;
+                if (heroLoadedImages === totalFrames) {
+                    const preloader = document.getElementById('preloader');
+                    if (preloader) { preloader.style.opacity = 0; setTimeout(()=>{preloader.style.display='none'; document.body.style.overflow='auto';}, 500); }
+                }
+            };
+            heroImages.push(img);
+        }
+
+        let targetHeroProgress = 0;
+        let currentHeroProgress = 0;
+        let isHeroLoopActive = false;
+
+        window.addEventListener('scroll', () => {
+            if (!heroScrollWrapper) return;
+            const rect = heroScrollWrapper.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            let progress = -rect.top / (rect.height - winHeight);
+            targetHeroProgress = Math.max(0, Math.min(1, progress));
+
+            if (!isHeroLoopActive) {
+                isHeroLoopActive = true;
+                requestAnimationFrame(heroRenderLoop);
+            }
+        });
+
+        let hasAutoScrolled = false;
+
+        function heroRenderLoop() {
+            currentHeroProgress += (targetHeroProgress - currentHeroProgress) * 0.06;
+            
+            if (Math.abs(targetHeroProgress - currentHeroProgress) < 0.0001) {
+                currentHeroProgress = targetHeroProgress;
+                isHeroLoopActive = false;
+            } else {
+                requestAnimationFrame(heroRenderLoop);
+            }
+
+            // Auto-scroll to next section when intro ends
+            if (currentHeroProgress >= 0.99 && !hasAutoScrolled && targetHeroProgress >= 0.99) {
+                hasAutoScrolled = true;
+                setTimeout(() => {
+                    smoothScrollTo('#events', 1500);
+                }, 800);
+            }
+            
+            // Allow re-triggering if user scrolls back up significantly
+            if (currentHeroProgress < 0.5) hasAutoScrolled = false;
+            
+            // Stage 1: Animation Frames (0.0 to 0.85)
+            const frameEndBoundary = 0.85;
+            let frameProgress = currentHeroProgress <= frameEndBoundary ? currentHeroProgress / frameEndBoundary : 1;
+            const frameIndex = Math.min(totalFrames - 1, Math.max(0, Math.floor(frameProgress * totalFrames)));
+            
+            // Render at normal scale (no zoom)
+            if (heroImages[frameIndex] && heroImages[frameIndex].complete) {
+                renderHeroImage(heroImages[frameIndex], 1);
+            }
+
+            // Stage 2 & 3: Video Reveal & Content Reveal - Triggered once reached
+            const introTrigger = 0.75;
+            if (currentHeroProgress >= introTrigger) {
+                if (heroWrapper) {
+                    if (!heroWrapper.classList.contains('reveal-video')) {
+                        heroWrapper.classList.add('reveal-video');
+                        if (heroImgEl && heroImgEl.paused) heroImgEl.play().catch(e => console.log(e));
+                    }
+                    if (!heroWrapper.classList.contains('reveal-intro')) {
+                        heroWrapper.classList.add('reveal-intro');
+                    }
+                }
+            } else {
+                if (heroWrapper) {
+                    heroWrapper.classList.remove('reveal-video', 'reveal-intro');
+                    if (heroImgEl && !heroImgEl.paused) heroImgEl.pause();
+                }
+            }
+
+            // Update Navbar Items Visibility
+            const navLinks = document.getElementById('nav-links');
+            if (navLinks) {
+                if (currentHeroProgress >= introTrigger) {
+                    navLinks.classList.remove('opacity-0');
+                    navLinks.classList.add('opacity-100');
+                } else {
+                    navLinks.classList.remove('opacity-100');
+                    navLinks.classList.add('opacity-0');
+                }
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            heroCanvas.width = window.innerWidth;
+            heroCanvas.height = window.innerHeight;
+            if (heroImages[0] && heroImages[0].complete) renderHeroImage(heroImages[0]);
         });
 
         // Floating Hearts Animation
@@ -1107,46 +1351,13 @@
         const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // --- Preloader & Intro Video Logic ---
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            const videoContainer = document.getElementById('intro-video-container');
-            const video = document.getElementById('intro-video');
-
-            setTimeout(() => {
-                // 1. Fade out preloader
-                preloader.classList.add('loaded');
-
-                // 2. Show video container and play video
-                videoContainer.classList.remove('opacity-0', 'pointer-events-none');
-                videoContainer.classList.add('opacity-100', 'pointer-events-auto');
-
-                video.play().catch(error => {
-                    console.log("Video auto-play failed, skipping to website:", error);
-                    showWebsite();
-                });
-
-                video.onended = () => {
-                    showWebsite();
-                };
-            }, 1500); // Wait for spinner to be seen
-        });
-
-        function showWebsite() {
-            const videoContainer = document.getElementById('intro-video-container');
-            // Fade out video to white
-            videoContainer.classList.remove('opacity-100');
-            videoContainer.classList.add('opacity-0');
-
-            setTimeout(() => {
-                videoContainer.style.display = 'none';
-                // Allow scrolling after preloader and video are gone
-                document.body.style.overflow = 'auto';
-            }, 1000); // Match transition duration
-        }
-
         // Prevent scrolling during preloader
         document.body.style.overflow = 'hidden';
+
+        // Note: The preloader is now handled by the KEERA 2.0 Hero Animation Logic above.
+        // It will set overflow to 'auto' when images are loaded. 
+        // We added a failsafe in the hero logic to ensure display:none is called.
+
 
         // --- Custom Heart Cursor Logic ---
         const cursor = document.createElement('div');
