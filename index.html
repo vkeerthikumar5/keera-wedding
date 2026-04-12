@@ -500,7 +500,7 @@
     </style>
 </head>
 
-<body class="bg-romantic-pink font-sans text-stone-700">
+<body class="bg-[#050811] font-sans text-white/90">
 
     <!-- KEERA 2.0 Preloader -->
     <div id="preloader" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-opacity duration-700">
@@ -517,47 +517,33 @@
         </div>
         <div id="nav-links" class="hidden md:flex space-x-8 uppercase tracking-widest text-sm font-semibold opacity-0 transition-opacity duration-700">
             <a href="#countdown" class="hover:text-primary transition">Countdown</a>
-            <a href="#message" class="hover:text-primary transition">Love Story</a>
-            <a href="#save-the-date" class="hover:text-primary transition">Save the Date</a>
-            <a href="#reception-night" class="hover:text-primary transition">Reception Night</a>
+            <a href="#message" class="hover:text-primary transition">Invitation</a>
             <a href="#venue" class="hover:text-primary transition">Venue</a>
         </div>
         
-        <!-- Theme Toggle -->
-        <div class="flex items-center ml-8 mr-4">
-            <button id="theme-toggle" class="p-2 rounded-full hover:bg-white/10 transition-colors">
-                <svg class="sun w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
-                <svg class="moon w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-            </button>
-        </div>
-
         <button id="mobile-menu-btn" class="md:hidden mr-4 text-3xl focus:outline-none">☰</button>
     </nav>
 
     <!-- Mobile Menu Drawer -->
     <div id="mobile-menu"
-        class="fixed inset-0 z-[60] bg-black/95 flex flex-col items-center justify-center space-y-8 text-center transition-all duration-500 opacity-0 pointer-events-none transform translate-x-full">
+        class="fixed inset-0 z-[60] bg-[#050811]/98 flex flex-col items-center justify-center space-y-8 text-center transition-all duration-500 opacity-0 pointer-events-none transform translate-x-full">
         <button id="close-menu-btn" class="absolute top-10 right-10 text-white text-4xl">&times;</button>
         <a href="#countdown"
             class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Countdown</a>
-        <a href="#message" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Love
-            Story</a>
-        <a href="#save-the-date" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Save
-            the Date</a>
-        <a href="#reception-night"
-            class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Reception Night</a>
+        <a href="#events" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Invitation</a>
+        <a href="#message" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Our Story</a>
         <a href="#venue" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Venue</a>
     </div>
 
     <!-- KEERA 2.0 Hero Section (Fixed Background + Reveal Logic) -->
     <div class="hero-scroll-wrapper relative w-full" style="height: 900vh;">
         <!-- Fixed Container: Stays in place while the rest of the page slides OVER it -->
-        <div class="scroll-container fixed top-0 left-0 h-screen w-full overflow-hidden bg-black z-0">
+        <div class="scroll-container fixed top-0 left-0 h-screen w-full overflow-hidden bg-[#050811] z-0">
             <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover z-[1]"></canvas>
             <div class="cinematic-overlay absolute inset-0 z-[2] pointer-events-none"></div>
             
             <div class="final-hero-section absolute inset-0 z-[3] pointer-events-none flex items-center justify-center overflow-hidden" id="final-hero">
-                <div id="black-fade" class="absolute inset-0 bg-black opacity-0 z-[1]"></div>
+                <div id="black-fade" class="absolute inset-0 bg-[#050811] opacity-0 z-[1]"></div>
                 <video id="final-hero-img" autoplay muted playsinline loop class="relative z-[2] w-full h-full object-cover opacity-0 scale-[1]">
                     <source src="assets/new hero.mp4" type="video/mp4">
                 </video>
@@ -609,8 +595,8 @@
         </div>
     </div>
 
-    <!-- Events Section -->
-    <section id="events" class="py-24 bg-romantic-pink relative z-20 overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.3)]">
+    <!-- Invitation Section -->
+    <section id="events" class="py-24 bg-[#0b1221] relative z-20 overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
         <div class="container mx-auto px-4 relative z-10">
             <h2 class="text-center text-4xl font-serif text-primary mb-16 uppercase tracking-[0.2em] reveal">The
                 Celebration</h2>
@@ -649,11 +635,11 @@
                             <h3 class="text-3xl font-script text-center">Hover to View <br> Reception Details</h3>
                         </div>
                         <!-- Back (Information) -->
-                        <div class="event-card-back glass p-10 bg-white shadow-xl">
-                            <h3 class="text-2xl font-script text-stone-800 mb-4 text-5xl">Reception</h3>
+                        <div class="event-card-back glass p-10 bg-white/5 border border-white/10 shadow-xl">
+                            <h3 class="text-2xl font-script text-white mb-4 text-5xl">Reception</h3>
                             <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
-                            <p class="font-bold text-stone-600 tracking-widest mb-2 uppercase text-lg">16 June 2026</p>
-                            <p class="text-stone-500 mb-6 text-xl">Tuesday · 6:30 PM Onwards</p>
+                            <p class="font-bold text-white/80 tracking-widest mb-2 uppercase text-lg">16 June 2026</p>
+                            <p class="text-white/60 mb-6 text-xl">Tuesday · 6:30 PM Onwards</p>
                         </div>
                     </div>
                     <canvas class="scratch-canvas hidden" id="scratch-1"></canvas>
@@ -693,11 +679,11 @@
                             <h3 class="text-3xl font-script text-center">Hover to View <br> Muhurtham Details</h3>
                         </div>
                         <!-- Back (Information) -->
-                        <div class="event-card-back glass p-10 bg-white shadow-xl">
-                            <h3 class="text-2xl font-script text-stone-800 mb-4 text-5xl">Muhurtham</h3>
+                        <div class="event-card-back glass p-10 bg-white/5 border border-white/10 shadow-xl">
+                            <h3 class="text-2xl font-script text-white mb-4 text-5xl">Muhurtham</h3>
                             <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
-                            <p class="font-bold text-stone-600 tracking-widest mb-2 uppercase text-lg">17 June 2026</p>
-                            <p class="text-stone-500 mb-6 text-xl">Wednesday · 6:00 – 7:30 AM</p>
+                            <p class="font-bold text-white/80 tracking-widest mb-2 uppercase text-lg">17 June 2026</p>
+                            <p class="text-white/60 mb-6 text-xl">Wednesday · 6:00 – 7:30 AM</p>
                         </div>
                     </div>
                     <canvas class="scratch-canvas hidden" id="scratch-2"></canvas>
@@ -707,12 +693,12 @@
     </section>
 
     <!-- Countdown Section -->
-    <section id="countdown" class="relative h-screen w-full flex flex-col justify-between overflow-hidden text-white">
+    <section id="countdown" class="relative min-h-screen w-full flex flex-col justify-between overflow-hidden text-white z-20">
         <!-- Fixed Parallax Background -->
         <div class="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
             style="background-image: url('assets/count-down.png');">
             <!-- Gradient Overlay: Darker at top/bottom, clear in middle -->
-            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-transparent to-black/95"></div>
         </div>
 
         <!-- Top Text (Heading) -->
@@ -757,8 +743,8 @@
         </div>
     </section>
 
-    <!-- Love Story Timeline Section -->
-    <section id="message" class="min-h-screen py-32 bg-romantic-pink relative overflow-hidden px-4 md:px-12">
+    <!-- Story Timeline Section -->
+    <section id="message" class="min-h-screen py-32 bg-[#050811] relative z-20 overflow-hidden px-4 md:px-12">
         <h2 class="text-center text-5xl font-serif text-primary mb-20 uppercase tracking-[0.3em] reveal">Our Story</h2>
 
         <div class="flex flex-wrap justify-center items-center gap-8 max-w-7xl mx-auto relative">
@@ -769,8 +755,8 @@
                     <img src="assets/1.png" class="w-full h-full object-cover">
                 </div>
                 <h3 class="text-2xl font-script text-primary mb-1">First Met</h3>
-                <p class="text-xs font-bold text-stone-400 mb-2 uppercase tracking-widest">06 JUL 2023</p>
-                <p class="text-sm italic text-center text-stone-600 px-4">Tambaram Railway Station — where fate
+                <p class="text-xs font-bold text-white/30 mb-2 uppercase tracking-widest">06 JUL 2023</p>
+                <p class="text-sm italic text-center text-white/60 px-4">Tambaram Railway Station — where fate
                     introduced two hearts</p>
             </div>
 
@@ -856,46 +842,44 @@
                         d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
                         fill="currentColor" />
                 </svg>
-            </div>
-
-            <!-- 5. Kalyanam -->
+              <!-- 5. Kalyanam -->
             <div class="story-card flex flex-col items-center w-full md:w-64">
                 <div
                     class="w-48 h-48 rounded-full overflow-hidden border-4 border-primary shadow-2xl mb-6 transform hover:scale-110 transition-transform">
                     <img src="assets/5.png" class="w-full h-full object-cover">
                 </div>
                 <h3
-                    class="text-2xl font-script text-stone-800 mb-1 text-center underline decoration-primary underline-offset-4">
+                    class="text-2xl font-script text-white mb-1 text-center underline decoration-primary underline-offset-4">
                     Kalyanam </h3>
                 <p class="text-xs font-bold text-primary mb-2 uppercase tracking-widest">17 JUN 2026</p>
-                <p class="text-sm italic text-center text-stone-800 px-4">Forever begins at dawn — 6:00 to 7:30 AM</p>
+                <p class="text-sm italic text-center text-white/80 px-4">Forever begins at dawn — 6:00 to 7:30 AM</p>
             </div>
         </div>
     </section>
 
     <!-- Save The Date Section -->
     <section id="save-the-date"
-        class="relative min-h-screen w-full bg-white flex flex-col justify-center items-center pt-24 pb-12">
+        class="relative min-h-screen w-full bg-[#0b1221] relative z-20 flex flex-col justify-center items-center pt-24 pb-12">
         <div class="max-w-4xl mx-auto px-6 reveal flex flex-col items-center text-center">
             <h2 class="text-3xl md:text-4xl font-serif text-primary mb-6 uppercase tracking-[0.2em]">Save The Date</h2>
             <div class="mb-8">
                 <img src="assets/intro.png"
-                    class="mx-auto w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 md:border-8 border-accent/20 shadow-2xl transform hover:rotate-3 transition-transform duration-500">
+                    class="mx-auto w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 md:border-8 border-white/5 shadow-2xl transform hover:rotate-3 transition-transform duration-500">
             </div>
             <h3 class="text-4xl md:text-6xl font-script text-primary mb-2 leading-tight">Ranjith <br class="md:hidden">
                 & <br class="md:hidden"> Keerthika</h3>
-            <p class="text-base md:text-xl text-stone-500 italic max-w-2xl mx-auto mb-10 px-4">
+            <p class="text-base md:text-xl text-white/60 italic max-w-2xl mx-auto mb-10 px-4">
                 We are pleased to invite you to celebrate a day full of love and happiness at our wedding.
             </p>
 
             <div class="flex flex-col md:flex-row gap-6 max-w-2xl mx-auto w-full justify-center">
                 <!-- Reception Block -->
                 <div
-                    class="p-6 md:p-8 rounded-2xl border border-primary/20 bg-accent/5 hover:translate-y-[-5px] transition-all flex-1 min-w-[280px]">
+                    class="p-6 md:p-8 rounded-2xl border border-primary/20 bg-white/5 hover:translate-y-[-5px] transition-all flex-1 min-w-[280px]">
                     <h4 class="text-xl md:text-2xl font-serif text-primary mb-3 uppercase tracking-widest">Reception
                     </h4>
-                    <p class="font-bold text-stone-700">16 June 2026</p>
-                    <p class="text-stone-500 italic text-sm">Tuesday · 6:30 PM Onwards</p>
+                    <p class="font-bold text-white/90">16 June 2026</p>
+                    <p class="text-white/60 italic text-sm">Tuesday · 6:30 PM Onwards</p>
                 </div>
 
                 <!-- Muhurtham Block (Highlighted) -->
@@ -911,23 +895,23 @@
 
     <!-- Reception Night Section -->
     <section id="reception-night"
-        class="relative min-h-screen w-full bg-white flex flex-col justify-center items-center pt-24 pb-12">
+        class="relative min-h-screen w-full bg-[#050811] relative z-20 flex flex-col justify-center items-center pt-24 pb-12">
         <div class="max-w-4xl mx-auto px-6 reveal text-center">
             <h2 class="text-4xl md:text-5xl font-serif text-primary mb-4 uppercase tracking-[0.2em]">Reception Night
             </h2>
-            <p class="text-base md:text-lg font-bold text-stone-400 mb-8 uppercase tracking-[0.3em]">
+            <p class="text-base md:text-lg font-bold text-white/30 mb-8 uppercase tracking-[0.3em]">
                 16 June 2026 · Tuesday · 6:30 PM Onwards
             </p>
 
             <div class="relative group mb-8">
                 <img src="assets/reception.png"
-                    class="mx-auto w-full max-w-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] object-cover transform group-hover:scale-[1.01] transition-transform duration-700 max-h-[50vh]">
+                    class="mx-auto w-full max-w-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] object-cover transform group-hover:scale-[1.01] transition-transform duration-700 max-h-[50vh]">
                 <div
-                    class="absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/10 group-hover:ring-black/20 transition-all">
+                    class="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10 group-hover:ring-white/20 transition-all">
                 </div>
             </div>
 
-            <p class="text-xl md:text-2xl text-stone-600 italic leading-relaxed max-w-3xl mx-auto px-4">
+            <p class="text-xl md:text-2xl text-white/70 italic leading-relaxed max-w-3xl mx-auto px-4">
                 "Join us as we begin this beautiful chapter — an evening filled with love, laughter, and lasting
                 memories."
             </p>
@@ -936,19 +920,19 @@
     </section>
 
     <!-- Venue Section -->
-    <section id="venue" class="py-24 bg-accent/10 relative overflow-hidden">
+    <section id="venue" class="py-24 bg-[#0b1221] relative z-20 overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.3)]">
         <div class="container mx-auto px-6 max-w-6xl reveal text-center">
             <h2 class="text-4xl md:text-5xl font-serif text-primary mb-6 uppercase tracking-[0.2em]">The Venue</h2>
             <div class="h-px w-24 bg-primary/30 mx-auto mb-10"></div>
 
-            <p class="text-xl md:text-2xl text-stone-700 font-script mb-8">
+            <p class="text-xl md:text-2xl text-white/80 font-script mb-8">
                 Join us at the elegant venue to celebrate our union
             </p>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <!-- Venue Details -->
                 <div class="text-left space-y-6">
-                    <div class="p-8 rounded-3xl bg-white shadow-xl border border-primary/10">
+                    <div class="p-8 rounded-3xl bg-white/5 border border-white/10 shadow-2xl">
                         <div class="flex items-start space-x-4">
                             <div class="bg-primary/10 p-3 rounded-full text-primary">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -958,8 +942,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="text-xl font-bold text-stone-800 mb-2">Location</h4>
-                                <p class="text-stone-600 leading-relaxed">
+                                <h4 class="text-xl font-bold text-white/90 mb-2">Location</h4>
+                                <p class="text-white/60 leading-relaxed">
                                     Perarignar Anna Marriage Hall,<br>
                                     465F+QPW, Gandhi Nagar,<br>
                                     General Kumaramangalam Colony,<br>
@@ -973,7 +957,7 @@
                         class="p-8 rounded-3xl bg-primary text-white shadow-xl transform hover:scale-[1.02] transition-all">
                         <p class="italic text-lg mb-6">"A beautiful place where love meets tradition and memories are
                             born."</p>
-                        <a href="https://maps.app.goo.gl/atc3J13LptL3V9fJ8" target="_blank"
+                        <a href="https://maps.app.goo.gl/atc3L13LptL3V9fJ8" target="_blank"
                             class="inline-flex items-center px-6 py-3 bg-white text-primary rounded-full font-bold tracking-widest uppercase text-sm hover:shadow-lg transition-all group">
                             Get Directions
                             <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"
@@ -986,7 +970,7 @@
                 </div>
 
                 <!-- Google Map Iframe -->
-                <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[450px] border-4 border-white">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[450px] border-4 border-white/10">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.8373873172854!2d80.2243419!3d13.109485999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52650073996035%3A0x640bf16b248882c3!2sPerarignar%20Anna%20Marriage%20Hall!5e0!3m2!1sen!2sin!4v1774329612394!5m2!1sen!2sin"
                         width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
@@ -997,7 +981,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 bg-stone-900 text-white/50 text-center px-6">
+    <footer class="py-12 bg-[#050505] text-white/30 text-center px-6 relative z-20">
         <p class="font-script text-2xl md:text-3xl text-white mb-4">Ranjith & Keerthika</p>
         <p class="text-[0.65rem] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-8 max-w-xl mx-auto leading-loose">
             Two souls, one heart — and a lifetime of beautiful moments yet to come.
@@ -1405,7 +1389,7 @@
             trail.style.height = size + 'px';
             trail.style.left = (x - size / 2) + 'px';
             trail.style.top = (y - size / 2) + 'px';
-            trail.innerHTML = `<svg viewBox="0 0 32 32" style="fill: ${Math.random() > 0.5 ? '#1a1a1a' : '#d4a373'}"><path d="M16 28.5L14.1 26.6C7.2 20.4 3 16.5 3 11.5 3 7.4 6.2 4.2 10.3 4.2 12.6 4.2 14.8 5.3 16 7.1 17.2 5.3 19.4 4.2 21.7 4.2 25.8 4.2 29 7.4 29 11.5 29 16.5 24.8 20.4 17.9 26.6L16 28.5Z"/></svg>`;
+            trail.innerHTML = `<svg viewBox="0 0 32 32" style="fill: ${Math.random() > 0.5 ? '#d4a373' : '#ffffff'}"><path d="M16 28.5L14.1 26.6C7.2 20.4 3 16.5 3 11.5 3 7.4 6.2 4.2 10.3 4.2 12.6 4.2 14.8 5.3 16 7.1 17.2 5.3 19.4 4.2 21.7 4.2 25.8 4.2 29 7.4 29 11.5 29 16.5 24.8 20.4 17.9 26.6L16 28.5Z"/></svg>`;
             document.body.appendChild(trail);
             setTimeout(() => trail.remove(), 800);
         }
@@ -1601,29 +1585,7 @@
 
         initEventCards();
 
-        // --- Theme Switcher Logic ---
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            
-            // Re-initialize event cards with new theme colors
-            initEventCards();
-        });
-
-        // Check for saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || savedTheme === null) {
-            html.classList.add('dark');
-            setTimeout(initEventCards, 0);
-        } else {
-            html.classList.remove('dark');
-            setTimeout(initEventCards, 0);
-        }
-
+        // --- Theme Switching Logic Removed ---
     </script>
 </body>
 
