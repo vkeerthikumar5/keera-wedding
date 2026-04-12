@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -1615,9 +1615,12 @@
         });
 
         // Check for saved theme
-        if (localStorage.getItem('theme') === 'dark') {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || savedTheme === null) {
             html.classList.add('dark');
-            // Re-run init to draw correct initial canvas colors
+            setTimeout(initEventCards, 0);
+        } else {
+            html.classList.remove('dark');
             setTimeout(initEventCards, 0);
         }
 
