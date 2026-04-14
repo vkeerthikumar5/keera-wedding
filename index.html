@@ -38,27 +38,69 @@
     </script>
     <style>
         /* Theme Transitions */
-        body, section, nav, footer, div, h1, h2, h3, h4, p, a, button {
+        body,
+        section,
+        nav,
+        footer,
+        div,
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        a,
+        button {
             transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease, opacity 0.8s ease;
         }
 
         /* Dark Mode Utility Classes */
-        .dark .bg-romantic-pink { background-color: #050811 !important; } /* Deep Obsidian */
-        .dark .bg-white { background-color: #0f172a !important; } /* Midnight Blue */
-        .dark .text-stone-700 { color: #f1f5f9 !important; }
-        .dark .text-stone-600 { color: #cbd5e1 !important; }
-        .dark .text-stone-800 { color: #ffffff !important; }
-        .dark .bg-accent\/30 { background-color: rgba(255, 255, 255, 0.02) !important; }
-        .dark .bg-accent\/10 { background-color: rgba(255, 255, 255, 0.04) !important; }
-        
+        .dark .bg-romantic-pink {
+            background-color: #050811 !important;
+        }
+
+        /* Deep Obsidian */
+        .dark .bg-white {
+            background-color: #0f172a !important;
+        }
+
+        /* Midnight Blue */
+        .dark .text-stone-700 {
+            color: #f1f5f9 !important;
+        }
+
+        .dark .text-stone-600 {
+            color: #cbd5e1 !important;
+        }
+
+        .dark .text-stone-800 {
+            color: #ffffff !important;
+        }
+
+        .dark .bg-accent\/30 {
+            background-color: rgba(255, 255, 255, 0.02) !important;
+        }
+
+        .dark .bg-accent\/10 {
+            background-color: rgba(255, 255, 255, 0.04) !important;
+        }
+
         /* Theme Toggle Button */
         #theme-toggle {
             cursor: none !important;
             z-index: 1000;
         }
-        #theme-toggle .moon { display: none; }
-        .dark #theme-toggle .moon { display: block; }
-        .dark #theme-toggle .sun { display: none; }
+
+        #theme-toggle .moon {
+            display: none;
+        }
+
+        .dark #theme-toggle .moon {
+            display: block;
+        }
+
+        .dark #theme-toggle .sun {
+            display: none;
+        }
 
         html {
             scroll-behavior: smooth;
@@ -70,17 +112,20 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #fdf2f2; /* Romantic Pink */
+            background: #fdf2f2;
+            /* Romantic Pink */
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #d4a373; /* Primary Gold */
+            background: #d4a373;
+            /* Primary Gold */
             border-radius: 5px;
             border: 2.5px solid #fdf2f2;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #b88b5d; /* Darker Gold on hover */
+            background: #b88b5d;
+            /* Darker Gold on hover */
         }
 
         .parallax-bg {
@@ -181,7 +226,11 @@
         }
 
         /* Ensure default cursor stays hidden even on interactive elements */
-        a, button, [role="button"], .event-card-container, .scratch-canvas {
+        a,
+        button,
+        [role="button"],
+        .event-card-container,
+        .scratch-canvas {
             cursor: none !important;
         }
 
@@ -288,7 +337,7 @@
             cursor: none !important;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
 
             .custom-cursor,
             .cursor-trail {
@@ -303,11 +352,115 @@
             }
         }
 
-        /* Flip & Scratch Card Styles */
+        /* 3D Countdown Styling (Glittering Gold) */
+        #countdown-3d-container {
+            perspective: 2000px;
+            pointer-events: none;
+        }
+
+        .countdown-frame {
+            background: rgba(5, 8, 17, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            padding: 3rem 5rem;
+            border-radius: 4rem;
+            box-shadow:
+                0 0 100px rgba(0, 0, 0, 0.8),
+                inset 0 0 40px rgba(251, 191, 36, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            animation: sweep 3s infinite linear;
+        }
+
+        @keyframes sweep {
+            0% {
+                transform: translateX(-100%) translateY(-100%);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%);
+            }
+        }
+
+        .countdown-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 7rem;
+            font-weight: 700;
+            background: linear-gradient(to bottom, #fbf2c4 0%, #dab53d 40%, #8c6a0d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 0.8;
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.4));
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glittering Sparkle Animation */
+        .sparkle-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #fbf2c4;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 5px #fbf2c4;
+            animation: sparkle-float 2s infinite ease-in-out;
+        }
+
+        @keyframes sparkle-float {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(-20px) scale(1.5);
+            }
+        }
+
+        .countdown-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: rgba(251, 191, 36, 0.9);
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .countdown-frame {
+                padding: 1rem;
+            }
+
+            .countdown-value {
+                font-size: 2.5rem;
+            }
+
+            .countdown-unit {
+                min-width: 60px;
+            }
+
+            .countdown-label {
+                font-size: 0.5rem;
+            }
+        }
+
         .event-card-container {
             perspective: 1500px;
             height: 300px;
-            cursor: default; /* Changed from pointer */
+            cursor: default;
+            /* Changed from pointer */
             position: relative;
         }
 
@@ -361,22 +514,25 @@
 
         /* Premium Scratch Card Styling - Theme Responsive */
         .event-card-front.gpay-style {
-            background: #fdf2f2 !important; /* Day: Cream */
+            background: #fdf2f2 !important;
+            /* Day: Cream */
             border: 2px solid #d4a373 !important;
             box-shadow: 0 10px 30px rgba(212, 163, 115, 0.15), inset 0 0 60px rgba(255, 255, 255, 0.8);
         }
-        
+
         .dark .event-card-front.gpay-style {
-            background: #0f172a !important; /* Night: Midnight Blue */
-            border-color: #d4a373 !important; /* Keep Gold border for contrast */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 0 60px rgba(255,255,255,0.03);
+            background: #0f172a !important;
+            /* Night: Midnight Blue */
+            border-color: #d4a373 !important;
+            /* Keep Gold border for contrast */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 60px rgba(255, 255, 255, 0.03);
         }
 
         .event-card-front.gpay-style .floral-arc {
             color: #d4a373 !important;
             opacity: 0.6;
         }
-        
+
         .dark .event-card-front.gpay-style .floral-arc {
             color: #fdf2f2 !important;
         }
@@ -385,17 +541,17 @@
             color: #57534e !important;
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
         }
-        
+
         .dark .event-card-front.gpay-style h3 {
             color: #fdf2f2 !important;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .event-card-front.gpay-style svg.heart-icon {
             color: #d4a373 !important;
             filter: drop-shadow(0 2px 4px rgba(212, 163, 115, 0.2));
         }
-        
+
         .dark .event-card-front.gpay-style svg.heart-icon {
             color: #fdf2f2 !important;
         }
@@ -403,9 +559,10 @@
         .event-card-back {
             background-color: white !important;
         }
-        
+
         .dark .event-card-back {
-            background-color: #0f172a !important; /* Midnight Blue */
+            background-color: #0f172a !important;
+            /* Midnight Blue */
         }
 
         .scratch-canvas {
@@ -434,20 +591,30 @@
                 background-position: 200% 0;
             }
         }
+
         @keyframes livingCanvas {
-            0% { transform: scale(1.02) translateY(0px); }
-            50% { transform: scale(1.04) translateY(-3px); }
-            100% { transform: scale(1.02) translateY(0px); }
+            0% {
+                transform: scale(1.02) translateY(0px);
+            }
+
+            50% {
+                transform: scale(1.04) translateY(-3px);
+            }
+
+            100% {
+                transform: scale(1.02) translateY(0px);
+            }
         }
 
         .cinematic-overlay {
-            background: radial-gradient(circle at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.92) 100%);
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.92) 100%);
             box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.95);
         }
-        
+
         .noise-overlay {
-            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-            filter: contrast(150%) brightness(100%);
+            /* Removed broken external dependency */
+            opacity: 0.15;
+            background-color: rgba(0, 0, 0, 0.1);
         }
 
         #hero-canvas {
@@ -459,8 +626,10 @@
         }
 
         /* Automatic Video Reveal */
-        #hero-canvas, #final-hero-img {
-            transition: opacity 2s ease-in-out;
+        #hero-canvas,
+        #final-hero-img {
+            transition: none !important;
+            /* Managed by JS for scroll-linked smoothness */
         }
 
         .reveal-video #hero-canvas {
@@ -472,8 +641,16 @@
         }
 
         /* Automatic Text Reveal Animations */
-        #hero-content-main, #hero-names {
-            transition: opacity 1s ease-out;
+        #hero-content-main,
+        #celebration-details {
+            transition: none !important;
+            /* Managed by JS for scroll-lock */
+        }
+
+        #celebration-details h2,
+        #celebration-details div,
+        #celebration-details p {
+            transition: none !important;
         }
 
         .reveal-intro #hero-content-main {
@@ -486,24 +663,55 @@
             transform: translateY(0) !important;
         }
 
-        #hero-header, #hero-divider, #hero-names-text, #hero-invite-text, #hero-invite-divider {
+        #bloom-overlay {
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.45) 0%, transparent 70%);
+            mix-blend-mode: screen;
+            transition: opacity 0.1s linear;
+        }
+
+        #hero-header,
+        #hero-divider,
+        #hero-names-text,
+        #hero-invite-text,
+        #hero-invite-divider {
             opacity: 0;
-            transition: opacity 1s ease-out; /* Removed translateY for stability */
+            transition: opacity 1s ease-out;
+            /* Removed translateY for stability */
         }
 
 
-        .reveal-intro #hero-header { opacity: 1; transition-delay: 0.2s; }
-        .reveal-intro #hero-divider { opacity: 0.5; transition-delay: 0.4s; }
-        .reveal-intro #hero-names-text { opacity: 1; transition-delay: 0.7s; }
-        .reveal-intro #hero-invite-text { opacity: 1; transition-delay: 1s; }
-        .reveal-intro #hero-invite-divider { opacity: 0.3; transition-delay: 1.2s; }
+        .reveal-intro #hero-header {
+            opacity: 1;
+            transition-delay: 0.2s;
+        }
+
+        .reveal-intro #hero-divider {
+            opacity: 0.5;
+            transition-delay: 0.4s;
+        }
+
+        .reveal-intro #hero-names-text {
+            opacity: 1;
+            transition-delay: 0.7s;
+        }
+
+        .reveal-intro #hero-invite-text {
+            opacity: 1;
+            transition-delay: 1s;
+        }
+
+        .reveal-intro #hero-invite-divider {
+            opacity: 0.3;
+            transition-delay: 1.2s;
+        }
     </style>
 </head>
 
 <body class="bg-[#050811] font-sans text-white/90">
 
     <!-- KEERA 2.0 Preloader -->
-    <div id="preloader" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-opacity duration-700">
+    <div id="preloader"
+        class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-opacity duration-700">
         <h1 id="progress" class="text-white text-4xl md:text-6xl font-['Inter'] font-light tracking-tighter">0%</h1>
     </div>
 
@@ -515,12 +723,13 @@
         <div id="navbar-logo" class="ml-4 transition-all duration-300">
             <img src="assets/logo.png" alt="Logo" class="h-12 md:h-14 w-auto drop-shadow-lg">
         </div>
-        <div id="nav-links" class="hidden md:flex space-x-8 uppercase tracking-widest text-sm font-semibold opacity-0 transition-opacity duration-700">
+        <div id="nav-links"
+            class="hidden md:flex space-x-8 uppercase tracking-widest text-sm font-semibold opacity-0 transition-opacity duration-700">
             <a href="#countdown" class="hover:text-primary transition">Countdown</a>
             <a href="#message" class="hover:text-primary transition">Invitation</a>
             <a href="#venue" class="hover:text-primary transition">Venue</a>
         </div>
-        
+
         <button id="mobile-menu-btn" class="md:hidden mr-4 text-3xl focus:outline-none">☰</button>
     </nav>
 
@@ -530,44 +739,55 @@
         <button id="close-menu-btn" class="absolute top-10 right-10 text-white text-4xl">&times;</button>
         <a href="#countdown"
             class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Countdown</a>
-        <a href="#events" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Invitation</a>
-        <a href="#message" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Our Story</a>
+        <a href="#events"
+            class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Invitation</a>
+        <a href="#message" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Our
+            Story</a>
         <a href="#venue" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Venue</a>
     </div>
 
     <!-- KEERA 2.0 Hero Section (Fixed Background + Reveal Logic) -->
-    <div class="hero-scroll-wrapper relative w-full" style="height: 900vh;">
+    <div class="hero-scroll-wrapper relative w-full" style="height: 1800vh;">
         <!-- Fixed Container: Stays in place while the rest of the page slides OVER it -->
         <div class="scroll-container fixed top-0 left-0 h-screen w-full overflow-hidden bg-[#050811] z-0">
             <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover z-[1]"></canvas>
+            <div id="dark-overlay"
+                class="absolute inset-0 z-[1] bg-black/0 transition-all duration-700 pointer-events-none"></div>
             <div class="cinematic-overlay absolute inset-0 z-[2] pointer-events-none"></div>
-            
-            <div class="final-hero-section absolute inset-0 z-[3] pointer-events-none flex items-center justify-center overflow-hidden" id="final-hero">
+
+            <div class="final-hero-section absolute inset-0 z-[3] pointer-events-none flex items-center justify-center overflow-hidden"
+                id="final-hero">
                 <div id="black-fade" class="absolute inset-0 bg-[#050811] opacity-0 z-[1]"></div>
-                <video id="final-hero-img" autoplay muted playsinline loop class="relative z-[2] w-full h-full object-cover opacity-0 scale-[1]">
+                <video id="final-hero-img" autoplay muted playsinline loop
+                    class="relative z-[2] w-full h-full object-cover opacity-0 scale-[1]">
                     <source src="assets/new hero.mp4" type="video/mp4">
                 </video>
                 <div class="noise-overlay absolute inset-0 z-[3] pointer-events-none opacity-[0.12]"></div>
-                
+                <div id="bloom-overlay" class="absolute inset-0 z-[12] pointer-events-none opacity-0"></div>
+                <div id="dark-overlay" class="absolute inset-0 z-[11] pointer-events-none opacity-0 bg-black"></div>
+
                 <div id="hero-content-main"
                     class="absolute inset-x-0 top-[38%] z-[4] flex flex-col items-center justify-center text-center px-4 opacity-0 pointer-events-none">
                     <p id="hero-header"
                         class="text-white text-sm md:text-[1.15rem] font-light tracking-[0.45em] uppercase drop-shadow-xl mb-2">
                         Celebrating the union of
                     </p>
-        
+
                     <div id="hero-divider" class="flex items-center justify-center w-full max-w-[12rem] mb-2">
-                        <div class="h-[0.5px] bg-gradient-to-r from-transparent via-white/15 to-transparent flex-1"></div>
+                        <div class="h-[0.5px] bg-gradient-to-r from-transparent via-white/15 to-transparent flex-1">
+                        </div>
                         <div class="mx-2 text-white/40 animate-pulse">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24"
+                                fill="currentColor">
                                 <path
                                     d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                             </svg>
                         </div>
-                        <div class="h-[0.5px] bg-gradient-to-r from-transparent via-white/15 to-transparent flex-1"></div>
+                        <div class="h-[0.5px] bg-gradient-to-r from-transparent via-white/15 to-transparent flex-1">
+                        </div>
                     </div>
                 </div>
-        
+
                 <!-- Centered Names -->
                 <div id="hero-names"
                     class="absolute inset-x-0 top-[52%] -translate-y-[50%] z-[4] flex flex-col items-center justify-center text-center px-4 opacity-0 pointer-events-none">
@@ -577,7 +797,7 @@
                             class="text-base md:text-xl align-middle mx-1 font-serif italic text-amber-200/50">&</span>
                         Keerthika
                     </h2>
-        
+
                     <div id="invite-text" class="mt-3 md:mt-8 mx-auto">
                         <p id="hero-invite-text"
                             class="text-white/75 text-xs md:text-[1.1rem] font-serif font-light italic leading-relaxed drop-shadow-md">
@@ -590,7 +810,115 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Stylized Celebration Details (Appears like Names) -->
+            <div id="celebration-details"
+                class="absolute inset-0 z-[10] opacity-0 pointer-events-none flex flex-col items-center justify-center text-center px-4 transition-all duration-1000">
+                <h2
+                    class="text-white text-[2.5rem] md:text-[5rem] font-['Great_Vibes'] leading-tight mb-6 drop-shadow-2xl">
+                    Celebrations
+                </h2>
+                <div class="h-[1px] w-24 bg-amber-200/30 mx-auto mb-8"></div>
+                <div class="space-y-6">
+                    <p class="text-amber-100/90 text-xl md:text-3xl font-serif italic tracking-wide drop-shadow-md">
+                        Reception: 16 June 2026, 6.30 PM onwards
+                    </p>
+                    <p class="text-amber-100/90 text-xl md:text-3xl font-serif italic tracking-wide drop-shadow-md">
+                        Muhurtam: 17 June 2026, 6.00 - 7.30 AM
+                    </p>
+                </div>
+            </div>
+
+            <!-- Hero Countdown Overlay (Matches Section @ Line 921) -->
+            <div id="hero-countdown"
+                class="absolute inset-0 z-[15] opacity-0 pointer-events-none flex flex-col items-center justify-center text-center px-4 transition-all duration-700">
+
+                <!-- Headers moved up slightly & made smaller -->
+                <div class="mb-4 md:mb-12">
+                    <h3
+                        class="text-lg md:text-3xl font-serif uppercase tracking-[0.3em] mb-2 opacity-95 drop-shadow-2xl text-primary">
+                        — Counting Down —
+                    </h3>
+                    <p class="text-sm md:text-lg font-light italic opacity-90 drop-shadow-lg text-white">
+                        The Big Day is almost here!
+                    </p>
+                </div>
+
+                <!-- Timer Section -->
+                <div class="flex justify-center flex-wrap gap-4 md:gap-12 mb-4 md:mb-12">
+                    <div class="flex flex-col items-center">
+                        <span id="hero-cd-days"
+                            class="text-4xl md:text-8xl font-bold mb-1 tabular-nums drop-shadow-2xl text-white">00</span>
+                        <span
+                            class="uppercase tracking-widest text-[0.6rem] md:text-xs opacity-80 text-white">Days</span>
+                    </div>
+                    <div class="text-2xl md:text-5xl font-light opacity-30 mt-2 text-white">:</div>
+                    <div class="flex flex-col items-center">
+                        <span id="hero-cd-hours"
+                            class="text-4xl md:text-8xl font-bold mb-1 tabular-nums drop-shadow-2xl text-white">00</span>
+                        <span
+                            class="uppercase tracking-widest text-[0.6rem] md:text-xs opacity-80 text-white">Hours</span>
+                    </div>
+                    <div class="text-2xl md:text-5xl font-light opacity-30 mt-2 text-white">:</div>
+                    <div class="flex flex-col items-center">
+                        <span id="hero-cd-mins"
+                            class="text-4xl md:text-8xl font-bold mb-1 tabular-nums drop-shadow-2xl text-white">00</span>
+                        <span
+                            class="uppercase tracking-widest text-[0.6rem] md:text-xs opacity-80 text-white">Minutes</span>
+                    </div>
+                    <div class="text-2xl md:text-5xl font-light opacity-30 mt-2 text-white">:</div>
+                    <div class="flex flex-col items-center">
+                        <span id="hero-cd-secs"
+                            class="text-4xl md:text-8xl font-bold mb-1 tabular-nums drop-shadow-2xl text-white">00</span>
+                        <span
+                            class="uppercase tracking-widest text-[0.6rem] md:text-xs opacity-80 text-white">Seconds</span>
+                    </div>
+                </div>
+
+                <!-- Footer moved down slightly -->
+                <div class="mt-4 md:mt-8">
+                    <p
+                        class="text-[0.6rem] md:text-sm tracking-[0.3em] font-light uppercase opacity-80 drop-shadow-md text-white">
+                        Counting down to Reception — 16 June 2026, Chennai
+                    </p>
+                    <div class="h-px w-24 md:w-32 bg-primary/30 mx-auto mt-6"></div>
+                </div>
+            </div>
+
+            <!-- Elite "Journey through our love story" Reveal -->
+            <div id="hero-story-text"
+                class="absolute inset-x-0 inset-y-0 z-[16] opacity-0 pointer-events-none flex items-center justify-center p-4 transition-all duration-1000">
+                <div class="flex flex-col items-center justify-center text-center">
+                    <span
+                        class="text-[0.6rem] md:text-sm font-serif uppercase tracking-[0.6em] text-amber-100/70 mb-4 drop-shadow-lg">
+                        Journey through
+                    </span>
+                    <h3
+                        class="text-[2.5rem] md:text-8xl font-['Great_Vibes'] text-amber-200 leading-[1] drop-shadow-[0_0_25px_rgba(0,0,0,0.8)]">
+                        Our Love Story
+                    </h3>
+                    <div class="h-[1px] w-16 md:w-32 bg-amber-200/30 mx-auto mt-8"></div>
+                </div>
+            </div>
+
+            <!-- KeeRa Dev Phase Reveal -->
+            <div id="hero-phase-text"
+                class="absolute inset-0 z-[17] opacity-0 pointer-events-none flex flex-col items-center justify-center text-center px-4 transition-all duration-1000">
+                <p class="text-amber-100/70 text-sm md:text-xl font-serif uppercase tracking-[0.4em] mb-4">
+                    Phase 2 of KeeRa Development is now completed.
+                </p>
+                <h3
+                    class="text-white text-[2rem] md:text-[5rem] font-['Great_Vibes'] drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
+                    Working on Phase 3
+                </h3>
+                <div class="h-px w-32 bg-amber-200/30 mx-auto mt-8"></div>
+            </div>
+
+            <!-- Loop Masking Overlay (to hide MP4 loop snap) -->
+            <div id="video-loop-mask"
+                class="absolute inset-0 z-[10] bg-black opacity-0 pointer-events-none transition-opacity duration-500">
+            </div>
+
             <div id="petals-container" class="absolute inset-0 z-20 pointer-events-none"></div>
         </div>
     </div>
@@ -693,7 +1021,8 @@
     </section>
 
     <!-- Countdown Section -->
-    <section id="countdown" class="relative min-h-screen w-full flex flex-col justify-between overflow-hidden text-white z-20">
+    <section id="countdown"
+        class="relative min-h-screen w-full flex flex-col justify-between overflow-hidden text-white z-20">
         <!-- Fixed Parallax Background -->
         <div class="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
             style="background-image: url('assets/count-down.png');">
@@ -842,19 +1171,20 @@
                         d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
                         fill="currentColor" />
                 </svg>
-              <!-- 5. Kalyanam -->
-            <div class="story-card flex flex-col items-center w-full md:w-64">
-                <div
-                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-primary shadow-2xl mb-6 transform hover:scale-110 transition-transform">
-                    <img src="assets/5.png" class="w-full h-full object-cover">
+                <!-- 5. Kalyanam -->
+                <div class="story-card flex flex-col items-center w-full md:w-64">
+                    <div
+                        class="w-48 h-48 rounded-full overflow-hidden border-4 border-primary shadow-2xl mb-6 transform hover:scale-110 transition-transform">
+                        <img src="assets/5.png" class="w-full h-full object-cover">
+                    </div>
+                    <h3
+                        class="text-2xl font-script text-white mb-1 text-center underline decoration-primary underline-offset-4">
+                        Kalyanam </h3>
+                    <p class="text-xs font-bold text-primary mb-2 uppercase tracking-widest">17 JUN 2026</p>
+                    <p class="text-sm italic text-center text-white/80 px-4">Forever begins at dawn — 6:00 to 7:30 AM
+                    </p>
                 </div>
-                <h3
-                    class="text-2xl font-script text-white mb-1 text-center underline decoration-primary underline-offset-4">
-                    Kalyanam </h3>
-                <p class="text-xs font-bold text-primary mb-2 uppercase tracking-widest">17 JUN 2026</p>
-                <p class="text-sm italic text-center text-white/80 px-4">Forever begins at dawn — 6:00 to 7:30 AM</p>
             </div>
-        </div>
     </section>
 
     <!-- Save The Date Section -->
@@ -983,7 +1313,8 @@
     <!-- Footer -->
     <footer class="py-12 bg-[#050505] text-white/30 text-center px-6 relative z-20">
         <p class="font-script text-2xl md:text-3xl text-white mb-4">Ranjith & Keerthika</p>
-        <p class="text-[0.65rem] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-8 max-w-xl mx-auto leading-loose">
+        <p
+            class="text-[0.65rem] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-8 max-w-xl mx-auto leading-loose">
             Two souls, one heart — and a lifetime of beautiful moments yet to come.
         </p>
         <div class="h-px w-24 bg-white/10 mx-auto mb-8"></div>
@@ -1022,9 +1353,9 @@
         // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            const eventsHeader = document.querySelector('#events h2'); 
+            const eventsHeader = document.querySelector('#events h2');
             const rect = eventsHeader ? eventsHeader.getBoundingClientRect() : null;
-            
+
             // If the events section header is near the top, turn navbar white
             if (rect && rect.top <= 120) {
                 nav.classList.add('bg-white', 'shadow-md', 'text-stone-800', 'py-2');
@@ -1041,7 +1372,7 @@
         const blackFadeEl = document.getElementById('black-fade');
         const heroImgEl = document.getElementById('final-hero-img');
         if (heroImgEl) heroImgEl.playbackRate = 0.7; // Cinematic slow motion
-        const heroContentMainEl = document.getElementById('hero-content-main'); 
+        const heroContentMainEl = document.getElementById('hero-content-main');
         const heroNamesEl = document.getElementById('hero-names');
         const heroHeader = document.getElementById('hero-header');
         const heroDivider = document.getElementById('hero-divider');
@@ -1057,7 +1388,10 @@
         const frameCount1 = 120;
         const frameCount2 = 120;
         const frameCount3 = 120;
-        const totalFrames = frameCount1 + frameCount2 + frameCount3;
+        const frameCount4 = 230;
+        const frameCount5 = 120;
+        const frameCount6 = 120;
+        const totalFrames = frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6;
 
         const getFramePath = index => {
             if (index <= frameCount1) {
@@ -1065,9 +1399,18 @@
             } else if (index <= frameCount1 + frameCount2) {
                 const index2 = index - frameCount1;
                 return `assets/2 new/ezgif-frame-${index2.toString().padStart(3, '0')}.jpg`;
-            } else {
+            } else if (index <= frameCount1 + frameCount2 + frameCount3) {
                 const index3 = index - frameCount1 - frameCount2;
                 return `assets/3 new/ezgif-frame-${index3.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4) {
+                const index4 = index - frameCount1 - frameCount2 - frameCount3;
+                return `assets/4/ezgif-frame-${index4.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5) {
+                const index5 = index - frameCount1 - frameCount2 - frameCount3 - frameCount4;
+                return `assets/5/ezgif-frame-${index5.toString().padStart(3, '0')}.jpg`;
+            } else {
+                const index6 = (index - frameCount1 - frameCount2 - frameCount3 - frameCount4 - frameCount5) + 100;
+                return `assets/6/ezgif-frame-${index6.toString().padStart(3, '0')}.jpg`;
             }
         };
 
@@ -1082,7 +1425,7 @@
             const ratio = Math.max(hRatio, vRatio) * scale;
             const centerShift_x = (heroCanvas.width - img.width * ratio) / 2;
             const centerShift_y = (heroCanvas.height - img.height * ratio) / 2;
-            
+
             heroCtx.drawImage(img, 0, 0, img.width, img.height,
                 centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
         }
@@ -1097,7 +1440,7 @@
                 if (progressText) {
                     progressText.innerText = Math.round((heroLoadedImages / totalFrames) * 100) + '%';
                 }
-                
+
                 if (heroLoadedImages === totalFrames) {
                     const preloader = document.getElementById('preloader');
                     if (preloader) {
@@ -1116,7 +1459,7 @@
                 heroLoadedImages++;
                 if (heroLoadedImages === totalFrames) {
                     const preloader = document.getElementById('preloader');
-                    if (preloader) { preloader.style.opacity = 0; setTimeout(()=>{preloader.style.display='none'; document.body.style.overflow='auto';}, 500); }
+                    if (preloader) { preloader.style.opacity = 0; setTimeout(() => { preloader.style.display = 'none'; document.body.style.overflow = 'auto'; }, 500); }
                 }
             };
             heroImages.push(img);
@@ -1142,8 +1485,8 @@
         let hasAutoScrolled = false;
 
         function heroRenderLoop() {
-            currentHeroProgress += (targetHeroProgress - currentHeroProgress) * 0.06;
-            
+            currentHeroProgress += (targetHeroProgress - currentHeroProgress) * 0.08;
+
             if (Math.abs(targetHeroProgress - currentHeroProgress) < 0.0001) {
                 currentHeroProgress = targetHeroProgress;
                 isHeroLoopActive = false;
@@ -1151,47 +1494,268 @@
                 requestAnimationFrame(heroRenderLoop);
             }
 
-            // Auto-scroll to next section when intro ends
-            if (currentHeroProgress >= 0.99 && !hasAutoScrolled && targetHeroProgress >= 0.99) {
-                hasAutoScrolled = true;
-                setTimeout(() => {
-                    smoothScrollTo('#events', 1500);
-                }, 800);
+            // --- Multi-Stage Progression Logic (1800vh Timeline) ---
+            const anim123End = 0.20;
+            const introTrigger = 0.20;
+            const anim4Start = 0.35;
+            const anim4End = 0.50;
+            const anim5Start = 0.50;
+            const anim5End = 0.65;
+
+            const outroTrigger = 0.65;
+            const outroEnd = 0.90; // Much longer video section
+
+            const holdZoneStart = 0.85; // Part of the video section where nothing changes
+            const anim6Start = 0.90;
+            const anim6End = 1.0;
+
+            // Text Timings
+            const revealInStart = 0.42; // Starts at Frame 136 of Folder 4 (~40% through)
+            const revealInEnd = 0.45;
+            const revealHoldEnd = 0.48;
+            const revealOutEnd = 0.50;
+
+            const cdRevealStart = 0.65;
+            const cdRevealEnd = 0.70;
+            const cdHoldEnd = 0.75;
+            const cdFadeOutEnd = 0.78;
+
+            const storyRevealStart = 0.78;
+            const storyRevealEnd = 0.85;
+
+            const phaseRevealStart = 0.984; // From Frame 101 of 120 (approx 84% into 0.90-1.0 range)
+            const phaseRevealEnd = 1.0;
+
+            let currentFrameIndex = 0;
+
+            if (currentHeroProgress <= anim123End) {
+                const subProgress = currentHeroProgress / anim123End;
+                currentFrameIndex = Math.floor(subProgress * (frameCount1 + frameCount2 + frameCount3));
+            } else if (currentHeroProgress >= anim4Start && currentHeroProgress <= anim4End) {
+                const subProgress = (currentHeroProgress - anim4Start) / (anim4End - anim4Start);
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3) + Math.floor(subProgress * (frameCount4 - 1));
+            } else if (currentHeroProgress >= anim5Start && currentHeroProgress <= anim5End) {
+                const subProgress = (currentHeroProgress - anim5Start) / (anim5End - anim5Start);
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4) + Math.floor(subProgress * (frameCount5 - 1));
+            } else if (currentHeroProgress >= anim6Start) {
+                const subProgress = Math.min(1, (currentHeroProgress - anim6Start) / (anim6End - anim6Start));
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5) + Math.floor(subProgress * (frameCount6 - 1));
+            } else {
+                // Return last index of folder 5 for the gaps/video sections
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5) - 1;
             }
-            
-            // Allow re-triggering if user scrolls back up significantly
-            if (currentHeroProgress < 0.5) hasAutoScrolled = false;
-            
-            // Stage 1: Animation Frames (0.0 to 0.85)
-            const frameEndBoundary = 0.85;
-            let frameProgress = currentHeroProgress <= frameEndBoundary ? currentHeroProgress / frameEndBoundary : 1;
-            const frameIndex = Math.min(totalFrames - 1, Math.max(0, Math.floor(frameProgress * totalFrames)));
-            
-            // Render at normal scale (no zoom)
+
+            // Render Frame
+            const frameIndex = Math.min(totalFrames - 1, Math.max(0, currentFrameIndex));
             if (heroImages[frameIndex] && heroImages[frameIndex].complete) {
                 renderHeroImage(heroImages[frameIndex], 1);
             }
 
-            // Stage 2 & 3: Video Reveal & Content Reveal - Triggered once reached
-            const introTrigger = 0.75;
-            if (currentHeroProgress >= introTrigger) {
-                if (heroWrapper) {
-                    if (!heroWrapper.classList.contains('reveal-video')) {
-                        heroWrapper.classList.add('reveal-video');
-                        if (heroImgEl && heroImgEl.paused) heroImgEl.play().catch(e => console.log(e));
+            // --- Dark & Bloom Overlay management ---
+            const darkOverlay = document.getElementById('dark-overlay');
+            const bloomOverlay = document.getElementById('bloom-overlay');
+
+            if (currentHeroProgress >= anim4Start) {
+                // Apply overlay for Folder 4 and 6+, but remove specifically for Folder 5
+                if (currentHeroProgress >= anim5Start && currentHeroProgress < anim5End) {
+                    if (darkOverlay) darkOverlay.style.opacity = 0;
+                } else {
+                    if (darkOverlay) darkOverlay.style.opacity = 0.4;
+                }
+
+                // 1. Mask junction between frame 110 and 111 (Sky change)
+                if (bloomOverlay) {
+                    const junctionP1 = 0.519; // Updated global P for frame 110
+                    const bloomRange1 = 0.04;
+
+                    if (Math.abs(currentHeroProgress - junctionP1) < bloomRange1 / 2) {
+                        const strength = 1 - (Math.abs(currentHeroProgress - junctionP1) / (bloomRange1 / 2));
+                        bloomOverlay.style.opacity = Math.pow(strength, 2) * 0.6;
                     }
-                    if (!heroWrapper.classList.contains('reveal-intro')) {
-                        heroWrapper.classList.add('reveal-intro');
+                    // 2. Mask junction between Folder 4 and Folder 5 (Switch point 0.65)
+                    else {
+                        bloomOverlay.style.opacity = 0;
                     }
                 }
             } else {
-                if (heroWrapper) {
-                    heroWrapper.classList.remove('reveal-video', 'reveal-intro');
-                    if (heroImgEl && !heroImgEl.paused) heroImgEl.pause();
+                if (darkOverlay) darkOverlay.style.opacity = 0;
+                if (bloomOverlay) bloomOverlay.style.opacity = 0;
+            }
+
+            // --- Cinematic Cross-Fade Transitions (Video Intro/Outro) ---
+            const videoFadeInStart = introTrigger;
+            const videoFadeInEnd = introTrigger + 0.05;
+            const videoFadeOutStart = anim4Start;
+            const videoFadeOutEnd = anim4Start + 0.05;
+
+            const video2FadeInStart = outroTrigger;
+            const video2FadeInEnd = outroTrigger + 0.05;
+            const video2FadeOutStart = anim6Start;
+            const video2FadeOutEnd = anim6Start + 0.02;
+
+            let videoOpacity = 0;
+
+            // First Reveal
+            if (currentHeroProgress >= videoFadeInStart && currentHeroProgress <= videoFadeOutEnd) {
+                if (currentHeroProgress <= videoFadeInEnd) {
+                    videoOpacity = (currentHeroProgress - videoFadeInStart) / (videoFadeInEnd - videoFadeInStart);
+                } else if (currentHeroProgress >= videoFadeOutStart) {
+                    videoOpacity = 1 - (currentHeroProgress - videoFadeOutStart) / (videoFadeOutEnd - videoFadeOutStart);
+                } else {
+                    videoOpacity = 1;
+                }
+            }
+            // Second Reveal (Outro -> Story -> Hold)
+            else if (currentHeroProgress >= video2FadeInStart && currentHeroProgress <= video2FadeOutEnd) {
+                if (currentHeroProgress <= video2FadeInEnd) {
+                    videoOpacity = (currentHeroProgress - video2FadeInStart) / (video2FadeInEnd - video2FadeInStart);
+                } else if (currentHeroProgress >= video2FadeOutStart) {
+                    videoOpacity = 1 - (currentHeroProgress - video2FadeOutStart) / (video2FadeOutEnd - video2FadeOutStart);
+                } else {
+                    videoOpacity = 1;
                 }
             }
 
-            // Update Navbar Items Visibility
+            if (heroImgEl) {
+                heroImgEl.style.opacity = videoOpacity;
+                if (videoOpacity > 0 && heroImgEl.paused) heroImgEl.play().catch(e => { });
+                else if (videoOpacity === 0 && !heroImgEl.paused) heroImgEl.pause();
+
+                // Show based on progress
+                const heroCD = document.getElementById('hero-countdown');
+                const heroStory = document.getElementById('hero-story-text');
+                const heroPhase = document.getElementById('hero-phase-text');
+
+                // Countdown Logic
+                if (heroCD) {
+                    if (currentHeroProgress >= cdRevealStart && currentHeroProgress <= cdFadeOutEnd) {
+                        let cdOp = 0;
+                        if (currentHeroProgress <= cdRevealEnd) {
+                            cdOp = (currentHeroProgress - cdRevealStart) / (cdRevealEnd - cdRevealStart);
+                        } else if (currentHeroProgress >= cdHoldEnd) {
+                            cdOp = 1 - (currentHeroProgress - cdHoldEnd) / (cdFadeOutEnd - cdHoldEnd);
+                        } else {
+                            cdOp = 1;
+                        }
+                        heroCD.style.opacity = cdOp;
+                        heroCD.style.transform = `translateY(${(1 - cdOp) * 20}px)`;
+                    } else {
+                        heroCD.style.opacity = 0;
+                    }
+                }
+
+                // Story Logic
+                if (heroStory) {
+                    if (currentHeroProgress >= storyRevealStart && currentHeroProgress <= cdFadeOutEnd + 0.15) {
+                        let storyOp = 0;
+                        if (currentHeroProgress <= storyRevealEnd) {
+                            storyOp = (currentHeroProgress - storyRevealStart) / (storyRevealEnd - storyRevealStart);
+                        } else if (currentHeroProgress >= holdZoneStart) {
+                            storyOp = 1 - (currentHeroProgress - holdZoneStart) / (anim6Start - holdZoneStart);
+                        } else {
+                            storyOp = 1;
+                        }
+                        heroStory.style.opacity = storyOp;
+                        heroStory.style.transform = `scale(${0.95 + (storyOp * 0.05)})`;
+                    } else {
+                        heroStory.style.opacity = 0;
+                    }
+                }
+
+                // Phase Logic (Appears in Folder 6)
+                if (heroPhase) {
+                    if (currentHeroProgress >= phaseRevealStart) {
+                        const phaseOp = (currentHeroProgress - phaseRevealStart) / (phaseRevealEnd - phaseRevealStart);
+                        heroPhase.style.opacity = phaseOp;
+                        heroPhase.style.scale = 0.9 + (phaseOp * 0.1);
+                    } else {
+                        heroPhase.style.opacity = 0;
+                    }
+                }
+            }
+
+            // Names Reveal (Intro Text) - Only in first video
+            const introFadeStart = introTrigger;
+            const introFadeEnd = introTrigger + 0.1;
+            const introOutStart = anim4Start - 0.05;
+            const introOutEnd = anim4Start;
+
+            let introOpacity = 0;
+            if (currentHeroProgress >= introFadeStart && currentHeroProgress <= introOutEnd) {
+                if (currentHeroProgress <= introFadeEnd) {
+                    introOpacity = (currentHeroProgress - introFadeStart) / (introFadeEnd - introFadeStart);
+                } else if (currentHeroProgress >= introOutStart) {
+                    introOpacity = 1 - (currentHeroProgress - introOutStart) / (introOutEnd - introOutStart);
+                } else {
+                    introOpacity = 1;
+                }
+            }
+            if (heroWrapper) {
+                if (introOpacity > 0.01) heroWrapper.classList.add('reveal-intro');
+                else heroWrapper.classList.remove('reveal-intro');
+                if (heroContentMainEl) heroContentMainEl.style.opacity = introOpacity;
+                if (heroNamesEl) heroNamesEl.style.opacity = introOpacity;
+            }
+
+            // --- 3D Countdown logic removed ---
+
+            // --- Multi-Stage Cinematic Celebration Reveal ---
+            const detailsEl = document.getElementById('celebration-details');
+            const detailsTitle = detailsEl ? detailsEl.querySelector('h2') : null;
+            const detailsDividier = detailsEl ? detailsEl.querySelector('div') : null;
+            const detailsItems = detailsEl ? detailsEl.querySelectorAll('p') : [];
+
+
+            if (currentHeroProgress >= revealInStart && currentHeroProgress < revealOutEnd) {
+                let revealProgress = 0;
+
+                if (currentHeroProgress <= revealInEnd) {
+                    // Phase 1: Fade In & Zoom In
+                    revealProgress = (currentHeroProgress - revealInStart) / (revealInEnd - revealInStart);
+                } else if (currentHeroProgress <= revealHoldEnd) {
+                    // Phase 2: HOLD (Stay fully visible)
+                    revealProgress = 1;
+                } else {
+                    // Phase 3: Fade Out
+                    revealProgress = 1 - (currentHeroProgress - revealHoldEnd) / (revealOutEnd - revealHoldEnd);
+                }
+
+                if (detailsEl) {
+                    detailsEl.style.opacity = revealProgress;
+                    detailsEl.style.pointerEvents = revealProgress > 0.1 ? 'auto' : 'none';
+
+                    const scale = 0.85 + (revealProgress * 0.15);
+                    const blur = (1 - revealProgress) * 10;
+                    detailsEl.style.transform = `scale(${scale})`;
+                    detailsEl.style.filter = `blur(${blur}px)`;
+                }
+
+                if (detailsTitle) detailsTitle.style.opacity = Math.min(1, revealProgress * 2);
+                if (detailsDividier) {
+                    detailsDividier.style.opacity = Math.min(1, Math.max(0, (revealProgress - 0.2) * 2));
+                    detailsDividier.style.width = `${Math.min(1, Math.max(0, (revealProgress - 0.2) * 2)) * 6}rem`;
+                }
+                detailsItems.forEach((p, i) => {
+                    const pProgress = Math.min(1, Math.max(0, (revealProgress - (0.1 * i)) * 2));
+                    p.style.opacity = pProgress;
+                });
+            } else {
+                if (detailsEl) {
+                    detailsEl.style.opacity = 0;
+                    detailsEl.style.pointerEvents = 'none';
+                    detailsEl.style.transform = 'scale(0.85)';
+                }
+            }
+
+            // Master canvas/darkness exit
+            if (currentHeroProgress >= 0.98) {
+                const finalExit = (currentHeroProgress - 0.98) / 0.02;
+                heroCanvas.style.opacity = 1 - finalExit;
+            } else {
+                heroCanvas.style.opacity = 1;
+            }
+
+            // Navbar items visibility
             const navLinks = document.getElementById('nav-links');
             if (navLinks) {
                 if (currentHeroProgress >= introTrigger) {
@@ -1213,6 +1777,7 @@
         // Floating Hearts Animation
         function createPetal() {
             const container = document.getElementById('petals-container');
+            if (!container) return;
             const petal = document.createElement('div');
             petal.classList.add('petal');
 
@@ -1321,6 +1886,10 @@
                 }
             };
 
+            updateEl('hero-cd-days', days);
+            updateEl('hero-cd-hours', hours);
+            updateEl('hero-cd-mins', minutes);
+            updateEl('hero-cd-secs', seconds);
             updateEl('days', days);
             updateEl('hours', hours);
             updateEl('mins', minutes);
@@ -1372,6 +1941,8 @@
             if (cursorX === -100) {
                 cursorX = mouseX;
                 cursorY = mouseY;
+                // Move immediately on first move
+                cursor.style.transform = `translate3d(${cursorX - 16}px, ${cursorY - 16}px, 0)`;
             }
 
             // Create trail on move
@@ -1447,6 +2018,7 @@
 
             cardIds.forEach((id, index) => {
                 const container = document.getElementById(id);
+                if (!container) return;
                 const canvas = document.getElementById(`scratch-${(index + 1)}`);
                 const inner = container.querySelector('.event-card-inner');
 
@@ -1481,11 +2053,11 @@
                 const isDark = document.documentElement.classList.contains('dark');
 
                 // Draw initial scratch layer (Themed colors)
-                ctx.fillStyle = isDark ? '#0f172a' : '#fdf2f2'; 
+                ctx.fillStyle = isDark ? '#0f172a' : '#fdf2f2';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 // Draw Decorative Diamond Pattern
-                ctx.fillStyle = isDark ? '#1e293b' : '#faedcd'; 
+                ctx.fillStyle = isDark ? '#1e293b' : '#faedcd';
                 const step = 40;
                 for (let i = 0; i < canvas.width + step; i += step) {
                     for (let j = 0; j < canvas.height + step; j += step) {
