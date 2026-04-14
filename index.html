@@ -1371,7 +1371,13 @@
         const heroCtx = heroCanvas.getContext('2d');
         const blackFadeEl = document.getElementById('black-fade');
         const heroImgEl = document.getElementById('final-hero-img');
-        if (heroImgEl) heroImgEl.playbackRate = 0.7; // Cinematic slow motion
+        if (heroImgEl) {
+            // Use mobile-specific video if screen width is 768px or less
+            if (window.innerWidth <= 768) {
+                heroImgEl.src = 'assets/mobile hero.mp4';
+            }
+            heroImgEl.playbackRate = 0.7; // Cinematic slow motion
+        }
         const heroContentMainEl = document.getElementById('hero-content-main');
         const heroNamesEl = document.getElementById('hero-names');
         const heroHeader = document.getElementById('hero-header');
