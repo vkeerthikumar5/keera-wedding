@@ -1201,12 +1201,14 @@
             const revealOutEnd = 0.50;
 
             const cdRevealStart = 0.65;
-            const cdRevealEnd = 0.70;
-            const cdHoldEnd = 0.75;
-            const cdFadeOutEnd = 0.78;
+            const cdRevealEnd = 0.68;
+            const cdHoldEnd = 0.70;
+            const cdFadeOutEnd = 0.73;
 
-            const storyRevealStart = 0.78;
-            const storyRevealEnd = 0.85;
+            const storyRevealStart = 0.73;
+            const storyRevealEnd = 0.76;
+            const storyFadeOutStart = 0.80;
+            const storyFadeOutEnd = 0.83;
 
             const videoSectionHold = 0.90; 
             
@@ -1378,9 +1380,6 @@
 
                 // 2. Story Logic (Scrubbed Fade-Away)
                 if (heroStory) {
-                    const storyFadeOutStart = 0.77;
-                    const storyFadeOutEnd = 0.82; // Fully gone before Folder 6 starts at 0.82
-
                     if (currentHeroProgress >= storyRevealStart && currentHeroProgress <= storyFadeOutEnd) {
                         let storyOp = 0;
                         if (currentHeroProgress <= storyRevealEnd) {
