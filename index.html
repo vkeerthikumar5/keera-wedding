@@ -1035,7 +1035,8 @@
                 return `assets/6/ezgif-frame-${index6.toString().padStart(3, '0')}.jpg`;
             } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1) {
                 const iLS1 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6);
-                return `assets/ls1/ezgif-frame-${iLS1.toString().padStart(3, '0')}.jpg`;
+                const ls1Folder = window.innerWidth < 768 ? 'ls 1 mob' : 'ls1';
+                return `assets/${ls1Folder}/ezgif-frame-${iLS1.toString().padStart(3, '0')}.jpg`;
             } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2) {
                 const iLS2 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1);
                 return `assets/ls2/ezgif-frame-${iLS2.toString().padStart(3, '0')}.jpg`;
@@ -1047,7 +1048,8 @@
                 return `assets/ls4/ezgif-frame-${iLS4.toString().padStart(3, '0')}.jpg`;
             } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5) {
                 const iLS5 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4);
-                return `assets/ls5/ezgif-frame-${iLS5.toString().padStart(3, '0')}.jpg`;
+                const ls5Folder = window.innerWidth < 768 ? 'ls 5 mob' : 'ls5';
+                return `assets/${ls5Folder}/ezgif-frame-${iLS5.toString().padStart(3, '0')}.jpg`;
             } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1) {
                 const iOut1 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5);
                 return `assets/out1/ezgif-frame-${iOut1.toString().padStart(3, '0')}.jpg`;
@@ -1143,10 +1145,10 @@
             // --- Multi-Stage Progression Logic (1800vh Timeline) ---
             const anim123End = 0.20;
             const introTrigger = 0.20;
-            const anim4Start = 0.35;
-            const anim4End = 0.50;
-            const anim5Start = 0.50;
-            const anim5End = 0.65;
+            const anim4Start = 0.28; // Reduced from 0.35 to remove waiting time
+            const anim4End = 0.43;   // Shifted accordingly (was 0.50)
+            const anim5Start = 0.43;  // Shifted accordingly (was 0.50)
+            const anim5End = 0.58;   // Shifted accordingly (was 0.65)
 
             const outroTrigger = 0.65;
             const outroEnd = 0.89; // Adjusted for Folder 6
@@ -1262,8 +1264,12 @@
             const bloomOverlay = document.getElementById('hero-bloom-overlay');
 
             if (currentHeroProgress >= anim4Start) {
-                // Apply overlay for Folder 4 and 6+, but remove specifically for Folder 5
-                if ((currentHeroProgress >= anim5Start && currentHeroProgress < anim5End) || currentHeroProgress >= startOut1) {
+                // Apply overlay for most folders, but remove specifically for Folder 5, LS1, LS2, and Outro sections
+                const isLS1or2 = currentHeroProgress >= startLS1 && currentHeroProgress < endLS2;
+                const isFolder5 = currentHeroProgress >= anim5Start && currentHeroProgress < anim5End;
+                const isOutro = currentHeroProgress >= startOut1;
+
+                if (isFolder5 || isLS1or2 || isOutro) {
                     if (darkOverlay) darkOverlay.style.opacity = 0;
                 } else {
                     if (darkOverlay) darkOverlay.style.opacity = 0.4;
@@ -1394,70 +1400,76 @@
 
                 // 3. LS1 & LS2 Story Details (Scrubbed Frame-Based)
                 const heroLS = document.getElementById('hero-story-details');
-                if (heroLS && currentHeroProgress >= startLS1) {
-                    let lsProgress, currentFrame, title, date, desc, startF, endF;
+                if (heroLS) {
+                    if (currentHeroProgress >= startLS1) {
+                        let lsProgress, currentFrame, title, date, desc, startF, endF;
 
-                    if (currentHeroProgress < startLS2) {
-                        lsProgress = (currentHeroProgress - startLS1) / (endLS1 - startLS1);
-                        currentFrame = lsProgress * frameCountLS1;
-                        title = "First Met";
-                        date = "06 JUL 2023";
-                        desc = "Tambaram Railway Station — where fate introduced two hearts";
-                        startF = ls1TextStartFrame;
-                        endF = ls1TextEndFrame;
-                    } else if (currentHeroProgress < startLS3) {
-                        lsProgress = (currentHeroProgress - startLS2) / (endLS2 - startLS2);
-                        currentFrame = lsProgress * frameCountLS2;
-                        title = "He Proposed";
-                        date = "12 AUG 2023";
-                        desc = "On bended knee, roses in hand — a moment of forever";
-                        startF = ls2TextStartFrame;
-                        endF = ls2TextEndFrame;
-                    } else if (currentHeroProgress < startLS4) {
-                        lsProgress = (currentHeroProgress - startLS3) / (endLS3 - startLS3);
-                        currentFrame = lsProgress * frameCountLS3;
-                        title = "She Proposed";
-                        date = "15 SEP 2023";
-                        desc = "At the temple, under divine blessings — she said yes!";
-                        startF = ls3TextStartFrame;
-                        endF = ls3TextEndFrame;
-                    } else if (currentHeroProgress < startLS5) {
-                        lsProgress = (currentHeroProgress - startLS4) / (endLS4 - startLS4);
-                        currentFrame = lsProgress * frameCountLS4;
-                        title = "Reception";
-                        date = "16 JUN 2026";
-                        desc = "A night of joy, celebration & love — 6:30 PM Onwards";
-                        startF = ls4TextStartFrame;
-                        endF = ls4TextEndFrame;
+                        if (currentHeroProgress < startLS2) {
+                            lsProgress = (currentHeroProgress - startLS1) / (endLS1 - startLS1);
+                            currentFrame = lsProgress * frameCountLS1;
+                            title = "First Met";
+                            date = "06 JUL 2023";
+                            desc = "Tambaram Railway Station — where fate introduced two hearts";
+                            startF = ls1TextStartFrame;
+                            endF = ls1TextEndFrame;
+                        } else if (currentHeroProgress < startLS3) {
+                            lsProgress = (currentHeroProgress - startLS2) / (endLS2 - startLS2);
+                            currentFrame = lsProgress * frameCountLS2;
+                            title = "He Proposed";
+                            date = "12 AUG 2023";
+                            desc = "On bended knee, roses in hand — a moment of forever";
+                            startF = ls2TextStartFrame;
+                            endF = ls2TextEndFrame;
+                        } else if (currentHeroProgress < startLS4) {
+                            lsProgress = (currentHeroProgress - startLS3) / (endLS3 - startLS3);
+                            currentFrame = lsProgress * frameCountLS3;
+                            title = "She Proposed";
+                            date = "15 SEP 2023";
+                            desc = "At the temple, under divine blessings — she said yes!";
+                            startF = ls3TextStartFrame;
+                            endF = ls3TextEndFrame;
+                        } else if (currentHeroProgress < startLS5) {
+                            lsProgress = (currentHeroProgress - startLS4) / (endLS4 - startLS4);
+                            currentFrame = lsProgress * frameCountLS4;
+                            title = "Reception";
+                            date = "16 JUN 2026";
+                            desc = "A night of joy, celebration & love — 6:30 PM Onwards";
+                            startF = ls4TextStartFrame;
+                            endF = ls4TextEndFrame;
+                        } else {
+                            lsProgress = (currentHeroProgress - startLS5) / (endLS5 - startLS5);
+                            currentFrame = lsProgress * frameCountLS5;
+                            title = "Kalyanam";
+                            date = "17 JUN 2026";
+                            desc = "Forever begins at dawn — 6:00 to 7:30 AM";
+                            startF = ls5TextStartFrame;
+                            endF = ls5TextEndFrame;
+                        }
+
+                        // Update contents
+                        const titleEl = document.getElementById('ls-title');
+                        const dateEl = document.getElementById('ls-date');
+                        const descEl = document.getElementById('ls-desc');
+                        if (titleEl && titleEl.innerText !== title) titleEl.innerText = title;
+                        if (dateEl && dateEl.innerText !== date) dateEl.innerText = date;
+                        if (descEl && descEl.innerText !== desc) descEl.innerText = desc;
+                        
+                        if (currentFrame >= startF && currentFrame <= endF) {
+                            const textWindowProgress = (currentFrame - startF) / (endF - startF);
+                            let opacity = 0;
+                            if (textWindowProgress < 0.2) opacity = textWindowProgress / 0.2;
+                            else if (textWindowProgress > 0.8) opacity = (1 - textWindowProgress) / 0.2;
+                            else opacity = 1;
+
+                            heroLS.style.opacity = opacity;
+                            heroLS.style.transform = `scale(${0.9 + (opacity * 0.1)})`;
+                            heroLS.style.pointerEvents = opacity > 0.1 ? 'auto' : 'none';
+                        } else {
+                            heroLS.style.opacity = 0;
+                            heroLS.style.pointerEvents = 'none';
+                        }
                     } else {
-                        lsProgress = (currentHeroProgress - startLS5) / (endLS5 - startLS5);
-                        currentFrame = lsProgress * frameCountLS5;
-                        title = "Kalyanam";
-                        date = "17 JUN 2026";
-                        desc = "Forever begins at dawn — 6:00 to 7:30 AM";
-                        startF = ls5TextStartFrame;
-                        endF = ls5TextEndFrame;
-                    }
-
-                    // Update contents
-                    const titleEl = document.getElementById('ls-title');
-                    const dateEl = document.getElementById('ls-date');
-                    const descEl = document.getElementById('ls-desc');
-                    if (titleEl && titleEl.innerText !== title) titleEl.innerText = title;
-                    if (dateEl && dateEl.innerText !== date) dateEl.innerText = date;
-                    if (descEl && descEl.innerText !== desc) descEl.innerText = desc;
-                    
-                    if (currentFrame >= startF && currentFrame <= endF) {
-                        const textWindowProgress = (currentFrame - startF) / (endF - startF);
-                        let opacity = 0;
-                        if (textWindowProgress < 0.2) opacity = textWindowProgress / 0.2;
-                        else if (textWindowProgress > 0.8) opacity = (1 - textWindowProgress) / 0.2;
-                        else opacity = 1;
-
-                        heroLS.style.opacity = opacity;
-                        heroLS.style.transform = `scale(${0.9 + (opacity * 0.1)})`;
-                        heroLS.style.pointerEvents = opacity > 0.1 ? 'auto' : 'none';
-                    } else {
+                        // Reset when scrolling backwards before LS1
                         heroLS.style.opacity = 0;
                         heroLS.style.pointerEvents = 'none';
                     }
@@ -1500,8 +1512,8 @@
 
             // Names Reveal (Intro Text) - Only in first video
             const introFadeStart = introTrigger;
-            const introFadeEnd = introTrigger + 0.1;
-            const introOutStart = anim4Start - 0.05;
+            const introFadeEnd = introTrigger + 0.04;
+            const introOutStart = anim4Start - 0.03;
             const introOutEnd = anim4Start;
 
             let introOpacity = 0;
