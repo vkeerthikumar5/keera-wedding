@@ -717,37 +717,15 @@
 
 
 
-    <!-- Navigation Bar -->
-    <nav id="navbar"
-        class="fixed top-0 w-full z-50 transition-all duration-300 md:px-12 py-4 flex justify-between items-center text-white">
-        <div id="navbar-logo" class="ml-4 transition-all duration-300">
-            <img src="assets/logo.png" alt="Logo" class="h-12 md:h-14 w-auto drop-shadow-lg">
-        </div>
-        <div id="nav-links"
-            class="hidden md:flex space-x-8 uppercase tracking-widest text-sm font-semibold opacity-0 transition-opacity duration-700">
-            <a href="#countdown" class="hover:text-primary transition">Countdown</a>
-            <a href="#message" class="hover:text-primary transition">Invitation</a>
-            <a href="#venue" class="hover:text-primary transition">Venue</a>
-        </div>
 
-        <button id="mobile-menu-btn" class="md:hidden mr-4 text-3xl focus:outline-none">☰</button>
-    </nav>
 
-    <!-- Mobile Menu Drawer -->
-    <div id="mobile-menu"
-        class="fixed inset-0 z-[60] bg-[#050811]/98 flex flex-col items-center justify-center space-y-8 text-center transition-all duration-500 opacity-0 pointer-events-none transform translate-x-full">
-        <button id="close-menu-btn" class="absolute top-10 right-10 text-white text-4xl">&times;</button>
-        <a href="#countdown"
-            class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Countdown</a>
-        <a href="#events"
-            class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Invitation</a>
-        <a href="#message" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Our
-            Story</a>
-        <a href="#venue" class="mobile-nav-link text-2xl text-white font-serif uppercase tracking-widest">Venue</a>
+    <!-- Persistent Top-Left Logo -->
+    <div class="fixed top-6 left-6 md:top-8 md:left-10 z-[60] pointer-events-none transition-all duration-700">
+        <img src="assets/logo.png" alt="Wedding Logo" class="h-10 md:h-14 w-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
     </div>
 
     <!-- KEERA 2.0 Hero Section (Fixed Background + Reveal Logic) -->
-    <div class="hero-scroll-wrapper relative w-full" style="height: 1800vh;">
+    <div class="hero-scroll-wrapper relative w-full" style="height: 2600vh;">
         <!-- Fixed Container: Stays in place while the rest of the page slides OVER it -->
         <div class="scroll-container fixed top-0 left-0 h-screen w-full overflow-hidden bg-[#050811] z-0">
             <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover z-[1]"></canvas>
@@ -763,8 +741,8 @@
                     <source src="assets/new hero.mp4" type="video/mp4">
                 </video>
                 <div class="noise-overlay absolute inset-0 z-[3] pointer-events-none opacity-[0.12]"></div>
-                <div id="bloom-overlay" class="absolute inset-0 z-[12] pointer-events-none opacity-0"></div>
-                <div id="dark-overlay" class="absolute inset-0 z-[11] pointer-events-none opacity-0 bg-black"></div>
+                <div id="hero-bloom-overlay" class="absolute inset-0 z-[12] pointer-events-none opacity-0 bg-white/20"></div>
+                <div id="hero-dark-overlay" class="absolute inset-0 z-[11] pointer-events-none opacity-0 bg-black"></div>
 
                 <div id="hero-content-main"
                     class="absolute inset-x-0 top-[38%] z-[4] flex flex-col items-center justify-center text-center px-4 opacity-0 pointer-events-none">
@@ -813,7 +791,7 @@
 
             <!-- Stylized Celebration Details (Appears like Names) -->
             <div id="celebration-details"
-                class="absolute inset-0 z-[10] opacity-0 pointer-events-none flex flex-col items-center justify-center text-center px-4 transition-all duration-1000">
+                class="absolute inset-0 z-[10] opacity-0 pointer-events-none flex flex-col items-center justify-center text-center px-4">
                 <h2
                     class="text-white text-[2.5rem] md:text-[5rem] font-['Great_Vibes'] leading-tight mb-6 drop-shadow-2xl">
                     Celebrations
@@ -831,7 +809,7 @@
 
             <!-- Hero Countdown Overlay (Matches Section @ Line 921) -->
             <div id="hero-countdown"
-                class="absolute inset-0 z-[15] opacity-0 pointer-events-none flex flex-col items-center justify-center text-center px-4 transition-all duration-700">
+                class="absolute inset-0 z-[15] opacity-0 pointer-events-none flex flex-col items-center justify-center text-center px-4">
 
                 <!-- Headers moved up slightly & made smaller -->
                 <div class="mb-4 md:mb-12">
@@ -885,9 +863,14 @@
                 </div>
             </div>
 
+            <!-- Loop Masking Overlay (to hide MP4 loop snap) -->
+            <div id="video-loop-mask"
+                class="absolute inset-0 z-[10] bg-black opacity-0 pointer-events-none transition-opacity duration-500">
+            </div>
+
             <!-- Elite "Journey through our love story" Reveal -->
             <div id="hero-story-text"
-                class="absolute inset-x-0 inset-y-0 z-[16] opacity-0 pointer-events-none flex items-center justify-center p-4 transition-all duration-1000">
+                class="absolute inset-x-0 inset-y-0 z-[16] opacity-0 pointer-events-none flex items-center justify-center p-4">
                 <div class="flex flex-col items-center justify-center text-center">
                     <span
                         class="text-[0.6rem] md:text-sm font-serif uppercase tracking-[0.6em] text-amber-100/70 mb-4 drop-shadow-lg">
@@ -901,425 +884,50 @@
                 </div>
             </div>
 
-            <!-- KeeRa Dev Phase Reveal -->
-            <div id="hero-phase-text"
-                class="absolute inset-0 z-[17] opacity-0 pointer-events-none flex flex-col items-center justify-center text-center px-4 transition-all duration-1000">
-                <p class="text-amber-100/70 text-sm md:text-xl font-serif uppercase tracking-[0.4em] mb-4">
-                    Phase 2 of KeeRa Development is now completed.
-                </p>
-                <h3
-                    class="text-white text-[2rem] md:text-[5rem] font-['Great_Vibes'] drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
-                    Working on Phase 3
-                </h3>
-                <div class="h-px w-32 bg-amber-200/30 mx-auto mt-8"></div>
+            <div id="hero-story-details"
+                class="absolute inset-x-0 inset-y-0 z-[18] opacity-0 pointer-events-none flex items-center justify-center p-6">
+                <div class="flex flex-col items-center justify-center text-center max-w-4xl">
+                    <h3 id="ls-title"
+                        class="text-[2rem] md:text-6xl font-['Great_Vibes'] text-amber-200 leading-tight mb-2 drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
+                        First Met
+                    </h3>
+                    <p id="ls-date" class="text-[0.6rem] md:text-base font-bold text-white/40 uppercase tracking-[0.4em] md:tracking-[0.6em] mb-4 md:mb-8 drop-shadow-md">
+                        06 JUL 2023
+                    </p>
+                    <div class="h-[0.5px] w-12 md:w-32 bg-gradient-to-r from-transparent via-amber-200/20 to-transparent mx-auto mb-6 md:mb-10"></div>
+                    <p id="ls-desc" class="text-sm md:text-2xl font-['Playfair_Display'] italic font-medium text-white/90 leading-relaxed px-4 md:px-12 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] max-w-3xl">
+                        Tambaram Railway Station — where fate introduced two hearts
+                    </p>
+                </div>
             </div>
 
-            <!-- Loop Masking Overlay (to hide MP4 loop snap) -->
-            <div id="video-loop-mask"
-                class="absolute inset-0 z-[10] bg-black opacity-0 pointer-events-none transition-opacity duration-500">
+            <!-- Final Outro Reveal (Full Screen) -->
+            <div id="final-black-fader" class="absolute inset-0 z-[25] bg-black opacity-0 pointer-events-none"></div>
+            <div id="final-hero-reveal" class="absolute inset-0 z-[26] opacity-0 pointer-events-none flex flex-col items-center justify-end pb-12 px-8">
+                <!-- Background Image (Full Screen) -->
+                <img src="assets/hero.png" alt="Wedding Couple" class="absolute inset-0 w-full h-full object-cover">
+                
+                <!-- Stronger bottom gradient for text readability -->
+                <div class="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/90"></div>
+                
+                <!-- Content brought down further -->
+                <div class="relative z-[27] flex flex-col items-center justify-center text-center max-w-3xl">
+                    <p class="text-[1.8rem] md:text-4xl font-['Great_Vibes'] text-white mb-8 drop-shadow-[0_2px_10px_rgba(0,0,0,1)] leading-relaxed">
+                        We look forward to celebrating with you—your presence means everything.
+                    </p>
+                    <a href="https://www.google.com/maps/place/465F%2BQPW+Perarignar+Anna+Marriage+Hall,+Gandhi+Nagar,+General+Kumaramangalam+Colony,+Perambur,+Chennai,+Tamil+Nadu+600082/data=!4m2!3m1!1s0x3a52650073996035:0x640bf16b248882c3!17m2!4m1!1e3!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBjI2LjYuMRgAIIgnKpMBLDk0MjY3NzI3LDk0Mjc1NDA3LDk0MjkyMTk1LDk0Mjk5NTMyLDEwMDc5NjQ5Miw5NDI4NDQ4NCw5NDI4MDU3Niw5NDI4MDU3Niw5NDIwNzM5NCw5NDIwNzUwNiw5NDIwODUwNiw5NDIxODY1Myw5NDIyOTgzOSw5NDI3NTE2OCw5NDI3OTYxOSwxMDA3OTI1NjgsMTAwNzkxNDc5QgJJTg%3D%3D&skid=86f2d3fa-5893-4b07-bb56-1da3e38a4bd8&g_st=aw" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       style="background-color: white !important; color: black !important;"
+                       class="inline-flex items-center justify-center px-8 py-2.5 bg-white text-black text-[10px] md:text-[11px] font-bold uppercase tracking-[0.25em] rounded-full shadow-2xl transition-all hover:scale-105 active:scale-95">
+                        Get Directions
+                    </a>
+                </div>
             </div>
 
             <div id="petals-container" class="absolute inset-0 z-20 pointer-events-none"></div>
         </div>
     </div>
-
-    <!-- Invitation Section -->
-    <section id="events" class="py-24 bg-[#0b1221] relative z-20 overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-        <div class="container mx-auto px-4 relative z-10">
-            <h2 class="text-center text-4xl font-serif text-primary mb-16 uppercase tracking-[0.2em] reveal">The
-                Celebration</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Event Card 1 -->
-                <div class="event-card-container reveal" id="event-1">
-                    <div class="event-card-inner">
-                        <!-- Front (Cover) -->
-                        <div class="event-card-front gpay-style p-10 shimmer-gold">
-                            <!-- Golden Floral Arcs -->
-                            <div class="absolute top-0 right-0 p-4 floral-arc">
-                                <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
-                                    class="transform rotate-90">
-                                    <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
-                                        stroke-dasharray="4 4" />
-                                    <circle cx="90" cy="10" r="4" fill="currentColor" />
-                                    <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
-                                </svg>
-                            </div>
-                            <div class="absolute bottom-0 left-0 p-4 floral-arc">
-                                <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
-                                    class="transform -rotate-90">
-                                    <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
-                                        stroke-dasharray="4 4" />
-                                    <circle cx="90" cy="10" r="4" fill="currentColor" />
-                                    <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
-                                </svg>
-                            </div>
-
-                            <div class="absolute inset-4 border-2 border-white/40 rounded-xl pointer-events-none"></div>
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" class="heart-icon mb-4">
-                                <path
-                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                                    fill="currentColor" />
-                            </svg>
-                            <h3 class="text-3xl font-script text-center">Hover to View <br> Reception Details</h3>
-                        </div>
-                        <!-- Back (Information) -->
-                        <div class="event-card-back glass p-10 bg-white/5 border border-white/10 shadow-xl">
-                            <h3 class="text-2xl font-script text-white mb-4 text-5xl">Reception</h3>
-                            <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
-                            <p class="font-bold text-white/80 tracking-widest mb-2 uppercase text-lg">16 June 2026</p>
-                            <p class="text-white/60 mb-6 text-xl">Tuesday · 6:30 PM Onwards</p>
-                        </div>
-                    </div>
-                    <canvas class="scratch-canvas hidden" id="scratch-1"></canvas>
-                </div>
-
-                <!-- Event Card 2 -->
-                <div class="event-card-container reveal delay-200" id="event-2">
-                    <div class="event-card-inner">
-                        <!-- Front (Cover) -->
-                        <div class="event-card-front gpay-style p-10 shimmer-gold">
-                            <!-- Golden Floral Arcs -->
-                            <div class="absolute top-0 right-0 p-4 floral-arc">
-                                <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
-                                    class="transform rotate-90">
-                                    <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
-                                        stroke-dasharray="4 4" />
-                                    <circle cx="90" cy="10" r="4" fill="currentColor" />
-                                    <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
-                                </svg>
-                            </div>
-                            <div class="absolute bottom-0 left-0 p-4 floral-arc">
-                                <svg width="80" height="80" viewBox="0 0 100 100" fill="none"
-                                    class="transform -rotate-90">
-                                    <path d="M10 90C10 50 50 10 90 10" stroke="currentColor" stroke-width="2"
-                                        stroke-dasharray="4 4" />
-                                    <circle cx="90" cy="10" r="4" fill="currentColor" />
-                                    <path d="M30 90C30 70 70 30 90 30" stroke="currentColor" stroke-width="1" />
-                                </svg>
-                            </div>
-
-                            <div class="absolute inset-4 border-2 border-white/40 rounded-xl pointer-events-none"></div>
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" class="heart-icon mb-4">
-                                <path
-                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                                    fill="currentColor" />
-                            </svg>
-                            <h3 class="text-3xl font-script text-center">Hover to View <br> Muhurtham Details</h3>
-                        </div>
-                        <!-- Back (Information) -->
-                        <div class="event-card-back glass p-10 bg-white/5 border border-white/10 shadow-xl">
-                            <h3 class="text-2xl font-script text-white mb-4 text-5xl">Muhurtham</h3>
-                            <div class="h-px w-20 bg-primary/30 mx-auto mb-6"></div>
-                            <p class="font-bold text-white/80 tracking-widest mb-2 uppercase text-lg">17 June 2026</p>
-                            <p class="text-white/60 mb-6 text-xl">Wednesday · 6:00 – 7:30 AM</p>
-                        </div>
-                    </div>
-                    <canvas class="scratch-canvas hidden" id="scratch-2"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Countdown Section -->
-    <section id="countdown"
-        class="relative min-h-screen w-full flex flex-col justify-between overflow-hidden text-white z-20">
-        <!-- Fixed Parallax Background -->
-        <div class="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
-            style="background-image: url('assets/count-down.png');">
-            <!-- Gradient Overlay: Darker at top/bottom, clear in middle -->
-            <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-transparent to-black/95"></div>
-        </div>
-
-        <!-- Top Text (Heading) -->
-        <div class="container mx-auto px-4 text-center relative z-10 pt-32 reveal">
-            <h3
-                class="text-3xl md:text-5xl font-serif uppercase tracking-[0.3em] mb-4 opacity-95 drop-shadow-2xl text-primary">
-                — Counting Down —</h3>
-            <p class="text-xl md:text-3xl font-light italic opacity-90 drop-shadow-lg">The Big Day is almost here!</p>
-            <div class="h-px w-24 bg-primary/30 mx-auto mt-8"></div>
-        </div>
-
-        <!-- Empty Middle (Faces clear) -->
-        <div class="flex-1"></div>
-
-        <!-- Bottom Text (Timer & Note) -->
-        <div class="container mx-auto px-4 text-center relative z-10 pb-20 reveal">
-            <div class="flex justify-center flex-wrap gap-4 md:gap-12 mb-8">
-                <div class="flex flex-col items-center">
-                    <span id="days" class="text-5xl md:text-8xl font-bold mb-2 tabular-nums drop-shadow-2xl">00</span>
-                    <span class="uppercase tracking-widest text-xs opacity-80">Days</span>
-                </div>
-                <div class="text-3xl md:text-5xl font-light opacity-30 mt-4">:</div>
-                <div class="flex flex-col items-center">
-                    <span id="hours" class="text-5xl md:text-8xl font-bold mb-2 tabular-nums drop-shadow-2xl">00</span>
-                    <span class="uppercase tracking-widest text-xs opacity-80">Hours</span>
-                </div>
-                <div class="text-3xl md:text-5xl font-light opacity-30 mt-4">:</div>
-                <div class="flex flex-col items-center">
-                    <span id="mins" class="text-5xl md:text-8xl font-bold mb-2 tabular-nums drop-shadow-2xl">00</span>
-                    <span class="uppercase tracking-widest text-xs opacity-80">Minutes</span>
-                </div>
-                <div class="text-3xl md:text-5xl font-light opacity-30 mt-4">:</div>
-                <div class="flex flex-col items-center">
-                    <span id="secs" class="text-5xl md:text-8xl font-bold mb-2 tabular-nums drop-shadow-2xl">00</span>
-                    <span class="uppercase tracking-widest text-xs opacity-80">Seconds</span>
-                </div>
-            </div>
-
-            <p class="text-sm md:text-lg tracking-[0.3em] font-light uppercase opacity-80 drop-shadow-md">
-                Counting down to Reception — 16 June 2026, Chennai
-            </p>
-        </div>
-    </section>
-
-    <!-- Story Timeline Section -->
-    <section id="message" class="min-h-screen py-32 bg-[#050811] relative z-20 overflow-hidden px-4 md:px-12">
-        <h2 class="text-center text-5xl font-serif text-primary mb-20 uppercase tracking-[0.3em] reveal">Our Story</h2>
-
-        <div class="flex flex-wrap justify-center items-center gap-8 max-w-7xl mx-auto relative">
-            <!-- 1. First Met -->
-            <div class="story-card flex flex-col items-center w-full md:w-64">
-                <div
-                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
-                    <img src="assets/1.png" class="w-full h-full object-cover">
-                </div>
-                <h3 class="text-2xl font-script text-primary mb-1">First Met</h3>
-                <p class="text-xs font-bold text-white/30 mb-2 uppercase tracking-widest">06 JUL 2023</p>
-                <p class="text-sm italic text-center text-white/60 px-4">Tambaram Railway Station — where fate
-                    introduced two hearts</p>
-            </div>
-
-            <!-- Arrow 1 -->
-            <div class="hidden lg:flex reveal-arrow self-center -mx-4 justify-center">
-                <svg width="60" height="40" viewBox="0 0 60 40" fill="none"
-                    class="text-primary/40 animate-pulse min-w-[60px]">
-                    <path d="M2 20H50M50 20L40 10M50 20L40 30" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" />
-                    <path
-                        d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
-                        fill="currentColor" />
-                </svg>
-            </div>
-
-            <!-- 2. He Proposed -->
-            <div class="story-card flex flex-col items-center w-full md:w-64">
-                <div
-                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
-                    <img src="assets/2.png" class="w-full h-full object-cover">
-                </div>
-                <h3 class="text-2xl font-script text-primary mb-1 text-center">He Proposed</h3>
-                <p class="text-xs font-bold text-stone-400 mb-2 uppercase tracking-widest">12 AUG 2023</p>
-                <p class="text-sm italic text-center text-stone-600 px-4">On bended knee, roses in hand — a moment of
-                    forever</p>
-            </div>
-
-            <!-- Arrow 2 -->
-            <div class="hidden lg:flex reveal-arrow self-center -mx-4 justify-center">
-                <svg width="60" height="40" viewBox="0 0 60 40" fill="none"
-                    class="text-primary/40 animate-pulse min-w-[60px]">
-                    <path d="M2 20H50M50 20L40 10M50 20L40 30" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" />
-                    <path
-                        d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
-                        fill="currentColor" />
-                </svg>
-            </div>
-
-            <!-- 3. She Proposed -->
-            <div class="story-card flex flex-col items-center w-full md:w-64">
-                <div
-                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
-                    <img src="assets/3.png" class="w-full h-full object-cover">
-                </div>
-                <h3 class="text-2xl font-script text-primary mb-1 text-center">She Proposed</h3>
-                <p class="text-xs font-bold text-stone-400 mb-2 uppercase tracking-widest">15 SEP 2023</p>
-                <p class="text-sm italic text-center text-stone-600 px-4">At the temple, under divine blessings — she
-                    said yes!</p>
-            </div>
-
-            <!-- Arrow 3 -->
-            <div class="hidden lg:flex reveal-arrow self-center -mx-4 justify-center">
-                <svg width="60" height="40" viewBox="0 0 60 40" fill="none"
-                    class="text-primary/40 animate-pulse min-w-[60px]">
-                    <path d="M2 20H50M50 20L40 10M50 20L40 30" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" />
-                    <path
-                        d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
-                        fill="currentColor" />
-                </svg>
-            </div>
-
-            <!-- 4. Reception -->
-            <div class="story-card flex flex-col items-center w-full md:w-64">
-                <div
-                    class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
-                    <img src="assets/4.png" class="w-full h-full object-cover">
-                </div>
-                <h3 class="text-2xl font-script text-primary mb-1 text-center">Reception</h3>
-                <p class="text-xs font-bold text-stone-400 mb-2 uppercase tracking-widest">16 JUN 2026</p>
-                <p class="text-sm italic text-center text-stone-600 px-4">A night of joy, celebration & love — 6:30 PM
-                    Onwards</p>
-            </div>
-
-            <!-- Arrow 4 -->
-            <div class="hidden lg:flex reveal-arrow self-center -mx-4 justify-center">
-                <svg width="60" height="40" viewBox="0 0 60 40" fill="none"
-                    class="text-primary/40 animate-pulse min-w-[60px]">
-                    <path d="M2 20H50M50 20L40 10M50 20L40 30" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" />
-                    <path
-                        d="M25 15C25 12.2386 27.2386 10 30 10C32.7614 10 35 12.2386 35 15C35 22 30 28 30 28C30 28 25 22 25 15Z"
-                        fill="currentColor" />
-                </svg>
-                <!-- 5. Kalyanam -->
-                <div class="story-card flex flex-col items-center w-full md:w-64">
-                    <div
-                        class="w-48 h-48 rounded-full overflow-hidden border-4 border-primary shadow-2xl mb-6 transform hover:scale-110 transition-transform">
-                        <img src="assets/5.png" class="w-full h-full object-cover">
-                    </div>
-                    <h3
-                        class="text-2xl font-script text-white mb-1 text-center underline decoration-primary underline-offset-4">
-                        Kalyanam </h3>
-                    <p class="text-xs font-bold text-primary mb-2 uppercase tracking-widest">17 JUN 2026</p>
-                    <p class="text-sm italic text-center text-white/80 px-4">Forever begins at dawn — 6:00 to 7:30 AM
-                    </p>
-                </div>
-            </div>
-    </section>
-
-    <!-- Save The Date Section -->
-    <section id="save-the-date"
-        class="relative min-h-screen w-full bg-[#0b1221] relative z-20 flex flex-col justify-center items-center pt-24 pb-12">
-        <div class="max-w-4xl mx-auto px-6 reveal flex flex-col items-center text-center">
-            <h2 class="text-3xl md:text-4xl font-serif text-primary mb-6 uppercase tracking-[0.2em]">Save The Date</h2>
-            <div class="mb-8">
-                <img src="assets/intro.png"
-                    class="mx-auto w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 md:border-8 border-white/5 shadow-2xl transform hover:rotate-3 transition-transform duration-500">
-            </div>
-            <h3 class="text-4xl md:text-6xl font-script text-primary mb-2 leading-tight">Ranjith <br class="md:hidden">
-                & <br class="md:hidden"> Keerthika</h3>
-            <p class="text-base md:text-xl text-white/60 italic max-w-2xl mx-auto mb-10 px-4">
-                We are pleased to invite you to celebrate a day full of love and happiness at our wedding.
-            </p>
-
-            <div class="flex flex-col md:flex-row gap-6 max-w-2xl mx-auto w-full justify-center">
-                <!-- Reception Block -->
-                <div
-                    class="p-6 md:p-8 rounded-2xl border border-primary/20 bg-white/5 hover:translate-y-[-5px] transition-all flex-1 min-w-[280px]">
-                    <h4 class="text-xl md:text-2xl font-serif text-primary mb-3 uppercase tracking-widest">Reception
-                    </h4>
-                    <p class="font-bold text-white/90">16 June 2026</p>
-                    <p class="text-white/60 italic text-sm">Tuesday · 6:30 PM Onwards</p>
-                </div>
-
-                <!-- Muhurtham Block (Highlighted) -->
-                <div
-                    class="p-6 md:p-8 rounded-2xl bg-primary text-white shadow-xl transform hover:scale-105 transition-all flex-1 min-w-[280px]">
-                    <h4 class="text-xl md:text-2xl font-serif mb-3 uppercase tracking-widest">Muhurtham</h4>
-                    <p class="font-bold text-white/90">17 June 2026</p>
-                    <p class="text-white/80 italic text-sm">Wednesday · 6:00 – 7:30 AM</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reception Night Section -->
-    <section id="reception-night"
-        class="relative min-h-screen w-full bg-[#050811] relative z-20 flex flex-col justify-center items-center pt-24 pb-12">
-        <div class="max-w-4xl mx-auto px-6 reveal text-center">
-            <h2 class="text-4xl md:text-5xl font-serif text-primary mb-4 uppercase tracking-[0.2em]">Reception Night
-            </h2>
-            <p class="text-base md:text-lg font-bold text-white/30 mb-8 uppercase tracking-[0.3em]">
-                16 June 2026 · Tuesday · 6:30 PM Onwards
-            </p>
-
-            <div class="relative group mb-8">
-                <img src="assets/reception.png"
-                    class="mx-auto w-full max-w-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] object-cover transform group-hover:scale-[1.01] transition-transform duration-700 max-h-[50vh]">
-                <div
-                    class="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10 group-hover:ring-white/20 transition-all">
-                </div>
-            </div>
-
-            <p class="text-xl md:text-2xl text-white/70 italic leading-relaxed max-w-3xl mx-auto px-4">
-                "Join us as we begin this beautiful chapter — an evening filled with love, laughter, and lasting
-                memories."
-            </p>
-            <div class="h-1 w-20 bg-primary/30 mx-auto mt-10 rounded-full"></div>
-        </div>
-    </section>
-
-    <!-- Venue Section -->
-    <section id="venue" class="py-24 bg-[#0b1221] relative z-20 overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.3)]">
-        <div class="container mx-auto px-6 max-w-6xl reveal text-center">
-            <h2 class="text-4xl md:text-5xl font-serif text-primary mb-6 uppercase tracking-[0.2em]">The Venue</h2>
-            <div class="h-px w-24 bg-primary/30 mx-auto mb-10"></div>
-
-            <p class="text-xl md:text-2xl text-white/80 font-script mb-8">
-                Join us at the elegant venue to celebrate our union
-            </p>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Venue Details -->
-                <div class="text-left space-y-6">
-                    <div class="p-8 rounded-3xl bg-white/5 border border-white/10 shadow-2xl">
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-primary/10 p-3 rounded-full text-primary">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-bold text-white/90 mb-2">Location</h4>
-                                <p class="text-white/60 leading-relaxed">
-                                    Perarignar Anna Marriage Hall,<br>
-                                    465F+QPW, Gandhi Nagar,<br>
-                                    General Kumaramangalam Colony,<br>
-                                    Perambur, Chennai, Tamil Nadu 600082
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        class="p-8 rounded-3xl bg-primary text-white shadow-xl transform hover:scale-[1.02] transition-all">
-                        <p class="italic text-lg mb-6">"A beautiful place where love meets tradition and memories are
-                            born."</p>
-                        <a href="https://maps.app.goo.gl/atc3L13LptL3V9fJ8" target="_blank"
-                            class="inline-flex items-center px-6 py-3 bg-white text-primary rounded-full font-bold tracking-widest uppercase text-sm hover:shadow-lg transition-all group">
-                            Get Directions
-                            <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Google Map Iframe -->
-                <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[450px] border-4 border-white/10">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.8373873172854!2d80.2243419!3d13.109485999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52650073996035%3A0x640bf16b248882c3!2sPerarignar%20Anna%20Marriage%20Hall!5e0!3m2!1sen!2sin!4v1774329612394!5m2!1sen!2sin"
-                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 bg-[#050505] text-white/30 text-center px-6 relative z-20">
-        <p class="font-script text-2xl md:text-3xl text-white mb-4">Ranjith & Keerthika</p>
-        <p
-            class="text-[0.65rem] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-8 max-w-xl mx-auto leading-loose">
-            Two souls, one heart — and a lifetime of beautiful moments yet to come.
-        </p>
-        <div class="h-px w-24 bg-white/10 mx-auto mb-8"></div>
-        <p class="text-[10px] md:text-xs tracking-widest">&copy; 2026 Crafted with Love</p>
-    </footer>
 
     <script>
         // Scroll Reveal
@@ -1397,7 +1005,15 @@
         const frameCount4 = 230;
         const frameCount5 = 120;
         const frameCount6 = 120;
-        const totalFrames = frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6;
+        const frameCountLS1 = 120;
+        const frameCountLS2 = 120;
+        const frameCountLS3 = 120;
+        const frameCountLS4 = 120;
+        const frameCountLS5 = 120;
+        const frameCountOut1 = 120; // Added Out1
+        const frameCountOut2 = 120; // Added Out2
+        const frameCountOut3 = 105; // Added Out3
+        const totalFrames = frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2 + frameCountOut3;
 
         const getFramePath = index => {
             if (index <= frameCount1) {
@@ -1409,14 +1025,38 @@
                 const index3 = index - frameCount1 - frameCount2;
                 return `assets/3 new/ezgif-frame-${index3.toString().padStart(3, '0')}.jpg`;
             } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4) {
-                const index4 = index - frameCount1 - frameCount2 - frameCount3;
-                return `assets/4/ezgif-frame-${index4.toString().padStart(3, '0')}.jpg`;
+                const i4 = index - (frameCount1 + frameCount2 + frameCount3);
+                return `assets/4/ezgif-frame-${i4.toString().padStart(3, '0')}.jpg`;
             } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5) {
                 const index5 = index - frameCount1 - frameCount2 - frameCount3 - frameCount4;
                 return `assets/5/ezgif-frame-${index5.toString().padStart(3, '0')}.jpg`;
-            } else {
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6) {
                 const index6 = (index - frameCount1 - frameCount2 - frameCount3 - frameCount4 - frameCount5) + 100;
                 return `assets/6/ezgif-frame-${index6.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1) {
+                const iLS1 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6);
+                return `assets/ls1/ezgif-frame-${iLS1.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2) {
+                const iLS2 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1);
+                return `assets/ls2/ezgif-frame-${iLS2.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3) {
+                const iLS3 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2);
+                return `assets/ls3/ezgif-frame-${iLS3.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4) {
+                const iLS4 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3);
+                return `assets/ls4/ezgif-frame-${iLS4.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5) {
+                const iLS5 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4);
+                return `assets/ls5/ezgif-frame-${iLS5.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1) {
+                const iOut1 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5);
+                return `assets/out1/ezgif-frame-${iOut1.toString().padStart(3, '0')}.jpg`;
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2) {
+                const iOut2 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1);
+                return `assets/out2/ezgif-frame-${iOut2.toString().padStart(3, '0')}.jpg`;
+            } else {
+                const iOut3 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2);
+                return `assets/out3/ezgif-frame-${iOut3.toString().padStart(3, '0')}.jpg`;
             }
         };
 
@@ -1509,11 +1149,48 @@
             const anim5End = 0.65;
 
             const outroTrigger = 0.65;
-            const outroEnd = 0.90; // Much longer video section
+            const outroEnd = 0.89; // Adjusted for Folder 6
 
-            const holdZoneStart = 0.85; // Part of the video section where nothing changes
-            const anim6Start = 0.90;
-            const anim6End = 1.0;
+            const anim6Start = 0.82; 
+            const anim6End = 0.84; 
+            
+            // LS1 Mapping
+            const startLS1 = 0.84;
+            const endLS1 = 0.86;
+            const ls1TextStartFrame = 2;
+            const ls1TextEndFrame = 55;
+
+            // LS2 Mapping
+            const startLS2 = 0.86;
+            const endLS2 = 0.88;
+            const ls2TextStartFrame = 3;
+            const ls2TextEndFrame = 66;
+
+            // LS3 Mapping
+            const startLS3 = 0.88;
+            const endLS3 = 0.90;
+            const ls3TextStartFrame = 4;
+            const ls3TextEndFrame = 83;
+
+            // LS4 Mapping
+            const startLS4 = 0.90;
+            const endLS4 = 0.92;
+            const ls4TextStartFrame = 4;
+            const ls4TextEndFrame = 60;
+
+            // LS5 Mapping
+            const startLS5 = 0.92;
+            const endLS5 = 0.94;
+            const ls5TextStartFrame = 4;
+            const ls5TextEndFrame = 85;
+
+            // OUT Mapping
+            const startOut1 = 0.94;
+            const endOut1 = 0.96;
+            const startOut2 = 0.96;
+            const endOut2 = 0.98;
+            const startOut3 = 0.98;
+            const endOut3 = 1.0;
 
             // Text Timings
             const revealInStart = 0.42; // Starts at Frame 136 of Folder 4 (~40% through)
@@ -1529,9 +1206,8 @@
             const storyRevealStart = 0.78;
             const storyRevealEnd = 0.85;
 
-            const phaseRevealStart = 0.984; // From Frame 101 of 120 (approx 84% into 0.90-1.0 range)
-            const phaseRevealEnd = 1.0;
-
+            const videoSectionHold = 0.90; 
+            
             let currentFrameIndex = 0;
 
             if (currentHeroProgress <= anim123End) {
@@ -1543,9 +1219,33 @@
             } else if (currentHeroProgress >= anim5Start && currentHeroProgress <= anim5End) {
                 const subProgress = (currentHeroProgress - anim5Start) / (anim5End - anim5Start);
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4) + Math.floor(subProgress * (frameCount5 - 1));
-            } else if (currentHeroProgress >= anim6Start) {
-                const subProgress = Math.min(1, (currentHeroProgress - anim6Start) / (anim6End - anim6Start));
+            } else if (currentHeroProgress >= anim6Start && currentHeroProgress <= anim6End) {
+                const subProgress = (currentHeroProgress - anim6Start) / (anim6End - anim6Start);
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5) + Math.floor(subProgress * (frameCount6 - 1));
+            } else if (currentHeroProgress >= startLS1 && currentHeroProgress < startLS2) {
+                const subProgress = (currentHeroProgress - startLS1) / (endLS1 - startLS1);
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6) + Math.floor(subProgress * (frameCountLS1 - 1));
+            } else if (currentHeroProgress >= startLS2 && currentHeroProgress < startLS3) {
+                const subProgress = (currentHeroProgress - startLS2) / (endLS2 - startLS2);
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1) + Math.floor(subProgress * (frameCountLS2 - 1));
+            } else if (currentHeroProgress >= startLS3 && currentHeroProgress < startLS4) {
+                const subProgress = (currentHeroProgress - startLS3) / (endLS3 - startLS3);
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2) + Math.floor(subProgress * (frameCountLS3 - 1));
+            } else if (currentHeroProgress >= startLS4 && currentHeroProgress < startLS5) {
+                const subProgress = (currentHeroProgress - startLS4) / (endLS4 - startLS4);
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3) + Math.floor(subProgress * (frameCountLS4 - 1));
+            } else if (currentHeroProgress >= startLS5 && currentHeroProgress < startOut1) {
+                const subProgress = (currentHeroProgress - startLS5) / (endLS5 - startLS5);
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4) + Math.floor(subProgress * (frameCountLS5 - 1));
+            } else if (currentHeroProgress >= startOut1 && currentHeroProgress < startOut2) {
+                const subProgress = (currentHeroProgress - startOut1) / (endOut1 - startOut1);
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5) + Math.floor(subProgress * (frameCountOut1 - 1));
+            } else if (currentHeroProgress >= startOut2 && currentHeroProgress < startOut3) {
+                const subProgress = (currentHeroProgress - startOut2) / (endOut2 - startOut2);
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1) + Math.floor(subProgress * (frameCountOut2 - 1));
+            } else if (currentHeroProgress >= startOut3) {
+                const subProgress = Math.min(1, (currentHeroProgress - startOut3) / (endOut3 - startOut3));
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2) + Math.floor(subProgress * (frameCountOut3 - 1));
             } else {
                 // Return last index of folder 5 for the gaps/video sections
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5) - 1;
@@ -1558,12 +1258,12 @@
             }
 
             // --- Dark & Bloom Overlay management ---
-            const darkOverlay = document.getElementById('dark-overlay');
-            const bloomOverlay = document.getElementById('bloom-overlay');
+            const darkOverlay = document.getElementById('hero-dark-overlay');
+            const bloomOverlay = document.getElementById('hero-bloom-overlay');
 
             if (currentHeroProgress >= anim4Start) {
                 // Apply overlay for Folder 4 and 6+, but remove specifically for Folder 5
-                if (currentHeroProgress >= anim5Start && currentHeroProgress < anim5End) {
+                if ((currentHeroProgress >= anim5Start && currentHeroProgress < anim5End) || currentHeroProgress >= startOut1) {
                     if (darkOverlay) darkOverlay.style.opacity = 0;
                 } else {
                     if (darkOverlay) darkOverlay.style.opacity = 0.4;
@@ -1571,17 +1271,37 @@
 
                 // 1. Mask junction between frame 110 and 111 (Sky change)
                 if (bloomOverlay) {
-                    const junctionP1 = 0.519; // Updated global P for frame 110
-                    const bloomRange1 = 0.04;
+                    const junctionP1 = 0.519;
+                    const junctionP2 = 0.84; 
+                    const junctionP3 = 0.86; 
+                    const junctionP4 = 0.88; 
+                    const junctionP5 = 0.90; 
+                    const junctionP6 = 0.92; 
+                    const bloomRange = 0.012;
+                    
+                    let bloomIntent = 0;
 
-                    if (Math.abs(currentHeroProgress - junctionP1) < bloomRange1 / 2) {
-                        const strength = 1 - (Math.abs(currentHeroProgress - junctionP1) / (bloomRange1 / 2));
-                        bloomOverlay.style.opacity = Math.pow(strength, 2) * 0.6;
+                    if (Math.abs(currentHeroProgress - junctionP1) < bloomRange / 2) {
+                        const strength = 1 - (Math.abs(currentHeroProgress - junctionP1) / (bloomRange / 2));
+                        bloomIntent = Math.pow(strength, 2) * 0.6;
+                    } else if (Math.abs(currentHeroProgress - junctionP2) < bloomRange / 2) {
+                        const strength = 1 - (Math.abs(currentHeroProgress - junctionP2) / (bloomRange / 2));
+                        bloomIntent = Math.pow(strength, 2) * 0.8;
+                    } else if (Math.abs(currentHeroProgress - junctionP3) < bloomRange / 2) {
+                        const strength = 1 - (Math.abs(currentHeroProgress - junctionP3) / (bloomRange / 2));
+                        bloomIntent = Math.pow(strength, 2) * 0.8;
+                    } else if (Math.abs(currentHeroProgress - junctionP4) < bloomRange / 2) {
+                        const strength = 1 - (Math.abs(currentHeroProgress - junctionP4) / (bloomRange / 2));
+                        bloomIntent = Math.pow(strength, 2) * 0.8;
+                    } else if (Math.abs(currentHeroProgress - junctionP5) < bloomRange / 2) {
+                        const strength = 1 - (Math.abs(currentHeroProgress - junctionP5) / (bloomRange / 2));
+                        bloomIntent = Math.pow(strength, 2) * 0.8;
+                    } else if (Math.abs(currentHeroProgress - junctionP6) < bloomRange / 2) {
+                        const strength = 1 - (Math.abs(currentHeroProgress - junctionP6) / (bloomRange / 2));
+                        bloomIntent = Math.pow(strength, 2) * 0.8;
                     }
-                    // 2. Mask junction between Folder 4 and Folder 5 (Switch point 0.65)
-                    else {
-                        bloomOverlay.style.opacity = 0;
-                    }
+                    
+                    bloomOverlay.style.opacity = bloomIntent;
                 }
             } else {
                 if (darkOverlay) darkOverlay.style.opacity = 0;
@@ -1632,14 +1352,14 @@
                 const heroStory = document.getElementById('hero-story-text');
                 const heroPhase = document.getElementById('hero-phase-text');
 
-                // Countdown Logic
+                // 1. Countdown Logic (Scrubbed)
                 if (heroCD) {
-                    if (currentHeroProgress >= cdRevealStart && currentHeroProgress <= cdFadeOutEnd) {
+                    if (currentHeroProgress >= cdRevealStart && currentHeroProgress <= cdFadeOutEnd + 0.10) {
                         let cdOp = 0;
                         if (currentHeroProgress <= cdRevealEnd) {
                             cdOp = (currentHeroProgress - cdRevealStart) / (cdRevealEnd - cdRevealStart);
                         } else if (currentHeroProgress >= cdHoldEnd) {
-                            cdOp = 1 - (currentHeroProgress - cdHoldEnd) / (cdFadeOutEnd - cdHoldEnd);
+                            cdOp = 1 - Math.min(1, (currentHeroProgress - cdHoldEnd) / 0.08);
                         } else {
                             cdOp = 1;
                         }
@@ -1650,32 +1370,130 @@
                     }
                 }
 
-                // Story Logic
+                // 2. Story Logic (Scrubbed Fade-Away)
                 if (heroStory) {
-                    if (currentHeroProgress >= storyRevealStart && currentHeroProgress <= cdFadeOutEnd + 0.15) {
+                    const storyFadeOutStart = 0.77;
+                    const storyFadeOutEnd = 0.82; // Fully gone before Folder 6 starts at 0.82
+
+                    if (currentHeroProgress >= storyRevealStart && currentHeroProgress <= storyFadeOutEnd) {
                         let storyOp = 0;
                         if (currentHeroProgress <= storyRevealEnd) {
                             storyOp = (currentHeroProgress - storyRevealStart) / (storyRevealEnd - storyRevealStart);
-                        } else if (currentHeroProgress >= holdZoneStart) {
-                            storyOp = 1 - (currentHeroProgress - holdZoneStart) / (anim6Start - holdZoneStart);
+                        } else if (currentHeroProgress >= storyFadeOutStart) {
+                            storyOp = 1 - (currentHeroProgress - storyFadeOutStart) / (storyFadeOutEnd - storyFadeOutStart);
                         } else {
                             storyOp = 1;
                         }
                         heroStory.style.opacity = storyOp;
                         heroStory.style.transform = `scale(${0.95 + (storyOp * 0.05)})`;
+                        heroStory.style.pointerEvents = storyOp > 0.1 ? 'auto' : 'none';
                     } else {
                         heroStory.style.opacity = 0;
                     }
                 }
 
-                // Phase Logic (Appears in Folder 6)
-                if (heroPhase) {
-                    if (currentHeroProgress >= phaseRevealStart) {
-                        const phaseOp = (currentHeroProgress - phaseRevealStart) / (phaseRevealEnd - phaseRevealStart);
-                        heroPhase.style.opacity = phaseOp;
-                        heroPhase.style.scale = 0.9 + (phaseOp * 0.1);
+                // 3. LS1 & LS2 Story Details (Scrubbed Frame-Based)
+                const heroLS = document.getElementById('hero-story-details');
+                if (heroLS && currentHeroProgress >= startLS1) {
+                    let lsProgress, currentFrame, title, date, desc, startF, endF;
+
+                    if (currentHeroProgress < startLS2) {
+                        lsProgress = (currentHeroProgress - startLS1) / (endLS1 - startLS1);
+                        currentFrame = lsProgress * frameCountLS1;
+                        title = "First Met";
+                        date = "06 JUL 2023";
+                        desc = "Tambaram Railway Station — where fate introduced two hearts";
+                        startF = ls1TextStartFrame;
+                        endF = ls1TextEndFrame;
+                    } else if (currentHeroProgress < startLS3) {
+                        lsProgress = (currentHeroProgress - startLS2) / (endLS2 - startLS2);
+                        currentFrame = lsProgress * frameCountLS2;
+                        title = "He Proposed";
+                        date = "12 AUG 2023";
+                        desc = "On bended knee, roses in hand — a moment of forever";
+                        startF = ls2TextStartFrame;
+                        endF = ls2TextEndFrame;
+                    } else if (currentHeroProgress < startLS4) {
+                        lsProgress = (currentHeroProgress - startLS3) / (endLS3 - startLS3);
+                        currentFrame = lsProgress * frameCountLS3;
+                        title = "She Proposed";
+                        date = "15 SEP 2023";
+                        desc = "At the temple, under divine blessings — she said yes!";
+                        startF = ls3TextStartFrame;
+                        endF = ls3TextEndFrame;
+                    } else if (currentHeroProgress < startLS5) {
+                        lsProgress = (currentHeroProgress - startLS4) / (endLS4 - startLS4);
+                        currentFrame = lsProgress * frameCountLS4;
+                        title = "Reception";
+                        date = "16 JUN 2026";
+                        desc = "A night of joy, celebration & love — 6:30 PM Onwards";
+                        startF = ls4TextStartFrame;
+                        endF = ls4TextEndFrame;
                     } else {
-                        heroPhase.style.opacity = 0;
+                        lsProgress = (currentHeroProgress - startLS5) / (endLS5 - startLS5);
+                        currentFrame = lsProgress * frameCountLS5;
+                        title = "Kalyanam";
+                        date = "17 JUN 2026";
+                        desc = "Forever begins at dawn — 6:00 to 7:30 AM";
+                        startF = ls5TextStartFrame;
+                        endF = ls5TextEndFrame;
+                    }
+
+                    // Update contents
+                    const titleEl = document.getElementById('ls-title');
+                    const dateEl = document.getElementById('ls-date');
+                    const descEl = document.getElementById('ls-desc');
+                    if (titleEl && titleEl.innerText !== title) titleEl.innerText = title;
+                    if (dateEl && dateEl.innerText !== date) dateEl.innerText = date;
+                    if (descEl && descEl.innerText !== desc) descEl.innerText = desc;
+                    
+                    if (currentFrame >= startF && currentFrame <= endF) {
+                        const textWindowProgress = (currentFrame - startF) / (endF - startF);
+                        let opacity = 0;
+                        if (textWindowProgress < 0.2) opacity = textWindowProgress / 0.2;
+                        else if (textWindowProgress > 0.8) opacity = (1 - textWindowProgress) / 0.2;
+                        else opacity = 1;
+
+                        heroLS.style.opacity = opacity;
+                        heroLS.style.transform = `scale(${0.9 + (opacity * 0.1)})`;
+                        heroLS.style.pointerEvents = opacity > 0.1 ? 'auto' : 'none';
+                    } else {
+                        heroLS.style.opacity = 0;
+                        heroLS.style.pointerEvents = 'none';
+                    }
+                }
+
+                // 4. Final Outro Reveal (OUT3 Frame 80+ logic)
+                const finalBlack = document.getElementById('final-black-fader');
+                const finalHero = document.getElementById('final-hero-reveal');
+                
+                if (finalBlack && finalHero) {
+                    if (currentHeroProgress >= startOut3) {
+                        const out3Progress = (currentHeroProgress - startOut3) / (endOut3 - startOut3);
+                        const currentOut3Frame = out3Progress * frameCountOut3;
+                        
+                        // Fade to black from frame 80 to 105
+                        if (currentOut3Frame >= 80) {
+                            const blackFade = (currentOut3Frame - 80) / (frameCountOut3 - 80);
+                            finalBlack.style.opacity = blackFade;
+                            
+                            // Hero reveal at the very, very end (last 0.2% or exactly at 1.0)
+                            if (currentHeroProgress > 0.998) {
+                                const heroRevealProgress = (currentHeroProgress - 0.998) / 0.002;
+                                finalHero.style.opacity = heroRevealProgress;
+                                finalHero.style.transform = `scale(${1.1 - (heroRevealProgress * 0.1)})`;
+                                finalHero.style.pointerEvents = heroRevealProgress > 0.8 ? 'auto' : 'none';
+                            } else {
+                                finalHero.style.opacity = 0;
+                                finalHero.style.pointerEvents = 'none';
+                            }
+                        } else {
+                            finalBlack.style.opacity = 0;
+                            finalHero.style.opacity = 0;
+                        }
+                    } else {
+                        finalBlack.style.opacity = 0;
+                        finalHero.style.opacity = 0;
                     }
                 }
             }
@@ -1761,17 +1579,6 @@
                 heroCanvas.style.opacity = 1;
             }
 
-            // Navbar items visibility
-            const navLinks = document.getElementById('nav-links');
-            if (navLinks) {
-                if (currentHeroProgress >= introTrigger) {
-                    navLinks.classList.remove('opacity-0');
-                    navLinks.classList.add('opacity-100');
-                } else {
-                    navLinks.classList.remove('opacity-100');
-                    navLinks.classList.add('opacity-0');
-                }
-            }
         }
 
         window.addEventListener('resize', () => {
@@ -1808,67 +1615,6 @@
         setInterval(createPetal, 1500);
         for (let i = 0; i < 10; i++) createPetal();
 
-
-
-        // Custom Smooth Scroll Engine (High Performance)
-        function smoothScrollTo(targetSelector, duration = 1200) {
-            const target = document.querySelector(targetSelector);
-            if (!target) return;
-
-            const nav = document.getElementById('navbar');
-            const navHeight = nav ? nav.offsetHeight : 0;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-            const startPosition = window.pageYOffset;
-            const distance = targetPosition - startPosition;
-            let startTime = null;
-
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const run = ease(timeElapsed, startPosition, distance, duration);
-                window.scrollTo(0, run);
-                if (timeElapsed < duration) requestAnimationFrame(animation);
-            }
-
-            // Quadratic Easing (In-Out)
-            function ease(t, b, c, d) {
-                t /= d / 2;
-                if (t < 1) return c / 2 * t * t + b;
-                t--;
-                return -c / 2 * (t * (t - 2) - 1) + b;
-            }
-
-            requestAnimationFrame(animation);
-        }
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                smoothScrollTo(this.getAttribute('href'));
-
-                // Close mobile menu if open
-                const menu = document.getElementById('mobile-menu');
-                if (menu.classList.contains('active')) {
-                    toggleMobileMenu();
-                }
-            });
-        });
-
-        // Mobile Menu Logic
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const closeBtn = document.getElementById('close-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('opacity-0');
-            mobileMenu.classList.toggle('pointer-events-none');
-            mobileMenu.classList.toggle('translate-x-full');
-            mobileMenu.classList.toggle('active');
-        }
-
-        menuBtn.addEventListener('click', toggleMobileMenu);
-        closeBtn.addEventListener('click', toggleMobileMenu);
-
         // Countdown Logic
         const targetDate = new Date('June 16, 2026 18:30:00').getTime();
 
@@ -1883,6 +1629,7 @@
 
             const updateEl = (id, value) => {
                 const el = document.getElementById(id);
+                if (!el) return; // Prevent crash if element is missing
                 const newVal = String(value).padStart(2, '0');
                 if (el.innerText !== newVal) {
                     el.innerText = newVal;
@@ -1896,6 +1643,8 @@
             updateEl('hero-cd-hours', hours);
             updateEl('hero-cd-mins', minutes);
             updateEl('hero-cd-secs', seconds);
+
+            // Legacy IDs removed from HTML, updateEl now skips them safely
             updateEl('days', days);
             updateEl('hours', hours);
             updateEl('mins', minutes);
@@ -2010,158 +1759,7 @@
         });
 
 
-        // Interactive Events Cards (Flip & Scratch)
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-        if (isTouchDevice) document.body.classList.add('is-touch');
-        // Extra check for some tablets
-        window.addEventListener('touchstart', function onFirstTouch() {
-            document.body.classList.add('is-touch');
-            window.removeEventListener('touchstart', onFirstTouch);
-        });
-
-        function initEventCards() {
-            const cardIds = ['event-1', 'event-2'];
-
-            cardIds.forEach((id, index) => {
-                const container = document.getElementById(id);
-                if (!container) return;
-                const canvas = document.getElementById(`scratch-${(index + 1)}`);
-                const inner = container.querySelector('.event-card-inner');
-
-                if (isTouchDevice) {
-                    // Mobile: Scratch behavior
-                    canvas.classList.remove('hidden');
-                    initScratch(canvas, container);
-                } else {
-                    // Desktop: Flip behavior
-                    container.addEventListener('mouseenter', () => {
-                        if (!container.classList.contains('flipped')) {
-                            container.classList.add('flipped');
-                        }
-                    }, { once: true });
-                }
-            });
-        }
-
-        function initScratch(canvas, container) {
-            const ctx = canvas.getContext('2d');
-            let isDrawing = false;
-            let lastX = 0;
-            let lastY = 0;
-            let scratchedPixels = 0;
-            const revealThreshold = 0.5; // 50%
-
-            function setupCanvas() {
-                const rect = container.getBoundingClientRect();
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-
-                const isDark = document.documentElement.classList.contains('dark');
-
-                // Draw initial scratch layer (Themed colors)
-                ctx.fillStyle = isDark ? '#0f172a' : '#fdf2f2';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                // Draw Decorative Diamond Pattern
-                ctx.fillStyle = isDark ? '#1e293b' : '#faedcd';
-                const step = 40;
-                for (let i = 0; i < canvas.width + step; i += step) {
-                    for (let j = 0; j < canvas.height + step; j += step) {
-                        ctx.beginPath();
-                        ctx.moveTo(i, j - 10);
-                        ctx.lineTo(i + 10, j);
-                        ctx.lineTo(i, j + 10);
-                        ctx.lineTo(i - 10, j);
-                        ctx.closePath();
-                        ctx.fill();
-                    }
-                }
-
-                // Add Gold border (Reduced width)
-                ctx.strokeStyle = '#d4a373';
-                ctx.lineWidth = 2; // Reduced from 4
-                ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
-
-                // Inner Thin Border
-                ctx.strokeStyle = isDark ? '#333' : '#faedcd';
-                ctx.lineWidth = 1;
-                ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
-
-                // Draw Text
-                ctx.font = '32px Alex Brush';
-                ctx.fillStyle = isDark ? '#fdf2f2' : '#57534e';
-                ctx.textAlign = 'center';
-                ctx.fillText('Scratch to Reveal', canvas.width / 2, canvas.height / 2);
-            }
-
-            setupCanvas();
-            window.addEventListener('resize', setupCanvas);
-
-            function scratch(e) {
-                if (!isDrawing) return;
-
-                const rect = canvas.getBoundingClientRect();
-                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.lineWidth = 40;
-                ctx.lineCap = 'round';
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                ctx.lineTo(x, y);
-                ctx.stroke();
-
-                lastX = x;
-                lastY = y;
-
-                checkReveal();
-            }
-
-            function checkReveal() {
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const pixels = imageData.data;
-                let transparentPixels = 0;
-
-                for (let i = 3; i < pixels.length; i += 4) {
-                    if (pixels[i] === 0) transparentPixels++;
-                }
-
-                const percentage = transparentPixels / (pixels.length / 4);
-                if (percentage >= revealThreshold) {
-                    revealFull();
-                }
-            }
-
-            function revealFull() {
-                canvas.style.transition = 'opacity 0.8s ease-out';
-                canvas.style.opacity = '0';
-                setTimeout(() => {
-                    canvas.remove();
-                }, 800);
-            }
-
-            canvas.addEventListener('mousedown', (e) => {
-                isDrawing = true;
-                const rect = canvas.getBoundingClientRect();
-                lastX = e.clientX - rect.left;
-                lastY = e.clientY - rect.top;
-            });
-            canvas.addEventListener('touchstart', (e) => {
-                isDrawing = true;
-                const rect = canvas.getBoundingClientRect();
-                lastX = e.touches[0].clientX - rect.left;
-                lastY = e.touches[0].clientY - rect.top;
-                e.preventDefault();
-            });
-
-            window.addEventListener('mousemove', scratch);
-            window.addEventListener('touchmove', scratch, { passive: false });
-            window.addEventListener('mouseup', () => isDrawing = false);
-            window.addEventListener('touchend', () => isDrawing = false);
-        }
-
-        initEventCards();
+        // Legacy Event Cards logic removed.
 
         // --- Theme Switching Logic Removed ---
     </script>
