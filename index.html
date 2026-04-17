@@ -762,7 +762,7 @@
     </div>
 
     <!-- KEERA 2.0 Hero Section (Fixed Background + Reveal Logic) -->
-    <div class="hero-scroll-wrapper relative w-full" style="height: 3200vh;">
+    <div class="hero-scroll-wrapper relative w-full" style="height: 4200vh;">
         <!-- Fixed Container: Stays in place while the rest of the page slides OVER it -->
         <div class="scroll-container fixed top-0 left-0 h-screen w-full overflow-hidden bg-[#050811] z-0">
             <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover z-[1]"></canvas>
@@ -1246,48 +1246,30 @@
             const anim6Start = 0.82;
             const anim6End = 0.84;
 
-            // LS1 Mapping
+            // LS Mapping
             const startLS1 = 0.84;
-            const endLS1 = 0.86;
-            const ls1TextStartFrame = 2;
-            const ls1TextEndFrame = 55;
-
-            // LS2 Mapping
-            const startLS2 = 0.86;
-            const endLS2 = 0.88;
-            const ls2TextStartFrame = 3;
-            const ls2TextEndFrame = 66;
-
-            // LS3 Mapping
-            const startLS3 = 0.88;
-            const endLS3 = 0.90;
-            const ls3TextStartFrame = 4;
-            const ls3TextEndFrame = 83;
-
-            // LS4 Mapping
-            const startLS4 = 0.90;
-            const endLS4 = 0.92;
-            const ls4TextStartFrame = 4;
-            const ls4TextEndFrame = 60;
-
-            // LS5 Mapping
-            const startLS5 = 0.92;
-            const endLS5 = 0.94;
-            const ls5TextStartFrame = 4;
-            const ls5TextEndFrame = 85;
+            const endLS1 = 0.85;
+            const startLS2 = 0.85;
+            const endLS2 = 0.86;
+            const startLS3 = 0.86;
+            const endLS3 = 0.87;
+            const startLS4 = 0.87;
+            const endLS4 = 0.88;
+            const startLS5 = 0.88;
+            const endLS5 = 0.89;
 
             // OUT Mapping
-            const startOut1 = 0.94;
-            const endOut1 = 0.95;
-            const startOut2 = 0.95;
-            const endOut2 = 0.96;
+            const startOut1 = 0.89;
+            const endOut1 = 0.90;
+            const startOut2 = 0.90;
+            const endOut2 = 0.91;
 
-            const startVenue = 0.96;
-            const endVenue = 0.975;
+            const startVenue = 0.91;
+            const endVenue = 0.935;
 
-            const startOut3 = 0.975;
-            const endOut3 = 0.985;
-            const startOut4 = 0.985;
+            const startOut3 = 0.935;
+            const endOut3 = 0.965;
+            const startOut4 = 0.965;
             const endOut4 = 0.995;
 
             const finalTrigger = 0.995;
@@ -1337,7 +1319,7 @@
                 const subProgress = (currentHeroProgress - startLS4) / (endLS4 - startLS4);
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3) + Math.floor(subProgress * (frameCountLS4 - 1));
             } else if (currentHeroProgress >= startLS5 && currentHeroProgress < startOut1) {
-                const subProgress = (currentHeroProgress - startLS5) / (endLS5 - startLS5);
+                const subProgress = (currentHeroProgress - startLS5) / (startOut1 - startLS5);
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4) + Math.floor(subProgress * (frameCountLS5 - 1));
             } else if (currentHeroProgress >= startOut1 && currentHeroProgress < startOut2) {
                 const subProgress = (currentHeroProgress - startOut1) / (endOut1 - startOut1);
@@ -1501,10 +1483,9 @@
                     }
                 }
 
-                // 3. LS1 & LS2 Story Details (Scrubbed Frame-Based)
                 const heroLS = document.getElementById('hero-story-details');
                 if (heroLS) {
-                    if (currentHeroProgress >= startLS1) {
+                    if (currentHeroProgress >= startLS1 && currentHeroProgress < startOut1) {
                         let lsProgress, currentFrame, title, date, desc, startF, endF;
 
                         if (currentHeroProgress < startLS2) {
@@ -1513,40 +1494,40 @@
                             title = "First Met";
                             date = "06 JUL 2023";
                             desc = "Tambaram Railway Station — where fate introduced two hearts";
-                            startF = ls1TextStartFrame;
-                            endF = ls1TextEndFrame;
+                            startF = 2;
+                            endF = 55;
                         } else if (currentHeroProgress < startLS3) {
                             lsProgress = (currentHeroProgress - startLS2) / (endLS2 - startLS2);
                             currentFrame = lsProgress * frameCountLS2;
                             title = "He Proposed";
                             date = "12 AUG 2023";
                             desc = "On bended knee, roses in hand — a moment of forever";
-                            startF = ls2TextStartFrame;
-                            endF = ls2TextEndFrame;
+                            startF = 3;
+                            endF = 66;
                         } else if (currentHeroProgress < startLS4) {
                             lsProgress = (currentHeroProgress - startLS3) / (endLS3 - startLS3);
                             currentFrame = lsProgress * frameCountLS3;
                             title = "She Proposed";
                             date = "15 SEP 2023";
                             desc = "At the temple, under divine blessings — she said yes!";
-                            startF = ls3TextStartFrame;
-                            endF = ls3TextEndFrame;
+                            startF = 4;
+                            endF = 83;
                         } else if (currentHeroProgress < startLS5) {
                             lsProgress = (currentHeroProgress - startLS4) / (endLS4 - startLS4);
                             currentFrame = lsProgress * frameCountLS4;
                             title = "Reception";
                             date = "16 JUN 2026";
                             desc = "A night of joy, celebration & love — 6:30 PM Onwards";
-                            startF = ls4TextStartFrame;
-                            endF = ls4TextEndFrame;
+                            startF = 4;
+                            endF = 60;
                         } else {
                             lsProgress = (currentHeroProgress - startLS5) / (endLS5 - startLS5);
                             currentFrame = lsProgress * frameCountLS5;
                             title = "Kalyanam";
                             date = "17 JUN 2026";
                             desc = "Forever begins at dawn — 6:00 to 7:30 AM";
-                            startF = ls5TextStartFrame;
-                            endF = ls5TextEndFrame;
+                            startF = 4;
+                            endF = 85;
                         }
 
                         // Update contents
