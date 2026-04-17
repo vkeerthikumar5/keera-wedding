@@ -704,6 +704,42 @@
             opacity: 0.3;
             transition-delay: 1.2s;
         }
+
+        /* Location Section Styles */
+        #location-reveal {
+            transition: opacity 0.5s ease-out;
+        }
+
+        .map-frame-container {
+            perspective: 2000px;
+            transform-style: preserve-3d;
+        }
+
+        .map-frame-inner {
+            transform: rotateY(30deg) rotateX(10deg) translateX(100px);
+            opacity: 0;
+            transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .reveal-location .map-frame-inner {
+            transform: rotateY(0deg) rotateX(0deg) translateX(0);
+            opacity: 1;
+        }
+
+        .location-info {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s ease-out 0.4s;
+        }
+
+        .reveal-location .location-info {
+            opacity: 1;
+            transform: translateX(0);
+        }
     </style>
 </head>
 
@@ -721,11 +757,12 @@
 
     <!-- Persistent Top-Left Logo -->
     <div class="fixed top-6 left-6 md:top-8 md:left-10 z-[60] pointer-events-none transition-all duration-700">
-        <img src="assets/logo.png" alt="Wedding Logo" class="h-10 md:h-14 w-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+        <img src="assets/logo.png" alt="Wedding Logo"
+            class="h-10 md:h-14 w-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
     </div>
 
     <!-- KEERA 2.0 Hero Section (Fixed Background + Reveal Logic) -->
-    <div class="hero-scroll-wrapper relative w-full" style="height: 2600vh;">
+    <div class="hero-scroll-wrapper relative w-full" style="height: 3200vh;">
         <!-- Fixed Container: Stays in place while the rest of the page slides OVER it -->
         <div class="scroll-container fixed top-0 left-0 h-screen w-full overflow-hidden bg-[#050811] z-0">
             <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover z-[1]"></canvas>
@@ -741,8 +778,10 @@
                     <source src="assets/new hero.mp4" type="video/mp4">
                 </video>
                 <div class="noise-overlay absolute inset-0 z-[3] pointer-events-none opacity-[0.12]"></div>
-                <div id="hero-bloom-overlay" class="absolute inset-0 z-[12] pointer-events-none opacity-0 bg-white/20"></div>
-                <div id="hero-dark-overlay" class="absolute inset-0 z-[11] pointer-events-none opacity-0 bg-black"></div>
+                <div id="hero-bloom-overlay" class="absolute inset-0 z-[12] pointer-events-none opacity-0 bg-white/20">
+                </div>
+                <div id="hero-dark-overlay" class="absolute inset-0 z-[11] pointer-events-none opacity-0 bg-black">
+                </div>
 
                 <div id="hero-content-main"
                     class="absolute inset-x-0 top-[38%] z-[4] flex flex-col items-center justify-center text-center px-4 opacity-0 pointer-events-none">
@@ -891,37 +930,84 @@
                         class="text-[2rem] md:text-6xl font-['Great_Vibes'] text-amber-200 leading-tight mb-2 drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
                         First Met
                     </h3>
-                    <p id="ls-date" class="text-[0.6rem] md:text-base font-bold text-white/40 uppercase tracking-[0.4em] md:tracking-[0.6em] mb-4 md:mb-8 drop-shadow-md">
+                    <p id="ls-date"
+                        class="text-[0.6rem] md:text-base font-bold text-white/40 uppercase tracking-[0.4em] md:tracking-[0.6em] mb-4 md:mb-8 drop-shadow-md">
                         06 JUL 2023
                     </p>
-                    <div class="h-[0.5px] w-12 md:w-32 bg-gradient-to-r from-transparent via-amber-200/20 to-transparent mx-auto mb-6 md:mb-10"></div>
-                    <p id="ls-desc" class="text-sm md:text-2xl font-['Playfair_Display'] italic font-medium text-white/90 leading-relaxed px-4 md:px-12 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] max-w-3xl">
+                    <div
+                        class="h-[0.5px] w-12 md:w-32 bg-gradient-to-r from-transparent via-amber-200/20 to-transparent mx-auto mb-6 md:mb-10">
+                    </div>
+                    <p id="ls-desc"
+                        class="text-sm md:text-2xl font-['Playfair_Display'] italic font-medium text-white/90 leading-relaxed px-4 md:px-12 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] max-w-3xl">
                         Tambaram Railway Station — where fate introduced two hearts
                     </p>
                 </div>
             </div>
 
+            <!-- Location Reveal (After Out 2) -->
+            <div id="location-reveal"
+                class="absolute inset-0 z-[22] opacity-0 pointer-events-none flex items-start md:items-center justify-center">
+                <!-- Background Image -->
+                <img src="assets/location-bg.png" alt="Venue Background"
+                    class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/40"></div>
+
+                <div
+                    class="relative z-[23] w-full max-w-7xl px-8 flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-16 pt-20 md:pt-24">
+                    <!-- Left Side: Location Info (Hidden on Mobile) -->
+                    <div class="location-info hidden md:block w-full md:w-1/2 text-left space-y-6">
+                        <h3 class="text-4xl md:text-6xl font-['Great_Vibes'] text-amber-200 drop-shadow-lg">The Venue
+                        </h3>
+                        <div class="h-px w-24 bg-amber-200/30"></div>
+                        <p class="text-lg md:text-2xl font-serif italic text-white/90 leading-relaxed max-w-lg">
+                            Perarignar Anna Marriage Hall,<br>
+                            Gandhi Nagar, Perambur,<br>
+                            Chennai - 600082
+                        </p>
+                        <a href="https://maps.app.goo.gl/UfMfBEtaDxEWuBMf7?g_st=aw" target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-3 px-8 py-3 bg-amber-200 text-black font-bold uppercase tracking-widest rounded-full hover:scale-110 transition-transform shadow-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 119.9-9.9L10 18.9l-4.95-4.95zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            View on Google Maps
+                        </a>
+                    </div>
+
+                    <!-- Map/Iframe: On top for mobile, Right on Desktop -->
+                    <div class="map-frame-container w-full md:w-[35%] h-[200px] md:h-[300px] order-first md:order-last">
+                        <div
+                            class="map-frame-inner w-full h-full rounded-[2.5rem] overflow-hidden glass border-2 border-white/20">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.657682976!2d80.244!3d13.121!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52650073996035%3A0x640bf16b248882c3!2sPerarignar%20Anna%20Marriage%20Hall!5e0!3m2!1sen!2sin!4v1713364000000!5m2!1sen!2sin"
+                                class="w-full h-full border-0 grayscale-[0.3] contrast-[1.1]" allowfullscreen=""
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Final Outro Reveal (Full Screen) -->
             <div id="final-black-fader" class="absolute inset-0 z-[25] bg-black opacity-0 pointer-events-none"></div>
-            <div id="final-hero-reveal" class="absolute inset-0 z-[26] opacity-0 pointer-events-none flex flex-col items-center justify-end pb-12 px-8">
+            <div id="final-hero-reveal"
+                class="absolute inset-0 z-[26] opacity-0 pointer-events-none flex flex-col items-center justify-end pb-12 px-8">
                 <!-- Background Image (Full Screen) -->
                 <img src="assets/hero.png" alt="Wedding Couple" class="absolute inset-0 w-full h-full object-cover">
-                
+
                 <!-- Stronger bottom gradient for text readability -->
                 <div class="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/90"></div>
-                
+
                 <!-- Content brought down further -->
                 <div class="relative z-[27] flex flex-col items-center justify-center text-center max-w-3xl">
-                    <p class="text-[1.8rem] md:text-4xl font-['Great_Vibes'] text-white mb-8 drop-shadow-[0_2px_10px_rgba(0,0,0,1)] leading-relaxed">
+                    <p
+                        class="text-[1.8rem] md:text-4xl font-['Great_Vibes'] text-white mb-8 drop-shadow-[0_2px_10px_rgba(0,0,0,1)] leading-relaxed">
                         We look forward to celebrating with you—your presence means everything.
                     </p>
-                    <a href="https://www.google.com/maps/place/465F%2BQPW+Perarignar+Anna+Marriage+Hall,+Gandhi+Nagar,+General+Kumaramangalam+Colony,+Perambur,+Chennai,+Tamil+Nadu+600082/data=!4m2!3m1!1s0x3a52650073996035:0x640bf16b248882c3!17m2!4m1!1e3!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBjI2LjYuMRgAIIgnKpMBLDk0MjY3NzI3LDk0Mjc1NDA3LDk0MjkyMTk1LDk0Mjk5NTMyLDEwMDc5NjQ5Miw5NDI4NDQ4NCw5NDI4MDU3Niw5NDI4MDU3Niw5NDIwNzM5NCw5NDIwNzUwNiw5NDIwODUwNiw5NDIxODY1Myw5NDIyOTgzOSw5NDI3NTE2OCw5NDI3OTYxOSwxMDA3OTI1NjgsMTAwNzkxNDc5QgJJTg%3D%3D&skid=86f2d3fa-5893-4b07-bb56-1da3e38a4bd8&g_st=aw" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       style="background-color: white !important; color: black !important;"
-                       class="inline-flex items-center justify-center px-8 py-2.5 bg-white text-black text-[10px] md:text-[11px] font-bold uppercase tracking-[0.25em] rounded-full shadow-2xl transition-all hover:scale-105 active:scale-95">
-                        Get Directions
-                    </a>
+
                 </div>
             </div>
 
@@ -1012,8 +1098,9 @@
         const frameCountLS5 = 120;
         const frameCountOut1 = 120; // Added Out1
         const frameCountOut2 = 120; // Added Out2
-        const frameCountOut3 = 105; // Added Out3
-        const totalFrames = frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2 + frameCountOut3;
+        const frameCountOut3 = 120; // Added Out3
+        const frameCountOut4 = 120; // Added Out4
+        const totalFrames = frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2 + frameCountOut3 + frameCountOut4;
 
         const getFramePath = index => {
             if (index <= frameCount1) {
@@ -1056,9 +1143,12 @@
             } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2) {
                 const iOut2 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1);
                 return `assets/out2/ezgif-frame-${iOut2.toString().padStart(3, '0')}.jpg`;
-            } else {
+            } else if (index <= frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2 + frameCountOut3) {
                 const iOut3 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2);
-                return `assets/out3/ezgif-frame-${iOut3.toString().padStart(3, '0')}.jpg`;
+                return `assets/out 3/ezgif-frame-${iOut3.toString().padStart(3, '0')}.jpg`;
+            } else {
+                const iOut4 = index - (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2 + frameCountOut3);
+                return `assets/out 4/ezgif-frame-${iOut4.toString().padStart(3, '0')}.jpg`;
             }
         };
 
@@ -1153,9 +1243,9 @@
             const outroTrigger = 0.65;
             const outroEnd = 0.89; // Adjusted for Folder 6
 
-            const anim6Start = 0.82; 
-            const anim6End = 0.84; 
-            
+            const anim6Start = 0.82;
+            const anim6End = 0.84;
+
             // LS1 Mapping
             const startLS1 = 0.84;
             const endLS1 = 0.86;
@@ -1188,11 +1278,19 @@
 
             // OUT Mapping
             const startOut1 = 0.94;
-            const endOut1 = 0.96;
-            const startOut2 = 0.96;
-            const endOut2 = 0.98;
-            const startOut3 = 0.98;
-            const endOut3 = 1.0;
+            const endOut1 = 0.95;
+            const startOut2 = 0.95;
+            const endOut2 = 0.96;
+
+            const startVenue = 0.96;
+            const endVenue = 0.975;
+
+            const startOut3 = 0.975;
+            const endOut3 = 0.985;
+            const startOut4 = 0.985;
+            const endOut4 = 0.995;
+
+            const finalTrigger = 0.995;
 
             // Text Timings
             const revealInStart = 0.42; // Starts at Frame 136 of Folder 4 (~40% through)
@@ -1210,8 +1308,8 @@
             const storyFadeOutStart = 0.80;
             const storyFadeOutEnd = 0.83;
 
-            const videoSectionHold = 0.90; 
-            
+            const videoSectionHold = 0.90;
+
             let currentFrameIndex = 0;
 
             if (currentHeroProgress <= anim123End) {
@@ -1244,12 +1342,18 @@
             } else if (currentHeroProgress >= startOut1 && currentHeroProgress < startOut2) {
                 const subProgress = (currentHeroProgress - startOut1) / (endOut1 - startOut1);
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5) + Math.floor(subProgress * (frameCountOut1 - 1));
-            } else if (currentHeroProgress >= startOut2 && currentHeroProgress < startOut3) {
+            } else if (currentHeroProgress >= startOut2 && currentHeroProgress < startVenue) {
                 const subProgress = (currentHeroProgress - startOut2) / (endOut2 - startOut2);
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1) + Math.floor(subProgress * (frameCountOut2 - 1));
-            } else if (currentHeroProgress >= startOut3) {
-                const subProgress = Math.min(1, (currentHeroProgress - startOut3) / (endOut3 - startOut3));
+            } else if (currentHeroProgress >= startVenue && currentHeroProgress < startOut3) {
+                // Return last index of folder Out 2 for the venue section
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2) - 1;
+            } else if (currentHeroProgress >= startOut3 && currentHeroProgress < endOut3) {
+                const subProgress = (currentHeroProgress - startOut3) / (endOut3 - startOut3);
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2) + Math.floor(subProgress * (frameCountOut3 - 1));
+            } else if (currentHeroProgress >= startOut4) {
+                const subProgress = Math.min(1, (currentHeroProgress - startOut4) / (endOut4 - startOut4));
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5 + frameCount6 + frameCountLS1 + frameCountLS2 + frameCountLS3 + frameCountLS4 + frameCountLS5 + frameCountOut1 + frameCountOut2 + frameCountOut3) + Math.floor(subProgress * (frameCountOut4 - 1));
             } else {
                 // Return last index of folder 5 for the gaps/video sections
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3 + frameCount4 + frameCount5) - 1;
@@ -1280,13 +1384,13 @@
                 // 1. Mask junction between frame 110 and 111 (Sky change)
                 if (bloomOverlay) {
                     const junctionP1 = 0.519;
-                    const junctionP2 = 0.84; 
-                    const junctionP3 = 0.86; 
-                    const junctionP4 = 0.88; 
-                    const junctionP5 = 0.90; 
-                    const junctionP6 = 0.92; 
+                    const junctionP2 = 0.84;
+                    const junctionP3 = 0.86;
+                    const junctionP4 = 0.88;
+                    const junctionP5 = 0.90;
+                    const junctionP6 = 0.92;
                     const bloomRange = 0.012;
-                    
+
                     let bloomIntent = 0;
 
                     if (Math.abs(currentHeroProgress - junctionP1) < bloomRange / 2) {
@@ -1308,7 +1412,7 @@
                         const strength = 1 - (Math.abs(currentHeroProgress - junctionP6) / (bloomRange / 2));
                         bloomIntent = Math.pow(strength, 2) * 0.8;
                     }
-                    
+
                     bloomOverlay.style.opacity = bloomIntent;
                 }
             } else {
@@ -1452,7 +1556,7 @@
                         if (titleEl && titleEl.innerText !== title) titleEl.innerText = title;
                         if (dateEl && dateEl.innerText !== date) dateEl.innerText = date;
                         if (descEl && descEl.innerText !== desc) descEl.innerText = desc;
-                        
+
                         if (currentFrame >= startF && currentFrame <= endF) {
                             const textWindowProgress = (currentFrame - startF) / (endF - startF);
                             let opacity = 0;
@@ -1474,35 +1578,46 @@
                     }
                 }
 
-                // 4. Final Outro Reveal (OUT3 Frame 80+ logic)
+                // 4. Location Reveal Logic (After Out 2)
+                const locationSection = document.getElementById('location-reveal');
                 const finalBlack = document.getElementById('final-black-fader');
                 const finalHero = document.getElementById('final-hero-reveal');
-                
-                if (finalBlack && finalHero) {
-                    if (currentHeroProgress >= startOut3) {
-                        const out3Progress = (currentHeroProgress - startOut3) / (endOut3 - startOut3);
-                        const currentOut3Frame = out3Progress * frameCountOut3;
-                        
-                        // Fade to black from frame 80 to 105
-                        if (currentOut3Frame >= 80) {
-                            const blackFade = (currentOut3Frame - 80) / (frameCountOut3 - 80);
-                            finalBlack.style.opacity = blackFade;
-                            
-                            // Hero reveal at the very, very end (last 0.2% or exactly at 1.0)
-                            if (currentHeroProgress > 0.998) {
-                                const heroRevealProgress = (currentHeroProgress - 0.998) / 0.002;
-                                finalHero.style.opacity = heroRevealProgress;
-                                finalHero.style.transform = `scale(${1.1 - (heroRevealProgress * 0.1)})`;
-                                finalHero.style.pointerEvents = heroRevealProgress > 0.8 ? 'auto' : 'none';
-                            } else {
-                                finalHero.style.opacity = 0;
-                                finalHero.style.pointerEvents = 'none';
-                            }
-                        } else {
-                            finalBlack.style.opacity = 0;
-                            finalHero.style.opacity = 0;
+
+                if (locationSection && finalBlack && finalHero) {
+                    // Start after Out 2 (0.96)
+                    if (currentHeroProgress >= startVenue && currentHeroProgress < endVenue) {
+                        const locProgress = (currentHeroProgress - startVenue) / (endVenue - startVenue);
+                        let opacity = 0;
+
+                        if (locProgress < 0.15) opacity = locProgress / 0.15;
+                        else if (locProgress > 0.85) opacity = (1 - locProgress) / 0.15;
+                        else opacity = 1;
+
+                        locationSection.style.opacity = opacity;
+                        locationSection.classList.toggle('reveal-location', opacity > 0.1);
+                        locationSection.style.pointerEvents = opacity > 0.1 ? 'auto' : 'none';
+
+                        finalBlack.style.opacity = 0;
+                        finalHero.style.opacity = 0;
+                    }
+                    // Final Hero Reveal at the very end
+                    else if (currentHeroProgress >= finalTrigger) {
+                        locationSection.style.opacity = 0;
+                        locationSection.style.pointerEvents = 'none';
+
+                        const finalProgress = (currentHeroProgress - finalTrigger) / (1.0 - finalTrigger);
+                        finalBlack.style.opacity = Math.min(1, finalProgress * 2.5);
+
+                        if (finalProgress > 0.4) {
+                            const heroOp = (finalProgress - 0.4) / 0.6;
+                            finalHero.style.opacity = heroOp;
+                            finalHero.style.transform = `scale(${1.05 - (heroOp * 0.05)})`;
+                            finalHero.style.pointerEvents = heroOp > 0.1 ? 'auto' : 'none';
                         }
                     } else {
+                        locationSection.style.opacity = 0;
+                        locationSection.classList.remove('reveal-location');
+                        locationSection.style.pointerEvents = 'none';
                         finalBlack.style.opacity = 0;
                         finalHero.style.opacity = 0;
                     }
@@ -1562,7 +1677,7 @@
                     detailsEl.style.pointerEvents = revealProgress > 0.1 ? 'auto' : 'none';
 
                     // "Come from zoom out" -> Start slightly larger (1.15) and settle at 1.0
-                    const scale = 1.0 + ( (1 - revealProgress) * 0.15 );
+                    const scale = 1.0 + ((1 - revealProgress) * 0.15);
                     const blur = (1 - revealProgress) * 8;
                     detailsEl.style.transform = `scale(${scale})`;
                     detailsEl.style.filter = `blur(${blur}px)`;
