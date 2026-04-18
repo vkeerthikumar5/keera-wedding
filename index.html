@@ -625,11 +625,21 @@
             transform-origin: center bottom;
         }
 
-        /* Automatic Video Reveal */
+        /* Snappy Scrubbing by default */
         #hero-canvas,
-        #final-hero-img {
+        #final-hero-img,
+        #hero-content-main,
+        #hero-names,
+        #celebration-details {
             transition: none !important;
-            /* Managed by JS for scroll-linked smoothness */
+        }
+
+        /* Smooth Auto-Transition ONLY for Intro */
+        .intro-active #hero-canvas,
+        .intro-active #final-hero-img,
+        .intro-active #hero-content-main,
+        .intro-active #hero-names {
+            transition: opacity 1s ease-in-out, transform 1s ease-out !important;
         }
 
         .reveal-video #hero-canvas {
@@ -641,12 +651,6 @@
         }
 
         /* Automatic Text Reveal Animations */
-        #hero-content-main,
-        #celebration-details {
-            transition: none !important;
-            /* Managed by JS for scroll-lock */
-        }
-
         #celebration-details h2,
         #celebration-details div,
         #celebration-details p {
@@ -655,7 +659,6 @@
 
         .reveal-intro #hero-content-main {
             opacity: 1 !important;
-            transform: translateY(0) !important;
         }
 
         .reveal-intro #hero-names {
@@ -964,8 +967,7 @@
                             Gandhi Nagar, Perambur,<br>
                             Chennai - 600082
                         </p>
-                        <a href="https://maps.app.goo.gl/UfMfBEtaDxEWuBMf7?g_st=aw" target="_blank"
-                            rel="noopener noreferrer"
+                        <a href="https://maps.app.goo.gl/r3fsi6CaLX5qxZA5A" target="_blank" rel="noopener noreferrer"
                             class="inline-flex items-center gap-3 px-8 py-3 bg-amber-200 text-black font-bold uppercase tracking-widest rounded-full hover:scale-110 transition-transform shadow-xl">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                 fill="currentColor">
@@ -982,7 +984,7 @@
                         <div
                             class="map-frame-inner w-full h-full rounded-[2.5rem] overflow-hidden glass border-2 border-white/20">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.657682976!2d80.244!3d13.121!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52650073996035%3A0x640bf16b248882c3!2sPerarignar%20Anna%20Marriage%20Hall!5e0!3m2!1sen!2sin!4v1713364000000!5m2!1sen!2sin"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.829974969718!2d80.22463530000002!3d13.1099553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265001f8f51fb%3A0x5c3eb8857778671f!2sPerarignar%20Anna%20Marriage%20Hall!5e0!3m2!1sen!2sin!4v1776483554514!5m2!1sen!2sin"
                                 class="w-full h-full border-0 grayscale-[0.3] contrast-[1.1]" allowfullscreen=""
                                 loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                             </iframe>
@@ -1069,6 +1071,7 @@
             // Use mobile-specific video if screen width is 768px or less
             if (window.innerWidth <= 768) {
                 heroImgEl.src = 'assets/mobile hero.mp4';
+                heroImgEl.load();
             }
             heroImgEl.playbackRate = 0.7; // Cinematic slow motion
         }
@@ -1292,6 +1295,9 @@
             if (currentHeroProgress <= anim123End) {
                 const subProgress = currentHeroProgress / anim123End;
                 currentFrameIndex = Math.floor(subProgress * (frameCount1 + frameCount2 + frameCount3));
+            } else if (currentHeroProgress < anim4Start) {
+                // Intro Video Window: Hold last frame of F3
+                currentFrameIndex = (frameCount1 + frameCount2 + frameCount3) - 1;
             } else if (currentHeroProgress >= anim4Start && currentHeroProgress <= anim4End) {
                 const subProgress = (currentHeroProgress - anim4Start) / (anim4End - anim4Start);
                 currentFrameIndex = (frameCount1 + frameCount2 + frameCount3) + Math.floor(subProgress * (frameCount4 - 1));
@@ -1403,21 +1409,44 @@
             }
 
             // --- Cinematic Cross-Fade Transitions (Video Intro/Outro) ---
-            // Video Mapping for new hero.mp4
-            const videoFadeInStart = 0.55; 
-            const videoFadeInEnd = 0.57; 
+            // 1. Intro Video Window (Matches Names Reveal at 0.20-0.28)
+            const introFadeStart = introTrigger; // 0.20
+            const introFadeEnd = introTrigger + 0.04;
+            const introOutStart = anim4Start - 0.03;
+            const introOutEnd = anim4Start; // 0.28
+
+            // 2. Main Video Window (Countdown/Story at 0.55-0.71)
+            const videoFadeInStart = 0.55;
+            const videoFadeInEnd = 0.57;
             const videoFadeOutStart = 0.69;
-            const videoFadeOutEnd = 0.71; 
+            const videoFadeOutEnd = 0.71;
 
             let videoOpacity = 0;
+            const isIntroZone = currentHeroProgress >= introFadeStart && currentHeroProgress <= introOutEnd;
 
-            if (currentHeroProgress >= videoFadeInStart && currentHeroProgress <= videoFadeOutEnd) {
-                if (currentHeroProgress <= videoFadeInEnd) {
-                    videoOpacity = (currentHeroProgress - videoFadeInStart) / (videoFadeInEnd - videoFadeInStart);
-                } else if (currentHeroProgress >= videoFadeOutStart) {
-                    videoOpacity = 1 - (currentHeroProgress - videoFadeOutStart) / (videoFadeOutEnd - videoFadeOutStart);
+            if (heroWrapper) {
+                if (isIntroZone) {
+                    heroWrapper.classList.add('intro-active');
                 } else {
-                    videoOpacity = 1;
+                    heroWrapper.classList.remove('intro-active');
+                }
+            }
+
+            if (isIntroZone) {
+                // Intro revealed video: binary toggle (CSS handles smooth reveal)
+                videoOpacity = 1;
+                if (heroCanvas) heroCanvas.style.opacity = 0;
+            } else {
+                if (heroCanvas) heroCanvas.style.opacity = 1;
+                // Secondary revealed video (Main Window)
+                if (currentHeroProgress >= videoFadeInStart && currentHeroProgress <= videoFadeOutEnd) {
+                    if (currentHeroProgress <= videoFadeInEnd) {
+                        videoOpacity = (currentHeroProgress - videoFadeInStart) / (videoFadeInEnd - videoFadeInStart);
+                    } else if (currentHeroProgress >= videoFadeOutStart) {
+                        videoOpacity = 1 - (currentHeroProgress - videoFadeOutStart) / (videoFadeOutEnd - videoFadeOutStart);
+                    } else {
+                        videoOpacity = 1;
+                    }
                 }
             }
 
@@ -1591,21 +1620,13 @@
             }
 
             // Names Reveal (Intro Text) - Only in first video
-            const introFadeStart = introTrigger;
-            const introFadeEnd = introTrigger + 0.04;
-            const introOutStart = anim4Start - 0.03;
-            const introOutEnd = anim4Start;
+
 
             let introOpacity = 0;
-            if (currentHeroProgress >= introFadeStart && currentHeroProgress <= introOutEnd) {
-                if (currentHeroProgress <= introFadeEnd) {
-                    introOpacity = (currentHeroProgress - introFadeStart) / (introFadeEnd - introFadeStart);
-                } else if (currentHeroProgress >= introOutStart) {
-                    introOpacity = 1 - (currentHeroProgress - introOutStart) / (introOutEnd - introOutStart);
-                } else {
-                    introOpacity = 1;
-                }
+            if (isIntroZone) {
+                introOpacity = 1;
             }
+
             if (heroWrapper) {
                 if (introOpacity > 0.01) heroWrapper.classList.add('reveal-intro');
                 else heroWrapper.classList.remove('reveal-intro');
